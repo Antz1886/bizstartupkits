@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Cloud, Rocket } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'motion/react';
 
 export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void }) => {
   const [isScrolled, setIsScrolled] = useState(false);
