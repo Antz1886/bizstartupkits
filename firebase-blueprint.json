@@ -1,0 +1,62 @@
+{
+  "entities": {
+    "Lead": {
+      "title": "Lead",
+      "description": "Information collected from prospective clients via the website.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name of the prospect."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Work email address."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["Automation Assessment", "AI Strategy Session", "BI Demo", "Free Assessment"],
+          "description": "The specific service the prospect is interested in."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the lead was created."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["new", "contacted", "qualified", "archived"],
+          "description": "Current status of the lead in the sales pipeline."
+        }
+      },
+      "required": ["name", "email", "type", "createdAt", "status"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "System administrators with access to view leads.",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["super", "manager"]
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Collection of all incoming consultation requests."
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Whitelisted administrator accounts."
+    }
+  }
+}
