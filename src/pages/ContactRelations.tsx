@@ -22,9 +22,9 @@ const ContactRelations = () => {
               </p>
               <div className="space-y-8">
                  {[
-                   { icon: Mail, label: "Transmission Node", val: "relations@bizstartupkit.com" },
-                   { icon: Phone, label: "Direct Comms", val: "+1 (888) KIT-GROW" },
-                   { icon: MapPin, label: "Physical Node", val: "Tech Plaza, Level 42, San Francisco, CA" }
+                   { icon: Mail, label: "Transmission Node", val: "sales@biztartupkits.tech" },
+                   { icon: Phone, label: "Direct Comms", val: "079 894 0476" },
+                   { icon: MapPin, label: "Physical Node", val: "Honeydew Business Park, Corporate Campus, Roodeport" }
                  ].map((item, i) => (
                     <div key={i} className="flex gap-6 items-start group">
                        <div className="w-12 h-12 bg-bg-dark border border-ink/5 flex items-center justify-center rounded-sm group-hover:bg-brand-primary/10 transition-colors">
@@ -77,10 +77,10 @@ const ContactRelations = () => {
       <section className="py-32 bg-brand-secondary text-white">
         <div className="max-w-7xl mx-auto px-10">
           <div className="grid lg:grid-cols-2 gap-32 items-center">
-             <div>
+              <div>
                 <h2 className="text-5xl md:text-7xl font-black uppercase mb-12">Global <br /> <span className="text-brand-primary">Presence.</span></h2>
                 <p className="text-xl text-white/40 leading-relaxed mb-12">
-                   While our primary hub is in San Francisco, BIZSTARTUP KIT operates as a distributed technical syndicate, coordinating AI deployments for SMEs across four continents.
+                   Headquartered in Roodeport, BIZSTARTUP KIT operates as a distributed technical syndicate, coordinating AI deployments for SMEs across the globe.
                 </p>
                 <div className="flex gap-6">
                    <a href="#" className="w-14 h-14 bg-white/5 rounded-sm flex items-center justify-center hover:bg-brand-primary transition-colors"><Linkedin className="w-6 h-6" /></a>
@@ -90,7 +90,7 @@ const ContactRelations = () => {
              </div>
              <div className="grid grid-cols-2 gap-px bg-white/10 border border-white/10">
                 {[
-                  { region: "North America", city: "San Francisco", status: "Primary Node" },
+                  { region: "South Africa", city: "Roodeport", status: "Primary Node" },
                   { region: "Europe", city: "London", status: "Active Site" },
                   { region: "Asia Pacific", city: "Singapore", status: "Active Site" },
                   { region: "International", city: "Remote Syndicate", status: "Global" }

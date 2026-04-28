@@ -17,10 +17,14 @@ export const Footer = () => {
           <p className="text-sm text-white/50 leading-relaxed mb-8 font-medium">
             The strategic growth partner for modern enterprises. We provide the technical blueprints and automated systems SMEs need to succeed in a digital-first economy.
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-4 mb-8">
             <a href="#" className="w-12 h-12 rounded-sm bg-white/5 flex items-center justify-center hover:bg-brand-primary transition-colors"><Linkedin className="w-5 h-5" /></a>
             <a href="#" className="w-12 h-12 rounded-sm bg-white/5 flex items-center justify-center hover:bg-brand-primary transition-colors"><Twitter className="w-5 h-5" /></a>
             <a href="#" className="w-12 h-12 rounded-sm bg-white/5 flex items-center justify-center hover:bg-brand-primary transition-colors"><Github className="w-5 h-5" /></a>
+          </div>
+          <div className="space-y-2 text-sm text-white/40 font-medium">
+            <p>sales@biztartupkits.tech</p>
+            <p>079 894 0476</p>
           </div>
         </div>
 
