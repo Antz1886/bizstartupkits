@@ -17,12 +17,17 @@ const db = getFirestore(firebaseApp, firebaseConfig.firestoreDatabaseId);
 // Test Connection - Optimized for serverless one-shot fetch
 async function testConnection() {
   try {
-    await getDoc(doc(db, 'test', 'connection'));
-    console.log('Firebase connection verified');
+    const docSnap = await getDoc(doc(db, 'test', 'connection'));
+    if (docSnap.exists()) {
+      console.log('Firebase connection verified: Systems Online');
+    } else {
+      // Document doesn't exist, but we reached the database
+      console.log('Firebase connection verified: Database reachable');
+    }
   } catch (error) {
-    // Permission denied is a success for connection verification
+    // Handle specific permission cases
     if (error instanceof Error && (error.message.includes('permission-denied') || (error as any).code === 'permission-denied')) {
-      console.log('Firebase connection authenticated');
+      console.log('Firebase connection authenticated: Access Restricted (Expected)');
     } else {
       console.warn("Firebase connection status check (non-fatal):", error instanceof Error ? error.message : error);
     }

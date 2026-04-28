@@ -12,6 +12,11 @@ service cloud.firestore {
     function incoming() { return request.resource.data; }
     function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
 
+    // Collection: Test (Health Check)
+    match /test/connection {
+      allow read: if true;
+    }
+
     // Logic: Lead Validation
     function isValidLead(data) {
       return data.keys().hasAll(['name', 'email', 'type', 'createdAt', 'status']) &&
