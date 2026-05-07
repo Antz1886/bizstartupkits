@@ -31,7 +31,7 @@ export const GhostCapacityCalculator = () => {
         <div className="space-y-8 mb-12">
           <div className="space-y-4">
             <div className="flex justify-between">
-              <label className="block text-xs font-mono text-gray-500 uppercase tracking-widest">Team Headcount</label>
+              <label className="block text-xs font-mono text-white/60 uppercase tracking-widest">Team Headcount</label>
               <span className="text-resolver-blue font-mono font-bold">{headcount}</span>
             </div>
             <input 
@@ -53,7 +53,7 @@ export const GhostCapacityCalculator = () => {
 
           <div className="space-y-4">
             <div className="flex justify-between">
-              <label className="block text-xs font-mono text-gray-500 uppercase tracking-widest">Avg. Annual Salary (ZAR)</label>
+              <label className="block text-xs font-mono text-white/60 uppercase tracking-widest">Avg. Annual Salary (ZAR)</label>
               <span className="text-resolver-blue font-mono font-bold">{formatCurrency(avgSalary)}</span>
             </div>
             <input 
@@ -69,7 +69,7 @@ export const GhostCapacityCalculator = () => {
         </div>
 
         <div className="mt-8 pt-8 border-t border-white/5">
-          <p className="text-xs font-mono text-gray-500 uppercase tracking-widest mb-4">Estimated Annual Leakage</p>
+          <p className="text-xs font-mono text-white/40 uppercase tracking-widest mb-4">Estimated Annual Leakage</p>
           <motion.p 
             key={leakage}
             initial={{ opacity: 0, x: -10 }}

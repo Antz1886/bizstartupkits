@@ -13,9 +13,9 @@
   --color-mission-black: #050505;
   --color-mission-gray: #121212;
   --color-resolver-green: #00FF41;
-  --color-resolver-blue: #00D1FF;
+  --color-resolver-blue: #33E1FF; /* Brighter blue for better contrast on black */
 
-  --color-bg-dark: #050505; /* Shift to Mission Black as default */
+  --color-bg-dark: #050505; 
   --color-bg-card: #121212;
   --color-ink: #FFFFFF;
 
@@ -50,7 +50,7 @@
   }
 
   p {
-    @apply text-white/60 leading-relaxed;
+    @apply text-white/80 leading-relaxed; /* Increased from 60% for legibility */
   }
 }
 
@@ -64,11 +64,11 @@
   }
 
   .text-subtle {
-    @apply text-white/40 font-mono;
+    @apply text-white/70 font-mono; /* Increased from 40% for accessibility */
   }
 
   .text-subtle-dark {
-    @apply text-white/20 font-mono;
+    @apply text-white/40 font-mono; /* Increased from 20% */
   }
   
   .text-gradient {
