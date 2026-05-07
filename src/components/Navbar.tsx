@@ -17,10 +17,10 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
   }, []);
 
   const navLinks = [
-    { name: 'AI Suite', href: isHome ? '#ai-suite' : '/#ai-suite' },
-    { name: 'Solutions', href: isHome ? '#solutions' : '/#solutions' },
-    { name: 'Impact', href: isHome ? '#impact-cases' : '/#impact-cases' },
-    { name: 'Industries', href: isHome ? '#industries' : '/#industries' },
+    { name: 'Workforce', href: '/services/agentmesh-workforce' },
+    { name: 'Resolvers', href: '/services/custom-resolvers' },
+    { name: 'B.A.T Model', href: '/corporate/bat-model' },
+    { name: 'Audit', href: isHome ? '#audit-calculator' : '/#audit-calculator' },
   ];
 
   return (

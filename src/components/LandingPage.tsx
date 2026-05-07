@@ -5,12 +5,18 @@ import {
   Layers, Database, Globe,
   TrendingUp, ShieldCheck, Cloud,
   Activity, Cpu, LineChart, Network,
-  BrainCircuit, Sparkles, Workflow, Mail, Users
+  BrainCircuit, Sparkles, Workflow, Mail, Users,
+  MessageSquare, Volume2
 } from 'lucide-react';
 import { DashboardMock } from './DashboardMock';
 import { cn } from '../lib/utils';
 import { useModal } from '../context/ModalContext';
-import { OnboardingTour } from './OnboardingTour';
+import { GhostCapacityCalculator } from './GhostCapacityCalculator';
+import { ComparisonTable } from './ComparisonTable';
+import { PricingSection } from './PricingSection';
+import { ResolverStatus } from './ResolverStatus';
+import { SuccessSeal } from './SuccessSeal';
+
 
 // --- Helpers ---
 
@@ -474,36 +480,36 @@ const PredictiveVisualizer = () => {
 const AICapabilitiesShowcase = () => {
   const categories = [
     {
-      meta: "01 Autopilot",
-      title: "Intelligent Automation",
-      desc: "We build self-correcting workflows that handle complex business routing, from high-stakes lead prioritization to automated CRM synchronization.",
+      meta: "01 AgentMesh™",
+      title: "Workforce Resolvers",
+      desc: "Our Agentic nodes don't just 'respond'—they resolve. From WhatsApp voice processing to full CRM task execution, we deploy a workforce that closes loops autonomously.",
       visual: AutomationVisualizer,
       icon: Workflow,
       stats: [
-        { label: "Hours Reclaimed", val: "22/wk" },
-        { label: "Routing Accuracy", val: "99.2%" }
+        { label: "Resolution Rate", val: "83%" },
+        { label: "Activation Speed", val: "10m" }
       ]
     },
     {
-      meta: "02 Perception",
-      title: "Data Intelligence",
-      desc: "Transform unstructured noise into crystalline insights. Our analysis engines detect hidden patterns in your sales cycles and operational data silos.",
+      meta: "02 Custom Nodes",
+      title: "Python Resolvers",
+      desc: "Deep system orchestration built in Antigravity. We engineer complex logic bridges that integrate natively with Salesforce, HubSpot, and Shopify silos.",
       visual: AnalysisVisualizer,
       icon: BrainCircuit,
       stats: [
-        { label: "Insights Generated", val: "1k+" },
-        { label: "Processing Speed", val: "-80%" }
+        { label: "System Sync", val: "Native" },
+        { label: "POPIA Ready", val: "100%" }
       ]
     },
     {
-      meta: "03 Foresight",
-      title: "Predictive Modeling",
-      desc: "Stop reacting to the past. Our neural forecasting models project revenue trends and churn risks months in advance with extreme accuracy.",
+      meta: "03 The B.A.T Model",
+      title: "Build AI Together",
+      desc: "A performance-first engagement model for the South African market. Zero upfront fees, success-based pilots, and dedicated engineering oversight.",
       visual: PredictiveVisualizer,
       icon: LineChart,
       stats: [
-        { label: "Forecast Interval", val: "18 Months" },
-        { label: "Error Margin", val: "<3.4%" }
+        { label: "Upfront Cost", val: "R0" },
+        { label: "Risk Exposure", val: "Zero" }
       ]
     }
   ];
@@ -659,25 +665,31 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <MetaLabel className="mb-6 md:mb-10 text-brand-primary font-bold">Accelerating Your Digital Journey</MetaLabel>
+        <div className="mb-8">
+          <ResolverStatus />
+        </div>
+        <MetaLabel className="mb-6 md:mb-10 text-resolver-blue font-bold tracking-[0.5em]">South Africa's First Agentic AI Workforce</MetaLabel>
         <h1 className="text-5xl md:text-7xl lg:text-9xl leading-[0.88] mb-8 md:mb-12 tracking-tighter">
-          Your Online <br /> <span className="text-gradient hover:bg-[length:100%_auto] transition-all">Growth</span> <br /> Partner.
+          Stop Replying. <br /> <span className="text-gradient hover:bg-[length:100%_auto] transition-all">Start</span> <br /> Resolving.
         </h1>
         <p className="text-lg md:text-xl text-ink/60 mb-8 md:mb-12 max-w-xl leading-relaxed font-medium border-l-2 border-brand-primary/20 pl-6 md:pl-8">
-          The ultimate toolkit for SMEs and Startups. We deploy high-performance AI systems, automated sales engines, and scalable digital architectures that turn ideas into market leaders.
+          The high-performance workforce for modern SMEs. We deploy AgentMesh™ Resolvers that handle end-to-end tasks on WhatsApp, Email, and Web with an 83% autonomous resolution rate.
         </p>
         <div className="flex flex-wrap gap-6">
           <button 
-            onClick={() => onOpenModal('Get Your Kit')}
+            onClick={() => onOpenModal('B.A.T Pilot')}
             className="btn-primary group relative overflow-hidden"
           >
-            <span className="relative z-10 flex items-center gap-2">Launch Your Growth <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+            <span className="relative z-10 flex items-center gap-2">Start B.A.T Pilot <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
           </button>
           <button 
-            onClick={() => onOpenModal('Growth Strategy')}
+            onClick={() => {
+              const el = document.getElementById('audit-calculator');
+              el?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="btn-outline hover:border-brand-primary text-brand-secondary hover:text-brand-primary transition-all"
           >
-            Explore the Kit
+            Run Ghost Capacity Audit
           </button>
         </div>
       </motion.div>
@@ -991,11 +1003,48 @@ export default function LandingPage() {
 
   return (
     <>
-      <OnboardingTour />
+
       <LandingHero onOpenModal={openModal} />
+      
+      <section id="audit-calculator" className="py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div>
+              <MetaLabel className="mb-8 md:mb-12">The Performance Wedge</MetaLabel>
+              <h2 className="text-5xl md:text-7xl font-black leading-tight mb-8">
+                Identify Your <br /><span className="text-gradient">Leakage.</span>
+              </h2>
+              <p className="text-xl text-ink/60 leading-relaxed font-medium mb-12">
+                Most South African businesses lose 40% of their capacity to "manual drift"—repetitive tasks, fragmented data, and slow responses. Our audit reveals the exact cost of your status quo.
+              </p>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-brand-secondary">
+                  <div className="w-2 h-2 rounded-full bg-brand-primary" />
+                  Instant POPIA-Compliant Audit
+                </div>
+                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-brand-secondary">
+                  <div className="w-2 h-2 rounded-full bg-brand-primary" />
+                  Real-time Revenue Recovery Path
+                </div>
+              </div>
+            </div>
+            <GhostCapacityCalculator />
+          </div>
+        </div>
+      </section>
+
       <HumanCapitalSection />
       <ProblemSection />
+      <ComparisonTable />
       <AICapabilitiesShowcase />
+      <PricingSection />
+      
+      <section className="py-24 bg-mission-black">
+        <div className="max-w-7xl mx-auto px-6 md:px-10">
+          <SuccessSeal />
+        </div>
+      </section>
+
       <AISuite />
       <SolutionsSection />
       <HowItWorks />
