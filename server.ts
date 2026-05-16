@@ -3,7 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, addDoc, serverTimestamp, doc, getDoc, getDocs, query, orderBy, limit } from 'firebase/firestore/lite';
 import firebaseConfig from './firebase-applet-config.json';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -77,6 +77,32 @@ async function startServer() {
       res.status(500).json({ 
         success: false, 
         message: 'Failed to process request. Please try again later.' 
+      });
+    }
+  });
+
+  // Telemetry Endpoint: Fetch live sessions from Firestore
+  app.get('/api/telemetry/sessions', async (req, res) => {
+    try {
+      const sessionsRef = collection(db, 'resolution_sessions');
+      // Query the latest 10 sessions, ordered by timestamp descending
+      const q = query(sessionsRef, orderBy('createdAt', 'desc'), limit(10));
+      const snapshot = await getDocs(q);
+      
+      const sessions = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      res.status(200).json({
+        success: true,
+        data: sessions
+      });
+    } catch (error) {
+      console.error('Error fetching telemetry sessions:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: 'Failed to fetch telemetry data.' 
       });
     }
   });

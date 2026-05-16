@@ -28,6 +28,7 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
     { name: 'Workforce', href: '/services/agentmesh-workforce', desc: '83% Resolution Rate Nodes' },
     { name: 'Resolvers', href: '/services/custom-resolvers', desc: 'Custom Python Orchestration' },
     { name: 'B.A.T Model', href: '/corporate/bat-model', desc: 'Performance-Based Pilot' },
+    { name: 'Control', href: '/mission-control', desc: 'Live NOC Telemetry' },
     { name: 'Audit', href: isHome ? '#audit-calculator' : '/#audit-calculator', desc: 'Ghost Capacity Diagnostic' },
   ];
 

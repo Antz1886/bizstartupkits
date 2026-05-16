@@ -15,15 +15,29 @@
 
 ---
 
+## Sector-Specific Resolvers
+
+### 1. Compliance Resolver (FinTech)
+**Objective:** Orchestrate KYC/AML workflows and ensure POPIA compliance for financial micro-SaaS entities.
+*   **Key Skill:** Automated Document Verification & Risk Signaling.
+*   **Protocol:** Intercept payment failures and trigger real-time compliance pulses.
+
+### 2. Fleet Orchestrator (Logistics)
+**Objective:** Manage last-mile delivery coordination and real-time route optimization.
+*   **Key Skill:** WhatsApp Driver Coordination & Fuel-Inefficiency Audits.
+*   **Protocol:** Process driver voice notes and sync with delivery silos (Shopify, Custom ERP).
+
+### 3. Care-Agent (Wellness)
+**Objective:** Coordinate patient journeys and automate clinical scheduling.
+*   **Key Skill:** Patient Triage & Voice-to-Action Booking.
+*   **Protocol:** Handle appointment churn and trigger follow-up protocols for missed sessions.
+
+---
+
 ## AgentMesh™ Workforce Nodes
-**Collective Goal:** Resolve end-to-end tasks (Diagnosis, Procedure, Closure) without human intervention.
+**Collective Goal:** Resolve end-to-end tasks (Diagnosis, Procedure, Closure) without human intervention using Antigravity's rapid-scaling engine.
 
 **Operational Thresholds:**
 *   Minimum Resolution Rate: 83%
 *   Target CSAT: 4.8+
-*   Deployment Speed: <10 Minutes
-
-**Protocol:**
-*   Intercept all incoming requests from WhatsApp, Email, and Web.
-*   Process voice messages using "Voice-to-Action" skill.
-*   Synchronize all outcomes with client CRM (HubSpot, Salesforce, Zoho).
+*   Deployment Speed: <10 Minutes (via Antigravity)

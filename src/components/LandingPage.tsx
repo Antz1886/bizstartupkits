@@ -480,36 +480,36 @@ const PredictiveVisualizer = () => {
 const AICapabilitiesShowcase = () => {
   const categories = [
     {
-      meta: "01 AgentMesh™",
-      title: "Workforce Resolvers",
-      desc: "Our Agentic nodes don't just 'respond'—they resolve. From WhatsApp voice processing to full CRM task execution, we deploy a workforce that closes loops autonomously.",
+      meta: "01 FinTech",
+      title: "Compliance Resolvers",
+      desc: "Orchestrate complex KYC/AML workflows that run 24/7. Our nodes handle document verification and regulatory signaling with 83% autonomous accuracy.",
       visual: AutomationVisualizer,
+      icon: ShieldCheck,
+      stats: [
+        { label: "Audit Accuracy", val: "99.2%" },
+        { label: "Compliance Speed", val: "Real-time" }
+      ]
+    },
+    {
+      meta: "02 Logistics",
+      title: "Fleet Orchestrators",
+      desc: "Deploy WhatsApp-first nodes that coordinate with drivers in real-time. From route optimization to fuel-inefficiency audits, we close the logistics loop.",
+      visual: AnalysisVisualizer,
       icon: Workflow,
       stats: [
-        { label: "Resolution Rate", val: "83%" },
-        { label: "Activation Speed", val: "10m" }
+        { label: "Fuel Recovery", val: "18%" },
+        { label: "Driver CSAT", val: "4.9/5" }
       ]
     },
     {
-      meta: "02 Custom Nodes",
-      title: "Python Resolvers",
-      desc: "Deep system orchestration built in Antigravity. We engineer complex logic bridges that integrate natively with Salesforce, HubSpot, and Shopify silos.",
-      visual: AnalysisVisualizer,
-      icon: BrainCircuit,
-      stats: [
-        { label: "System Sync", val: "Native" },
-        { label: "POPIA Ready", val: "100%" }
-      ]
-    },
-    {
-      meta: "03 The B.A.T Model",
-      title: "Build AI Together",
-      desc: "A performance-first engagement model for the South African market. Zero upfront fees, success-based pilots, and dedicated engineering oversight.",
+      meta: "03 Wellness",
+      title: "Care-Agent Nodes",
+      desc: "Liberate clinical staff from manual scheduling. Our Care-Agents manage patient bookings, triage inquiries, and follow-up protocols autonomously.",
       visual: PredictiveVisualizer,
-      icon: LineChart,
+      icon: Activity,
       stats: [
-        { label: "Upfront Cost", val: "R0" },
-        { label: "Risk Exposure", val: "Zero" }
+        { label: "Churn Reduction", val: "40%" },
+        { label: "Patient NPS", val: "92" }
       ]
     }
   ];
@@ -673,7 +673,7 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
           Stop Replying. <br /> <span className="text-gradient hover:bg-[length:100%_auto] transition-all">Start</span> <br /> Resolving.
         </h1>
         <p className="text-lg md:text-xl text-ink/60 mb-8 md:mb-12 max-w-xl leading-relaxed font-medium border-l-2 border-brand-primary/20 pl-6 md:pl-8">
-          The high-performance workforce for modern SMEs. We deploy AgentMesh™ Resolvers that handle end-to-end tasks on WhatsApp, Email, and Web with an 83% autonomous resolution rate.
+          The high-performance workforce for South Africa's growth sectors. We deploy bespoke AgentMesh™ Resolvers that automate complex workflows in FinTech, Logistics, and Wellness with an 83% autonomous resolution rate.
         </p>
         <div className="flex flex-wrap gap-6">
           <button 
@@ -724,22 +724,22 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
 const AISuite = () => {
   const capabilities = [
     {
-      title: "Generative AI Systems",
-      desc: "Architecting private LLM nodes for secure, high-fidelity business task execution.",
-      icon: Bot,
-      features: ["Private Hosting", "Vector Databases", "Cognitive Search"]
+      title: "FinTech Compliance",
+      desc: "Automating KYC/AML orchestration and real-time risk signaling for African financial entities.",
+      icon: ShieldCheck,
+      features: ["POPIA Ready", "KYC Automation", "Fraud Detection"]
     },
     {
-      title: "Algorithmic BI",
-      desc: "Moving beyond charts to predictive decision engines that signal risk before it manifests.",
-      icon: BarChart3,
-      features: ["Neural Forecasting", "Real-time Audits", "Anomaly Guards"]
+      title: "Logistics Orchestration",
+      desc: "WhatsApp-first driver coordination and real-time fuel-inefficiency audits for last-mile delivery.",
+      icon: Workflow,
+      features: ["Route Optimization", "Voice-to-Action", "ERP Integration"]
     },
     {
-      title: "Cognitive Flows",
-      desc: "Replacing rigid logic with fluid, AI-interpreted workflows that handle ambiguity.",
-      icon: Zap,
-      features: ["NLP Logic", "Sentiment Routing", "Vision System Integration"]
+      title: "Wellness Care-Nodes",
+      desc: "Managing patient journeys and clinical scheduling via autonomous voice and text resolvers.",
+      icon: Activity,
+      features: ["Appointment Churn", "Patient Triage", "Voice Summaries"]
     }
   ];
 

@@ -1,52 +1,52 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Check, ArrowRight, ShieldCheck, Zap, Server } from 'lucide-react';
+import { Check, ArrowRight, ShieldCheck, Zap, Server, Activity, Workflow } from 'lucide-react';
 
 export const PricingSection = () => {
   const tiers = [
     {
-      name: "B.A.T Pilot",
+      name: "Sector Pilot",
       price: "R0",
       period: "First 14 Days",
-      desc: "Build AI Together. Zero upfront fees to prove the 83% resolution benchmark.",
+      desc: "Prove the 83% resolution benchmark in your specific sector (FinTech, Logistics, or Wellness).",
       features: [
-        "1 AgentMesh™ Resolver Node",
-        "WhatsApp & Email Integration",
-        "Dedicated AI Engineer Oversight",
-        "Ghost Capacity Audit Implementation",
-        "No Long-term Commitment"
+        "1 Specialized Resolver Node",
+        "WhatsApp & API Orchestration",
+        "Sector-Specific Logic Training",
+        "Ghost Capacity Diagnostic",
+        "No Upfront Risk"
       ],
-      cta: "Start Free Pilot",
+      cta: "Start Sector Pilot",
       highlight: false
     },
     {
       name: "Growth Workforce",
-      price: "R12,500",
+      price: "R15,000",
       period: "per Node / month",
-      desc: "Scale your operations with autonomous resolution power across multiple silos.",
+      desc: "Deploy a fleet of specialized nodes to scale your Micro SaaS operations autonomously.",
       features: [
-        "5+ AgentMesh™ Resolver Nodes",
-        "Omni-channel (Voice + Text)",
-        "Advanced CRM Synchronization",
-        "Custom Python Logic Nodes",
-        "Priority 83% Resolution Support"
+        "5+ Sector-Specific Nodes",
+        "Full Omni-channel Resolution",
+        "Deep Silo Synchronization",
+        "Antigravity Rapid Scale Suite",
+        "Priority Lead Engineer Support"
       ],
       cta: "Scale Workforce",
       highlight: true
     },
     {
-      name: "Enterprise Mesh",
+      name: "Sovereign Mesh",
       price: "Custom",
-      period: "Tailored Architecture",
-      desc: "Full-scale digital nervous system for established market leaders.",
+      period: "Infrastructure Grade",
+      desc: "Bespoke neural architecture for market leaders requiring complete operational sovereignty.",
       features: [
         "Unlimited Resolver Nodes",
-        "Antigravity Integration Suite",
-        "POPIA Compliant Sovereignty",
-        "Custom Neural Architecture",
-        "Direct Lead Engineer Access"
+        "Private Antigravity Instance",
+        "Advanced POPIA Compliance",
+        "Custom Workflow Engineering",
+        "Direct CTO Access"
       ],
-      cta: "Contact Enterprise Relations",
+      cta: "Request Sovereign Audit",
       highlight: false
     }
   ];
@@ -55,12 +55,12 @@ export const PricingSection = () => {
     <section id="pricing" className="py-24 md:py-48 bg-bg-dark">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="text-center mb-16 md:mb-32">
-          <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Investment Infrastructure</div>
+          <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Agentic-as-a-Service Infrastructure</div>
           <h2 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase text-brand-secondary tracking-tighter mb-8">
-            Outcome-Based <br /> <span className="text-brand-primary">Pricing.</span>
+            Outcome-Based <br /> <span className="text-brand-primary">Revenue.</span>
           </h2>
           <p className="text-xl text-ink/40 max-w-2xl mx-auto font-medium">
-            Stop paying for seats. Start investing in resolutions. South Africa's most aggressive performance-based AI workforce model.
+            Stop paying for seats. Start investing in high-margin autonomous resolution. South Africa's first sector-specialized AI workforce.
           </p>
         </div>
 
@@ -76,7 +76,7 @@ export const PricingSection = () => {
             >
               {tier.highlight && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand-primary text-white text-[10px] font-black uppercase tracking-[0.3em] px-6 py-2 rounded-full">
-                  Most Deployed
+                  High Performance
                 </div>
               )}
 
@@ -115,15 +115,18 @@ export const PricingSection = () => {
                  <ShieldCheck className="w-8 h-8 text-brand-primary" />
               </div>
               <div>
-                 <h4 className="text-xl font-bold text-white uppercase tracking-tight">The B.A.T Performance Guarantee</h4>
-                 <p className="text-sm text-white/40 font-medium">If your AgentMesh™ nodes don't hit an 83% resolution rate within the first 14 days, you pay nothing. Period.</p>
+                 <h4 className="text-xl font-bold text-white uppercase tracking-tight">The 83% Resolution Guarantee</h4>
+                 <p className="text-sm text-white/40 font-medium">If your sector-specific nodes don't hit an 83% resolution rate within the first 14 days, you pay nothing. Period.</p>
               </div>
            </div>
-           <button className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-brand-primary hover:text-white transition-colors group">
-              Read Security Protocol <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
-           </button>
+           <div className="flex gap-6">
+                <ShieldCheck className="w-6 h-6 text-white/20" />
+                <Workflow className="w-6 h-6 text-white/20" />
+                <Activity className="w-6 h-6 text-white/20" />
+           </div>
         </div>
       </div>
     </section>
   );
 };
+
