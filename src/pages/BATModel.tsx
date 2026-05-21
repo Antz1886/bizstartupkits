@@ -14,24 +14,24 @@ const BATModel = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <div className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-primary mb-8">Engagement Protocol</div>
+              <div className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-primary mb-8">Zero-Risk Setup</div>
               <h1 className="text-7xl md:text-9xl leading-[0.88] mb-12 tracking-tighter">
                 The B.A.T <br /> <span className="text-gradient">Model.</span>
               </h1>
               <p className="text-xl text-ink/60 mb-12 max-w-xl leading-relaxed font-medium">
-                Build AI Together. A performance-first engagement model designed to lower the entry barrier for South African SMEs ready for technical transformation.
+                Build AI Together. A performance-based partnership designed to lower the barrier for South African SMEs ready to automate operations.
               </p>
               <button className="btn-primary">
-                Start Free B.A.T Pilot
+                Start Your Free Pilot
               </button>
             </motion.div>
             <div className="bg-brand-secondary p-12 rounded-2xl shadow-2xl border border-white/5 text-white">
                <h3 className="text-2xl font-bold mb-10 uppercase tracking-widest text-brand-primary">The B.A.T Pillars</h3>
                <div className="space-y-12">
                   {[
-                    { icon: Clock, title: "Zero Upfront Friction", desc: "No initial investment required to prove the value of our AgentMesh™ nodes." },
-                    { icon: UserCheck, title: "Dedicated Engineering", desc: "Every pilot is overseen by a Lead Reliability Engineer to ensure the 83% resolution benchmark." },
-                    { icon: ShieldCheck, title: "Outcome-Based Success", desc: "You only commit once the technical performance and ROI are confirmed in your environment." }
+                    { icon: Clock, title: "No Upfront Setup Cost", desc: "No initial fee is required. We build and test the AI assistants for you at our own expense." },
+                    { icon: UserCheck, title: "Fully Managed Setup", desc: "Our software developers build the integrations, connect them to your tools, and fine-tune them to reach the 83% success rate." },
+                    { icon: ShieldCheck, title: "Pay Only for Performance", desc: "You only commit to a monthly subscription once the AI successfully resolves your tasks during the 14-day trial." }
                   ].map((tier, i) => (
                     <div key={i} className="flex gap-8 group cursor-default">
                        <div className="w-14 h-14 bg-white/5 rounded-sm flex items-center justify-center shrink-0 group-hover:bg-brand-primary/20 transition-colors">
@@ -58,14 +58,14 @@ const BATModel = () => {
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-10">
           <div className="text-center mb-24">
-             <h2 className="text-5xl font-black uppercase text-brand-secondary">Pilot Lifecycle.</h2>
+             <h2 className="text-5xl font-black uppercase text-brand-secondary">How the 14-Day Pilot Works.</h2>
           </div>
           
           <div className="grid lg:grid-cols-3 gap-12">
              {[
-               { stage: "Phase 1", title: "Audit & Config", desc: "10-minute activation of the Ghost Capacity Audit and initial node deployment." },
-               { stage: "Phase 2", title: "Benchmark Run", desc: "14-day live pilot to hit the 83% autonomous resolution threshold." },
-               { stage: "Phase 3", title: "Full Mesh Scale", desc: "Transitioning to a fully integrated AgentMesh™ workforce across all silos." }
+               { stage: "Phase 1", title: "1. Setup & Connect", desc: "We review your tools and set up the AI assistants and integrations within days." },
+               { stage: "Phase 2", title: "2. 14-Day Free Run", desc: "The AI handles real customer queries and bookings. We target a success rate of 83%." },
+               { stage: "Phase 3", title: "3. Monthly Scale", desc: "We transition the AI assistants to full daily operations. You only pay if they hit targets." }
              ].map((p, i) => (
                 <div key={i} className="p-16 bg-bg-dark rounded-sm relative overflow-hidden group">
                    <div className="text-9xl font-black text-ink/5 absolute -bottom-10 -right-10 leading-none pointer-events-none">{i+1}</div>
@@ -80,16 +80,16 @@ const BATModel = () => {
 
       <section className="py-32 bg-bg-dark border-t border-ink/5">
         <div className="max-w-7xl mx-auto px-10 text-center">
-            <h2 className="text-6xl font-black uppercase mb-12 tracking-tighter text-brand-secondary">Start Your <span className="text-brand-primary">Recovery.</span></h2>
+            <h2 className="text-6xl font-black uppercase mb-12 tracking-tighter text-brand-secondary">Automate Your <span className="text-brand-primary">Business.</span></h2>
             <p className="text-xl text-ink/50 mb-16 max-w-2xl mx-auto">
-              Our B.A.T model is built for speed and results. Recover your "Ghost Capacity" with zero risk.
+              Our Build AI Together model is built to deliver immediate business results. Eliminate manual administration with zero risk.
             </p>
             <div className="flex flex-wrap justify-center gap-8">
                <button className="px-12 py-6 bg-brand-secondary text-white font-black uppercase tracking-widest text-sm hover:bg-brand-primary transition-all">
-                  Request B.A.T Pilot Onboarding
+                  Start Your Free Pilot
                </button>
                <button className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-brand-secondary border-b-2 border-brand-primary pb-2 hover:text-brand-primary transition-colors">
-                  Contact Lead Engineer <ArrowRight className="w-4 h-4" />
+                  Contact Our Team <ArrowRight className="w-4 h-4" />
                </button>
             </div>
         </div>

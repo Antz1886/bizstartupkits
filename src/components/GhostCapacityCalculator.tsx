@@ -9,9 +9,9 @@ export const GhostCapacityCalculator = () => {
   const [leakage, setLeakage] = useState(0);
 
   const sectorData = {
-    fintech: { label: "FinTech", multiplier: 0.45, leakLabel: "Compliance & KYC Risk", icon: ShieldCheck },
-    logistics: { label: "Logistics", multiplier: 0.55, leakLabel: "Fuel & Route Inefficiency", icon: Workflow },
-    wellness: { label: "Wellness", multiplier: 0.35, leakLabel: "Patient Churn & Admin", icon: Activity }
+    fintech: { label: "FinTech", multiplier: 0.45, leakLabel: "Manual KYC & Compliance Costs", icon: ShieldCheck },
+    logistics: { label: "Logistics", multiplier: 0.55, leakLabel: "Fleet & Route Fuel Inefficiencies", icon: Workflow },
+    wellness: { label: "Wellness", multiplier: 0.35, leakLabel: "Missed Booking & Admin Overhead", icon: Activity }
   };
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const GhostCapacityCalculator = () => {
       <div className="relative z-10">
         <div className="flex justify-between items-center mb-8">
             <h3 className="text-xl font-bold text-white uppercase tracking-tighter">
-            Ghost Capacity Diagnostic
+            Wasted Business Costs Calculator
             </h3>
             <div className="flex gap-2">
                 {(Object.keys(sectorData) as Array<keyof typeof sectorData>).map(s => {
@@ -87,7 +87,7 @@ export const GhostCapacityCalculator = () => {
 
         <div className="mt-8 pt-8 border-t border-white/5">
           <p className="text-xs font-mono text-white/40 uppercase tracking-widest mb-4">
-            Estimated Annual {sectorData[sector].leakLabel} Leakage
+            Estimated Annual Wasted Cost ({sectorData[sector].leakLabel})
           </p>
           <motion.p 
             key={leakage}
@@ -101,13 +101,13 @@ export const GhostCapacityCalculator = () => {
           <div className="mt-8 flex items-center gap-4">
              <div className="flex items-center gap-2 text-resolver-green bg-resolver-green/10 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-widest">
                 <TrendingDown className="w-3 h-3" />
-                Recoverable with {sectorData[sector].label} Resolvers
+                Recoverable with {sectorData[sector].label} AI Employees
              </div>
           </div>
         </div>
 
         <button className="w-full mt-12 py-5 bg-resolver-blue text-mission-black font-black uppercase tracking-widest text-xs hover:bg-white transition-all shadow-[0_0_30px_rgba(0,209,255,0.2)] flex items-center justify-center gap-3">
-          Deploy {sectorData[sector].label} Node <ArrowRight className="w-4 h-4" />
+          Start {sectorData[sector].label} Free Pilot <ArrowRight className="w-4 h-4" />
         </button>
       </div>
 

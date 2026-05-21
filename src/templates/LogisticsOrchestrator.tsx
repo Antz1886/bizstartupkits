@@ -24,18 +24,18 @@ export default function LogisticsOrchestrator() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <Workflow className="w-6 h-6 text-resolver-blue" />
-              <div className="text-[10px] font-black uppercase tracking-[0.5em] text-resolver-blue">Fleet_Orchestrator_System_v4</div>
+              <div className="text-[10px] font-black uppercase tracking-[0.5em] text-resolver-blue">Logistics & Fleet AI Assistant</div>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-8 leading-[0.9]">
-              Last-Mile <br /> <span className="text-resolver-blue">Orchestration.</span>
+              Last-Mile Fleet <br /> <span className="text-resolver-blue">Automation.</span>
             </h1>
             <p className="text-xl text-white/40 font-medium leading-relaxed mb-12">
-              WhatsApp-first coordination for African logistics fleets. Automating driver loops, route optimization, and real-time fuel-recovery audits.
+              WhatsApp-based coordination for South African transport and delivery teams. Automate driver check-ins, delivery updates, and routing in real-time.
             </p>
             
             <div className="grid grid-cols-2 gap-10 border-t border-white/5 pt-10">
-                <MetricPulse label="Fleet_Efficiency" value="94.2%" />
-                <MetricPulse label="Fuel_Recovered" value="R42k/mo" />
+                <MetricPulse label="Fleet Efficiency" value="94.2%" />
+                <MetricPulse label="Fuel Savings / Mo" value="R42k/mo" />
             </div>
           </div>
 
@@ -62,18 +62,18 @@ export default function LogisticsOrchestrator() {
         <div className="grid lg:grid-cols-3 gap-8 mb-20">
           {[
             { 
-              title: "WhatsApp Driver Loops", 
-              desc: "Deploy voice-to-action nodes that process driver updates via WhatsApp voice notes in real-time.",
+              title: "WhatsApp Driver Check-ins", 
+              desc: "Allow drivers to send voice updates. The AI automatically schedules deliveries, notes delays, and updates dispatch.",
               icon: MessageSquare 
             },
             { 
-              title: "Fuel Leakage Audit", 
-              desc: "Predictive algorithms that identify route inefficiencies and fuel theft patterns autonomously.",
+              title: "Inefficiency Audits", 
+              desc: "Monitor and highlight fuel usage drops and delayed routes automatically.",
               icon: Activity 
             },
             { 
-              title: "Route Intelligence", 
-              desc: "Dynamic route adjustment nodes that sync with local traffic and infrastructure pulses.",
+              title: "Smart Route Updates", 
+              desc: "Provide drivers with optimal route suggestions based on real-time traffic and road closures.",
               icon: Truck 
             }
           ].map((feature, i) => (
@@ -89,11 +89,11 @@ export default function LogisticsOrchestrator() {
 
         <div className="bg-resolver-blue p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <h2 className="text-3xl font-black text-mission-black uppercase tracking-tighter mb-2">Initialize Fleet Node</h2>
-            <p className="text-mission-black/60 font-medium italic">Scale your logistics operations with Antigravity acceleration.</p>
+            <h2 className="text-3xl font-black text-mission-black uppercase tracking-tighter mb-2">Start Your Free Pilot</h2>
+            <p className="text-mission-black/60 font-medium italic">Scale your logistics operations with automated fleet coordination.</p>
           </div>
           <button className="px-10 py-5 bg-mission-black text-white font-black uppercase tracking-widest text-sm hover:bg-white hover:text-mission-black transition-all">
-            Deploy Orchestrator
+            Start Free Pilot
           </button>
         </div>
       </div>

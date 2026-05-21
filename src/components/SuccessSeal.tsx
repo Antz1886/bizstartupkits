@@ -21,9 +21,9 @@ export const SuccessSeal = () => {
                83% Benchmark Guaranteed
             </div>
           </div>
-          <h4 className="text-2xl font-black text-white uppercase tracking-tight mb-4">Outcome-Based Security Protocol</h4>
+          <h4 className="text-2xl font-black text-white uppercase tracking-tight mb-4">Performance & Success Guarantee</h4>
           <p className="text-sm text-white/40 leading-relaxed font-medium max-w-2xl">
-            Our Build AI Together (B.A.T) model is anchored in zero-trust security and high-fidelity growth forecasting. If your Resolver Nodes don't hit the 83% resolution benchmark within the first 14 days, the pilot costs nothing. No long-term commitment, just pure technical performance.
+            Our Build AI Together (B.A.T) partnership ensures zero upfront risk. If your custom AI assistants do not resolve at least 83% of your target administrative tasks automatically within the first 14 days, the pilot costs nothing. No long-term commitment, just proven performance.
           </p>
         </div>
       </div>

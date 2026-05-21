@@ -21,39 +21,39 @@ export default function FinTechResolver() {
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-6">
               <ShieldCheck className="w-6 h-6 text-brand-primary" />
-              <div className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-primary">FinTech_Compliance_Node_v2</div>
+              <div className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-primary">FinTech & Compliance Assistant</div>
             </div>
             <h1 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter mb-8 leading-[0.9]">
-              Autonomous <br /> <span className="text-brand-primary">Compliance</span> <br /> Orchestrator.
+              Automated <br /> <span className="text-brand-primary">Compliance & KYC</span> <br /> Assistant.
             </h1>
             <p className="text-xl text-white/40 font-medium leading-relaxed">
-              High-fidelity KYC/AML automation for African financial entities. Deploying a sovereign neural mesh that resolves regulatory loops with 83% autonomous accuracy.
+              Automated KYC and AML checks for South African finance and credit businesses. Deploy a digital employee that handles compliance documentation with 83% autonomous accuracy.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 w-full lg:w-auto">
-            <StatCard icon={Activity} label="Audit_Frequency" value="Real-time" />
-            <StatCard icon={Database} label="Silo_Sync" value="Native" />
-            <StatCard icon={Lock} label="POPIA_Status" value="Compliant" />
-            <StatCard icon={Zap} label="Response_Time" value="<12ms" />
+            <StatCard icon={Activity} label="Audit Frequency" value="Real-time" />
+            <StatCard icon={Database} label="System Integration" value="Native" />
+            <StatCard icon={Lock} label="POPIA Compliance" value="Compliant" />
+            <StatCard icon={Zap} label="Response Time" value="<12ms" />
           </div>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8 mb-20">
           {[
             { 
-              title: "KYC Automation", 
-              desc: "Automated document verification and identity orchestration across multiple African databases.",
+              title: "KYC & Document Checking", 
+              desc: "Automatically verify IDs, proof of address, and documents against official databases.",
               icon: Database 
             },
             { 
-              title: "Risk Signaling", 
-              desc: "Predictive neural pulses that identify potential AML violations before transaction completion.",
+              title: "Fraud & Risk Alerts", 
+              desc: "Identify suspicious transaction patterns and flag potential fraud before payments clear.",
               icon: BarChart3 
             },
             { 
-              title: "POPIA Governance", 
-              desc: "Private neural nodes ensuring data sovereignty and strict adherence to local privacy mandates.",
+              title: "POPIA Data Security", 
+              desc: "Secure local hosting that guarantees patient and customer data privacy under South African law.",
               icon: ShieldCheck 
             }
           ].map((feature, i) => (
@@ -69,11 +69,11 @@ export default function FinTechResolver() {
 
         <div className="bg-brand-primary p-12 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-8 shadow-[0_0_50px_rgba(255,79,0,0.2)]">
           <div>
-            <h2 className="text-3xl font-black text-white uppercase tracking-tighter mb-2">Deploy Compliance Node</h2>
+            <h2 className="text-3xl font-black text-white uppercase tracking-tighter mb-2">Start Your Free Pilot</h2>
             <p className="text-white/80 font-medium italic">Start your Sector Pilot with zero upfront infrastructure cost.</p>
           </div>
           <button className="px-10 py-5 bg-bg-dark text-white font-black uppercase tracking-widest text-sm hover:bg-white hover:text-bg-dark transition-all">
-            Initialize Resolver
+            Start Free Pilot
           </button>
         </div>
       </div>

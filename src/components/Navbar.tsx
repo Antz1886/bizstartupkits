@@ -25,11 +25,11 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
   }, [isMenuOpen]);
 
   const navLinks = [
-    { name: 'Workforce', href: '/services/agentmesh-workforce', desc: '83% Resolution Rate Nodes' },
-    { name: 'Resolvers', href: '/services/custom-resolvers', desc: 'Custom Python Orchestration' },
+    { name: 'Workforce', href: '/services/agentmesh-workforce', desc: '24/7 Digital AI Employees' },
+    { name: 'Integrations', href: '/services/custom-resolvers', desc: 'Connect to Your Tools' },
     { name: 'B.A.T Model', href: '/corporate/bat-model', desc: 'Performance-Based Pilot' },
-    { name: 'Control', href: '/mission-control', desc: 'Live NOC Telemetry' },
-    { name: 'Audit', href: isHome ? '#audit-calculator' : '/#audit-calculator', desc: 'Ghost Capacity Diagnostic' },
+    { name: 'Control', href: '/mission-control', desc: 'Live Performance Dashboard' },
+    { name: 'Audit', href: isHome ? '#audit-calculator' : '/#audit-calculator', desc: 'Calculate Wasted Workhours' },
   ];
 
   return (
@@ -48,7 +48,7 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
           </div>
           <div className="flex flex-col">
             <span className="text-[12px] font-black tracking-[0.4em] text-white">BIZSTARTUP</span>
-            <span className="text-[8px] font-mono text-resolver-blue uppercase tracking-[0.2em]">Agentic Workforce</span>
+            <span className="text-[8px] font-mono text-resolver-blue uppercase tracking-[0.2em]">Digital Workforce</span>
           </div>
         </Link>
 
@@ -103,7 +103,7 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
             <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
             
             <div className="relative z-10 flex flex-col gap-12">
-              <div className="text-[10px] font-mono text-resolver-blue uppercase tracking-[0.5em] mb-4">Navigation_Nodes</div>
+              <div className="text-[10px] font-mono text-resolver-blue uppercase tracking-[0.5em] mb-4">Explore Menu</div>
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
@@ -143,15 +143,15 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
                   onClick={() => { onOpenModal('B.A.T Pilot'); setIsMenuOpen(false); }}
                   className="w-full py-6 bg-resolver-blue text-mission-black font-black uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(0,209,255,0.3)] flex items-center justify-center gap-4"
                 >
-                  Initiate Resolution Node <Zap className="w-5 h-5" />
+                  Start Free Pilot <Zap className="w-5 h-5" />
                 </button>
               </motion.div>
             </div>
 
-            <div className="absolute bottom-10 left-10 right-10 flex justify-between items-center text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">
-               <div>System_v4.1.14</div>
-               <div>© 2026 BIZSTARTUP</div>
-            </div>
+             <div className="absolute bottom-10 left-10 right-10 flex justify-between items-center text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">
+                <div>Powered by AI</div>
+                <div>© 2026 BIZSTARTUP</div>
+             </div>
           </motion.div>
         )}
       </AnimatePresence>

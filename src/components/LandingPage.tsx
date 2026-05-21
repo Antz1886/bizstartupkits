@@ -83,8 +83,8 @@ const AIVisualizer = () => (
     <div className="absolute inset-0 p-8 flex flex-col justify-between">
       <div className="flex justify-between items-start">
         <div className="space-y-1">
-          <div className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-primary">Neural Instance 0.01</div>
-          <div className="text-[10px] font-bold text-brand-secondary/40">SME_LOGIC_ENGINE_v4.system</div>
+          <div className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-primary">Digital Employee Active</div>
+          <div className="text-[10px] font-bold text-brand-secondary/40">AI Business Assistant</div>
         </div>
         <div className="flex gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -135,7 +135,7 @@ const AIVisualizer = () => (
                 className="h-full bg-brand-primary/40"
               />
             </div>
-            <div className="text-[8px] font-black uppercase tracking-widest text-ink/20">Metric_0{i}</div>
+            <div className="text-[8px] font-black uppercase tracking-widest text-ink/20">{["Bookings Made", "Leads Captured", "Queries Resolved", "Hours Saved"][i-1]}</div>
           </div>
         ))}
       </div>
@@ -158,9 +158,9 @@ const AutomationVisualizer = () => {
   const triggerPulse = () => setPulseCount(prev => prev + 1);
 
   const nodes = [
-    { label: "High Priority", color: "text-red-500", icon: ShieldCheck, detail: "Auto-escalating critical vulnerabilities." },
-    { label: "Auto_Scheduled", color: "text-green-500", icon: Zap, detail: "Integrating with deep-calendar nodes." },
-    { label: "CRM_Update", color: "text-brand-primary", icon: Database, detail: "Synching lead data across 4 silos." }
+    { label: "Escalate to Human", color: "text-red-500", icon: ShieldCheck, detail: "Alerting staff for complex customer requests." },
+    { label: "Add to Calendar", color: "text-green-500", icon: Zap, detail: "Scheduling appointment slots in your calendar." },
+    { label: "Save to CRM", color: "text-brand-primary", icon: Database, detail: "Updating your customer database automatically." }
   ];
 
   return (
@@ -180,7 +180,7 @@ const AutomationVisualizer = () => {
           >
             <Mail className="w-6 h-6 text-brand-secondary" />
           </motion.div>
-          <div className="text-[8px] font-black uppercase tracking-widest text-brand-primary animate-pulse">Click to Trigger</div>
+          <div className="text-[8px] font-black uppercase tracking-widest text-brand-primary animate-pulse">Click to test inquiry</div>
         </div>
 
         {/* Connection Lines & Routing Animation */}
@@ -240,7 +240,7 @@ const AutomationVisualizer = () => {
           onClick={triggerPulse}
           className="px-4 py-2 bg-brand-secondary text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg hover:bg-brand-primary transition-colors"
         >
-          Inject Data Protocol
+          Simulate Customer Inquiry
         </button>
       </div>
 
@@ -273,9 +273,9 @@ const AnalysisVisualizer = () => {
   };
 
   const labels = {
-    load: "Operational_Load_Sync",
-    market: "Market_Capture_Flow",
-    risk: "Churn_Risk_Distribution"
+    load: "Live Booking Activity",
+    market: "Daily Customer Inquiries",
+    risk: "Time Saved in Hours"
   };
 
   return (
@@ -344,7 +344,7 @@ const AnalysisVisualizer = () => {
            >
              {dataMode === 'load' ? '84.2%' : dataMode === 'market' ? '12.4x' : '5.2%'}
            </motion.div>
-           <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{dataMode === 'load' ? 'Sync_Rate' : dataMode === 'market' ? 'Velocity' : 'Risk_Score'}</div>
+           <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{dataMode === 'load' ? 'Active Sessions' : dataMode === 'market' ? 'Velocity' : 'Weekly Hours Saved'}</div>
          </div>
          <div className="space-y-1">
             <motion.div 
@@ -355,7 +355,7 @@ const AnalysisVisualizer = () => {
             >
               {dataMode === 'load' ? '12.4ms' : dataMode === 'market' ? '92.1%' : '1k+'}
             </motion.div>
-           <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{dataMode === 'load' ? 'Latency' : dataMode === 'market' ? 'Retention' : 'Audit_Hits'}</div>
+           <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{dataMode === 'load' ? 'Response Time' : dataMode === 'market' ? 'Customer Satisfaction' : 'Completed Tasks'}</div>
          </div>
          <div className="flex items-center justify-end">
             <button 
@@ -436,16 +436,16 @@ const PredictiveVisualizer = () => {
       </svg>
 
       <div className="absolute top-10 right-10 text-right pointer-events-none">
-         <div className="text-[10px] font-black text-brand-primary uppercase tracking-[0.3em] mb-1">Growth Forecast</div>
+         <div className="text-[10px] font-black text-brand-primary uppercase tracking-[0.3em] mb-1">Projected Weekly Hours Saved</div>
          <motion.div 
             key={intensity}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             className="text-4xl font-black text-brand-secondary"
           >
-            +{Math.round(intensity * 500)}%
+            +{Math.round(intensity * 15)}h
           </motion.div>
-         <div className="text-[9px] font-bold text-green-500 uppercase">Confidence Level: {intensity > 0.8 ? 'Extreme' : 'High'}</div>
+         <div className="text-[9px] font-bold text-green-500 uppercase">Calculated Accuracy: 99.8%</div>
       </div>
 
       {/* Control Slider */}
@@ -480,36 +480,36 @@ const PredictiveVisualizer = () => {
 const AICapabilitiesShowcase = () => {
   const categories = [
     {
-      meta: "01 FinTech",
-      title: "Compliance Resolvers",
-      desc: "Orchestrate complex KYC/AML workflows that run 24/7. Our nodes handle document verification and regulatory signaling with 83% autonomous accuracy.",
+      meta: "01 FinTech & Compliance",
+      title: "Automatic Customer Verification",
+      desc: "Verify client identity documents automatically 24/7. Check details against national databases instantly and safely, alerting your team only if there is a mismatch.",
       visual: AutomationVisualizer,
       icon: ShieldCheck,
       stats: [
-        { label: "Audit Accuracy", val: "99.2%" },
-        { label: "Compliance Speed", val: "Real-time" }
+        { label: "Verification Accuracy", val: "99.2%" },
+        { label: "Check Response Time", val: "Instant" }
       ]
     },
     {
       meta: "02 Logistics",
-      title: "Fleet Orchestrators",
-      desc: "Deploy WhatsApp-first nodes that coordinate with drivers in real-time. From route optimization to fuel-inefficiency audits, we close the logistics loop.",
+      title: "WhatsApp Fleet Coordinator",
+      desc: "Coordinate with drivers in real-time on WhatsApp. The AI understands driver voice notes, schedules deliveries, plans routes, and audits fuel efficiency automatically.",
       visual: AnalysisVisualizer,
       icon: Workflow,
       stats: [
         { label: "Fuel Recovery", val: "18%" },
-        { label: "Driver CSAT", val: "4.9/5" }
+        { label: "Driver Satisfaction", val: "4.9/5" }
       ]
     },
     {
-      meta: "03 Wellness",
-      title: "Care-Agent Nodes",
-      desc: "Liberate clinical staff from manual scheduling. Our Care-Agents manage patient bookings, triage inquiries, and follow-up protocols autonomously.",
+      meta: "03 Wellness & Medical",
+      title: "24/7 Clinic Booking Assistant",
+      desc: "Free your clinic staff from manual bookings. The AI automatically schedules appointments, handles reschedules, and sends friendly follow-up reminders to patients.",
       visual: PredictiveVisualizer,
       icon: Activity,
       stats: [
-        { label: "Churn Reduction", val: "40%" },
-        { label: "Patient NPS", val: "92" }
+        { label: "Missed Appointment Reduction", val: "40%" },
+        { label: "Patient Satisfaction", val: "92%" }
       ]
     }
   ];
@@ -518,12 +518,12 @@ const AICapabilitiesShowcase = () => {
     <section id="ai-showcase" className="py-24 md:py-48 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="max-w-3xl mb-16 md:mb-32">
-          <MetaLabel className="mb-6 md:mb-10">Dynamic Capability Showcase</MetaLabel>
+          <MetaLabel className="mb-6 md:mb-10">Ready-to-Work AI Assistants</MetaLabel>
           <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-8 md:mb-12">
-            Engineered <br /> <span className="text-gradient">Intelligence.</span>
+            Workflows That Run <br /> <span className="text-gradient">Themselves.</span>
           </h2>
           <p className="text-lg md:text-2xl text-ink/50 leading-relaxed font-light">
-            AI is more than a chatbot. It's the technical leverage that separates high-performing enterprises from the rest of the market.
+            Go beyond simple chatbots. Get custom AI assistants that connect to your business tools and handle complete administrative processes from start to finish.
           </p>
         </div>
 
@@ -614,23 +614,23 @@ const HumanCapitalSection = () => (
         </motion.div>
 
         <div>
-          <MetaLabel className="mb-6 md:mb-10">Systems + People</MetaLabel>
+          <MetaLabel className="mb-6 md:mb-10">More Growth, Less Admin</MetaLabel>
           <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-8 md:mb-12">
             The Human <br /> <span className="text-gradient">Advantage.</span>
           </h2>
           <p className="text-lg md:text-xl text-ink/60 mb-8 md:mb-12 leading-relaxed font-medium">
-            Automation isn't about replacing your workforce—it's about liberating them. We shift your human capital from the "Maintenance Lane" to the "Innovation Lane." 
+            AI doesn't replace your staff—it frees them from repetitive chores. By automating administrative tasks, your team can focus on client relationships and growing the business. 
           </p>
           <div className="space-y-12">
             {[
               { 
-                title: "Empowered Decisioning", 
-                desc: "Equip your teams with real-time neural insights, allowing for high-stakes decisions backed by crystalline data clarity.",
+                title: "Decisions Backed by Data", 
+                desc: "Get clear, real-time analytics on your operations. Make decisions with complete clarity about where your time and budget are going.",
                 icon: Users
               },
               { 
-                title: "Cognitive Liberation", 
-                desc: "Remove the friction of manual synchronization. Let your founders and creators focus on the purely human elements of growth.",
+                title: "Time to Focus on Growth", 
+                desc: "Stop wasting hours copying and pasting data between systems. Let the AI handle the sync, and focus on high-value business development.",
                 icon: BrainCircuit
               }
             ].map((item, i) => (
@@ -668,19 +668,19 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
         <div className="mb-8">
           <ResolverStatus />
         </div>
-        <MetaLabel className="mb-6 md:mb-10 text-resolver-blue font-bold tracking-[0.5em]">South Africa's First Agentic AI Workforce</MetaLabel>
+        <MetaLabel className="mb-6 md:mb-10 text-resolver-blue font-bold tracking-[0.5em]">South Africa's First "Digital Employee" AI Workforce</MetaLabel>
         <h1 className="text-5xl md:text-7xl lg:text-9xl leading-[0.88] mb-8 md:mb-12 tracking-tighter">
-          Stop Replying. <br /> <span className="text-gradient hover:bg-[length:100%_auto] transition-all">Start</span> <br /> Resolving.
+          Get 24/7 <br /> <span className="text-gradient hover:bg-[length:100%_auto] transition-all">Digital Employees</span> <br /> for Your Business.
         </h1>
         <p className="text-lg md:text-xl text-ink/60 mb-8 md:mb-12 max-w-xl leading-relaxed font-medium border-l-2 border-brand-primary/20 pl-6 md:pl-8">
-          The high-performance workforce for South Africa's growth sectors. We deploy bespoke AgentMesh™ Resolvers that automate complex workflows in FinTech, Logistics, and Wellness with an 83% autonomous resolution rate.
+          Get ready-to-work AI assistants (Digital Employees) that handle customer service, schedule appointments, and coordinate dispatch on WhatsApp and Email — resolving 83% of tasks automatically without human intervention.
         </p>
         <div className="flex flex-wrap gap-6">
           <button 
             onClick={() => onOpenModal('B.A.T Pilot')}
             className="btn-primary group relative overflow-hidden"
           >
-            <span className="relative z-10 flex items-center gap-2">Start B.A.T Pilot <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+            <span className="relative z-10 flex items-center gap-2">Start Free Pilot <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
           </button>
           <button 
             onClick={() => {
@@ -689,7 +689,7 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
             }}
             className="btn-outline hover:border-brand-primary text-brand-secondary hover:text-brand-primary transition-all"
           >
-            Run Ghost Capacity Audit
+            Calculate Wasted Workhours
           </button>
         </div>
       </motion.div>
@@ -724,22 +724,22 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
 const AISuite = () => {
   const capabilities = [
     {
-      title: "FinTech Compliance",
-      desc: "Automating KYC/AML orchestration and real-time risk signaling for African financial entities.",
+      title: "FinTech & Compliance",
+      desc: "Automated identity (KYC) verification and real-time compliance alerting for South African entities.",
       icon: ShieldCheck,
-      features: ["POPIA Ready", "KYC Automation", "Fraud Detection"]
+      features: ["POPIA Compliant", "Automated KYC Checks", "Anomaly Alerts"]
     },
     {
-      title: "Logistics Orchestration",
-      desc: "WhatsApp-first driver coordination and real-time fuel-inefficiency audits for last-mile delivery.",
+      title: "Logistics & Dispatch",
+      desc: "WhatsApp-first driver coordination, route planning, and automated fuel efficiency auditing.",
       icon: Workflow,
-      features: ["Route Optimization", "Voice-to-Action", "ERP Integration"]
+      features: ["Smart Route Planning", "WhatsApp Voice Input", "System Syncing"]
     },
     {
-      title: "Wellness Care-Nodes",
-      desc: "Managing patient journeys and clinical scheduling via autonomous voice and text resolvers.",
+      title: "Wellness Scheduling",
+      desc: "Managing patient bookings and clinic calendar schedules via autonomous messaging and voice replies.",
       icon: Activity,
-      features: ["Appointment Churn", "Patient Triage", "Voice Summaries"]
+      features: ["Booking Automation", "Patient Triage", "Voice Reminders"]
     }
   ];
 
@@ -750,13 +750,13 @@ const AISuite = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-center mb-16 md:mb-32">
           <div>
-            <MetaLabel className="text-brand-primary mb-6 md:mb-10">The Intelligence Advantage</MetaLabel>
+            <MetaLabel className="text-brand-primary mb-6 md:mb-10">Bespoke AI Workflows</MetaLabel>
             <h2 className="text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 md:mb-12">
               Deep AI <br /> Integration.
             </h2>
           </div>
           <p className="text-lg md:text-2xl text-white/40 leading-relaxed font-light">
-            We don't just "use" generic AI tools. We engineer proprietary neural pipelines that become a permanent, defensible asset for your enterprise.
+            We don't just "use" generic AI tools. We engineer custom AI assistants that connect with the tools you already use, creating a smooth and secure digital operation.
           </p>
         </div>
 
@@ -797,18 +797,18 @@ const ProblemSection = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
           <div>
-            <MetaLabel className="mb-8 md:mb-12">The Operational Audit</MetaLabel>
+            <MetaLabel className="mb-8 md:mb-12">The Cost of Admin</MetaLabel>
             <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-8 md:mb-12">
               The Cost of <br /> <span className="text-gradient">Inefficiency.</span>
             </h2>
             <p className="text-lg md:text-xl text-ink/50 mb-8 md:mb-12 leading-relaxed font-medium">
-              Most SMEs operate with 40% "Ghost Capacity"—workhours lost to manual synchronization, data silos, and non-predictive workflows.
+              Most South African businesses waste up to 40% of their team's capacity on repetitive admin, copying data between systems, and chasing bookings.
             </p>
             <div className="space-y-6">
               {[
-                { label: "Data Sink", desc: "18 hrs/week lost to manual CSV handling" },
-                { label: "Risk Exposure", desc: "Zero real-time anomaly detection logic" },
-                { label: "Growth Ceiling", desc: "Scalability limited by workforce headcount" }
+                { label: "Manual Admin", desc: "18 hours per week lost to spreadsheets and copy-pasting" },
+                { label: "Compliance Risks", desc: "Zero real-time compliance checking or automated safety alerts" },
+                { label: "Limit on Growth", desc: "Business growth is held back by manual staff workloads" }
               ].map((item, i) => (
                 <div key={i} className="flex items-start gap-6 group">
                   <div className="text-[10px] font-black text-brand-primary mt-1.5">0{i+1}</div>
@@ -823,10 +823,10 @@ const ProblemSection = () => {
           
           <div className="grid grid-cols-2 gap-px bg-ink/5 border border-ink/5">
             {[
-              { label: "Operational Waste", val: "$2.4M", trend: "+12% YoY" },
-              { label: "Decision Latency", val: "72 Hrs", trend: "High Risk" },
-              { label: "Logic Accuracy", val: "68%", trend: "Critical" },
-              { label: "AI Readiness", val: "Tier 4", trend: "Stagnant" }
+              { label: "Operational Waste", val: "R120k", trend: "Per Staff Member / Yr" },
+              { label: "Response Delay", val: "24+ Hrs", trend: "Missed Sales" },
+              { label: "Manual Error Rate", val: "15%+", trend: "Typo Risks" },
+              { label: "Efficiency Status", val: "Struggling", trend: "Action Required" }
             ].map((stat, i) => (
               <div key={i} className="p-16 bg-white hover:bg-bg-dark transition-colors">
                 <div className="text-4xl font-black text-brand-secondary mb-4">{stat.val}</div>
@@ -844,25 +844,25 @@ const ProblemSection = () => {
 const SolutionsSection = () => {
   const solutions = [
     {
-      title: "Strategic AI Implementation",
-      desc: "Architecting and deploying proprietary machine learning models tailored to your business silos.",
+      title: "AI Assistant Setup",
+      desc: "Designing and launching custom AI employees that speak and understand your business.",
       icon: Bot,
       color: "brand-primary",
-      features: ["LLM Orchestration", "Predictive Modeling", "Cognitive Automation"]
+      features: ["WhatsApp Assistants", "Email Automation", "Task Resolving"]
     },
     {
-      title: "Enterprise Data Intelligence",
-      desc: "Transforming disparate data streams into high-fidelity executive decision engines.",
+      title: "Business Dashboards",
+      desc: "Creating simple, live dashboards that show you exactly how your sales, dispatch, and bookings are performing.",
       icon: Cloud,
       color: "brand-secondary",
-      features: ["Unified Data Lakes", "Real-time KPI Streams", "Analytical Forecasting"]
+      features: ["Live Visual Tracking", "Unified Reports", "Performance Analytics"]
     },
     {
-      title: "Operational Rewiring",
-      desc: "Redesigning business logic for a digital-first, automated economy.",
+      title: "Workflow Automation",
+      desc: "Connecting and automating your tools (like WhatsApp, calendars, and CRM databases) so they work together.",
       icon: Layers,
       color: "brand-accent",
-      features: ["Process Architecture", "Systems Convergence", "Digital Transformation"]
+      features: ["System Integration", "Software Automation", "Admin Reduction"]
     }
   ];
 
@@ -871,11 +871,11 @@ const SolutionsSection = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
           <div className="max-w-xl">
-            <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Consultancy Domains</div>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-brand-secondary leading-tight">Elite Strategic <br /> <span className="text-gradient">Solutions.</span></h2>
+            <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Our Core Work</div>
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-brand-secondary leading-tight">How We Help <br /> <span className="text-gradient">You Scale.</span></h2>
           </div>
           <p className="text-lg md:text-xl text-ink/40 max-w-sm leading-relaxed font-medium">
-            We provide the architectural foundation for the next generation of SME business operations.
+            We build the automation frameworks that South African SMEs need to run smoothly and efficiently.
           </p>
         </div>
 
@@ -905,19 +905,19 @@ const SolutionsSection = () => {
 
 const HowItWorks = () => {
   const steps = [
-    { title: "Audit & Architecture", desc: "Deep technical audit of your current operational stack and data silos." },
-    { title: "Strategic Roadmap", desc: "Design of a phased AI and automation blueprint focused on high-yield ROI." },
-    { title: "Core Deployment", desc: "Agile implementation of intelligent systems and enterprise dashboards." },
-    { title: "Syndicate Growth", desc: "Ongoing cognitive optimization and strategic scaling of AI capabilities." },
+    { title: "1. System Review", desc: "We audit your current tools, staff tasks, and operational bottlenecks." },
+    { title: "2. Custom AI Blueprint", desc: "We design a plan showing where AI can save you the most hours and money." },
+    { title: "3. Launch & Connect", desc: "We build and deploy the AI employees and link them directly to your tools." },
+    { title: "4. Continuous Care", desc: "We monitor performance and fine-tune the AI to keep resolution rates high." },
   ];
 
   return (
     <section id="how-it-works" className="py-20 md:py-32 bg-bg-dark border-t border-ink/5">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="text-center mb-16 md:mb-24">
-          <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Methodology</div>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-brand-secondary mb-6">Our Engagement Framework.</h2>
-          <p className="text-lg md:text-xl text-ink/40 max-w-xl mx-auto">A rigorous, four-stage approach to digital dominance.</p>
+          <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Our Process</div>
+          <h2 className="text-4xl md:text-5xl font-display font-black text-brand-secondary mb-6">How We Work Together.</h2>
+          <p className="text-lg md:text-xl text-ink/40 max-w-xl mx-auto">A simple, four-stage approach to digital growth.</p>
         </div>
 
         <div className="grid md:grid-cols-4 gap-12">
@@ -970,10 +970,10 @@ const CTASection = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =>
           viewport={{ once: true }}
           className="relative z-10"
         >
-          <div className="inline-block py-2 px-6 rounded-full border border-brand-primary/20 text-brand-primary text-[10px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12">Final Call to Growth</div>
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black uppercase mb-8 md:mb-10 tracking-tighter text-white">Ready to Get Your <span className="text-brand-primary">Kit?</span></h2>
+          <div className="inline-block py-2 px-6 rounded-full border border-brand-primary/20 text-brand-primary text-[10px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12">Get Started Risk-Free</div>
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black uppercase mb-8 md:mb-10 tracking-tighter text-white">Ready to Start Your <span className="text-brand-primary">Free Pilot?</span></h2>
           <p className="text-lg md:text-xl text-white/50 mb-12 md:mb-16 max-w-2xl mx-auto font-medium">
-            Join the elite circle of SMEs using BIZSTARTUP KIT to scale beyond limits. Your automated future starts with a single protocol.
+            Join South African businesses using our Digital AI Employees to reclaim their time. Start your 14-day free pilot today.
           </p>
           <div className="flex flex-wrap justify-center gap-8">
             <button 
@@ -981,13 +981,13 @@ const CTASection = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =>
               onClick={() => onOpenModal('Get Your Kit')}
               className="px-12 py-6 bg-brand-primary text-white font-black uppercase tracking-widest text-sm hover:bg-white hover:text-brand-secondary transition-all shadow-2xl"
             >
-              Acquire the Growth Kit
+              Start 14-Day Free Pilot
             </button>
             <button 
               onClick={() => onOpenModal('Strategy Session')}
               className="px-12 py-6 border-2 border-white/20 text-white font-black uppercase tracking-widest text-sm hover:border-white transition-all underline decoration-brand-primary decoration-4 underline-offset-8"
             >
-              Request Tactical Review
+              Book a Strategy Session
             </button>
           </div>
         </motion.div>
@@ -1010,21 +1010,21 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div>
-              <MetaLabel className="mb-8 md:mb-12">The Performance Wedge</MetaLabel>
+              <MetaLabel className="mb-8 md:mb-12">Workplace Inefficiencies</MetaLabel>
               <h2 className="text-5xl md:text-7xl font-black leading-tight mb-8">
-                Identify Your <br /><span className="text-gradient">Leakage.</span>
+                Calculate Your <br /><span className="text-gradient">Wasted Hours.</span>
               </h2>
               <p className="text-xl text-ink/60 leading-relaxed font-medium mb-12">
-                Most South African businesses lose 40% of their capacity to "manual drift"—repetitive tasks, fragmented data, and slow responses. Our audit reveals the exact cost of your status quo.
+                Most South African businesses waste up to 40% of their workhours on manual admin, missed booking follow-ups, and slow replies. Our calculator shows the exact cost of doing nothing.
               </p>
               <div className="space-y-6">
                 <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-brand-secondary">
                   <div className="w-2 h-2 rounded-full bg-brand-primary" />
-                  Instant POPIA-Compliant Audit
+                  Instant Cost Calculator
                 </div>
                 <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-brand-secondary">
                   <div className="w-2 h-2 rounded-full bg-brand-primary" />
-                  Real-time Revenue Recovery Path
+                  Clear Revenue Savings Path
                 </div>
               </div>
             </div>
@@ -1054,12 +1054,12 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-32 mb-16 md:mb-32 items-center">
             <div>
-              <MetaLabel className="mb-6 md:mb-10">Real-World Deployment</MetaLabel>
+              <MetaLabel className="mb-6 md:mb-10">Real-World Impact</MetaLabel>
               <h2 className="text-4xl md:text-6xl lg:text-8xl mb-8 md:mb-12 leading-none">
-                Impact <br /> <span className="text-brand-primary">Case Log.</span>
+                Our AI in <br /> <span className="text-brand-primary">Action.</span>
               </h2>
               <p className="text-lg md:text-xl text-ink/60 max-w-xl leading-relaxed italic">
-                Strategic deployment isn't about tools; it's about shifting the needle on operational bottlenecks and growth ceilings.
+                We measure success by the amount of hours saved and errors eliminated from your day-to-day operations.
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-2xl border border-ink/10 aspect-video group">
@@ -1070,14 +1070,14 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                dept: "Sales Engines",
-                cases: ["Lead capture automation", "CRM orchestration", "Predictive scoring"],
+                dept: "Customer & Sales Admin",
+                cases: ["Automated lead capturing", "Instant CRM database updates", "Automatic client follow-ups"],
                 icon: TrendingUp,
                 img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
               },
               {
-                dept: "Financial Systems",
-                cases: ["Invoice logic audits", "Automated expense flows", "Revenue forecasting"],
+                dept: "Financial & Invoice Admin",
+                cases: ["Automated invoice tracking", "Expedited expense logging", "Clear revenue updates"],
                 icon: ShieldCheck,
                 img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
               }
@@ -1127,10 +1127,10 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-end mb-16 md:mb-24">
              <div>
-              <MetaLabel className="mb-6 md:mb-8">Cross-Sector Scalability</MetaLabel>
-              <h2 className="text-4xl md:text-5xl lg:text-7xl mb-6 leading-none">Global <br /> <span className="text-gradient">Versatility.</span></h2>
+              <MetaLabel className="mb-6 md:mb-8">Industry Agnostic</MetaLabel>
+              <h2 className="text-4xl md:text-5xl lg:text-7xl mb-6 leading-none">Built for Any <br /> <span className="text-gradient">Industry.</span></h2>
              </div>
-             <p className="text-lg md:text-xl text-ink/40 font-medium max-w-sm mb-2">Our technical kits are industry-agnostic, engineered for performance regardless of your vertical.</p>
+             <p className="text-lg md:text-xl text-ink/40 font-medium max-w-sm mb-2">Our AI assistants are highly adaptable and can be configured to fit the specific workflows of your industry.</p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-ink/5 border border-ink/5">
