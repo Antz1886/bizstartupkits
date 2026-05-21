@@ -54,11 +54,11 @@ const playUISound = (frequency: number) => {
 // --- Sub-Components ---
 
 const AICapabilityCard = ({ title, desc, icon: Icon, features }: { title: string, desc: string, icon: any, features: string[] }) => (
-  <div className="p-8 rounded-2xl bg-white border border-ink/5 hover:border-brand-primary/20 hover:shadow-xl transition-all group">
+  <div className="p-8 rounded-2xl bg-bg-card border border-white/5 hover:border-brand-primary/20 hover:shadow-xl transition-all group">
     <div className="w-12 h-12 rounded-xl bg-bg-dark flex items-center justify-center mb-6 group-hover:bg-brand-primary/10 transition-colors">
-      <Icon className="w-6 h-6 text-brand-secondary group-hover:text-brand-primary transition-colors" />
+      <Icon className="w-6 h-6 text-resolver-blue group-hover:text-brand-primary transition-colors" />
     </div>
-    <h3 className="text-xl font-bold mb-3">{title}</h3>
+    <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
     <p className="text-sm text-ink/60 mb-6 leading-relaxed">{desc}</p>
     <div className="space-y-2">
       {features.map((f, i) => (
@@ -117,9 +117,9 @@ const AIVisualizer = () => (
                 delay: i * 0.2 
               }}
               onClick={() => playUISound(item.freq)}
-              className="w-16 h-16 rounded-sm bg-white border border-ink/5 flex items-center justify-center shadow-xl group hover:border-brand-primary cursor-pointer transition-colors"
+              className="w-16 h-16 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center shadow-xl group hover:border-brand-primary cursor-pointer transition-colors"
             >
-              <item.icon className="w-8 h-8 text-brand-secondary group-hover:text-brand-primary transition-colors" />
+              <item.icon className="w-8 h-8 text-white group-hover:text-brand-primary transition-colors" />
             </motion.div>
           ))}
         </div>
@@ -176,9 +176,9 @@ const AutomationVisualizer = () => {
           <motion.div 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="w-16 h-16 rounded-full bg-white border border-ink/10 flex items-center justify-center shadow-lg hover:border-brand-primary transition-colors"
+            className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shadow-lg hover:border-brand-primary transition-colors"
           >
-            <Mail className="w-6 h-6 text-brand-secondary" />
+            <Mail className="w-6 h-6 text-white" />
           </motion.div>
           <div className="text-[8px] font-black uppercase tracking-widest text-brand-primary animate-pulse">Click to test inquiry</div>
         </div>
@@ -214,7 +214,7 @@ const AutomationVisualizer = () => {
               onMouseLeave={() => setActiveNode(null)}
               className="flex items-center gap-4 relative cursor-help"
             >
-              <div className="w-10 h-10 rounded-sm bg-white border border-ink/5 flex items-center justify-center shadow-sm hover:border-brand-primary transition-all">
+              <div className="w-10 h-10 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center shadow-sm hover:border-brand-primary transition-all">
                 <node.icon className={cn("w-4 h-4", node.color)} />
               </div>
               <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{node.label}</div>
@@ -224,7 +224,7 @@ const AutomationVisualizer = () => {
                 <motion.div 
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
-                  className="absolute left-full ml-4 w-32 p-3 bg-white shadow-xl border border-ink/5 rounded-lg text-[10px] text-ink/60 font-medium z-50 pointer-events-none"
+                  className="absolute left-full ml-4 w-32 p-3 bg-bg-card shadow-xl border border-white/10 rounded-lg text-[10px] text-white/70 font-medium z-50 pointer-events-none"
                 >
                   {node.detail}
                 </motion.div>
@@ -323,7 +323,7 @@ const AnalysisVisualizer = () => {
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: -20 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-0 left-1/2 -translate-x-1/2 text-[10px] font-black text-brand-primary bg-white px-1.5 py-0.5 rounded shadow-xl border border-ink/5"
+                    className="absolute top-0 left-1/2 -translate-x-1/2 text-[10px] font-black text-brand-primary bg-bg-card px-1.5 py-0.5 rounded shadow-xl border border-white/10"
                    >
                      {h}%
                    </motion.div>
@@ -340,7 +340,7 @@ const AnalysisVisualizer = () => {
             key={dataMode + '-stat-1'}
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-xl font-black text-brand-secondary"
+            className="text-xl font-black text-resolver-blue"
            >
              {dataMode === 'load' ? '84.2%' : dataMode === 'market' ? '12.4x' : '5.2%'}
            </motion.div>
@@ -441,7 +441,7 @@ const PredictiveVisualizer = () => {
             key={intensity}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-4xl font-black text-brand-secondary"
+            className="text-4xl font-black text-resolver-blue"
           >
             +{Math.round(intensity * 15)}h
           </motion.div>
@@ -515,7 +515,7 @@ const AICapabilitiesShowcase = () => {
   ];
 
   return (
-    <section id="ai-showcase" className="py-24 md:py-48 bg-white overflow-hidden">
+    <section id="ai-showcase" className="py-24 md:py-48 bg-bg-dark overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="max-w-3xl mb-16 md:mb-32">
           <MetaLabel className="mb-6 md:mb-10">Ready-to-Work AI Assistants</MetaLabel>
@@ -554,7 +554,7 @@ const AICapabilitiesShowcase = () => {
                 <div className="grid grid-cols-2 gap-12 border-t border-ink/5 pt-10">
                   {cat.stats.map((s, j) => (
                     <div key={j}>
-                      <div className="text-4xl font-black text-brand-secondary mb-2">{s.val}</div>
+                      <div className="text-4xl font-black text-resolver-blue mb-2">{s.val}</div>
                       <div className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary">{s.label}</div>
                     </div>
                   ))}
@@ -580,7 +580,7 @@ const AICapabilitiesShowcase = () => {
 };
 
 const HumanCapitalSection = () => (
-  <section className="py-24 md:py-48 bg-white border-b border-ink/5 relative overflow-hidden">
+  <section className="py-24 md:py-48 bg-bg-dark border-b border-ink/5 relative overflow-hidden">
     <div className="max-w-7xl mx-auto px-6 md:px-10">
       <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
         <motion.div
@@ -608,7 +608,7 @@ const HumanCapitalSection = () => (
             </p>
             <div className="flex items-center gap-4">
                <div className="w-1 h-8 bg-brand-primary" />
-               <div className="text-[10px] font-black uppercase tracking-widest text-brand-secondary">Strategic Innovation Team</div>
+               <div className="text-[10px] font-black uppercase tracking-widest text-white/70">Strategic Innovation Team</div>
             </div>
           </div>
         </motion.div>
@@ -636,7 +636,7 @@ const HumanCapitalSection = () => (
             ].map((item, i) => (
               <div key={i} className="flex gap-8 group">
                 <div className="w-14 h-14 bg-bg-dark rounded-sm flex items-center justify-center shrink-0 border border-ink/5 group-hover:border-brand-primary transition-colors">
-                  <item.icon className="w-6 h-6 text-brand-secondary group-hover:text-brand-primary transition-colors" />
+                  <item.icon className="w-6 h-6 text-white group-hover:text-brand-primary transition-colors" />
                 </div>
                 <div>
                   <h4 className="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h4>
@@ -687,7 +687,7 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
               const el = document.getElementById('audit-calculator');
               el?.scrollIntoView({ behavior: 'smooth' });
             }}
-            className="btn-outline hover:border-brand-primary text-brand-secondary hover:text-brand-primary transition-all"
+            className="btn-outline hover:border-brand-primary transition-all"
           >
             Calculate Wasted Workhours
           </button>
@@ -708,7 +708,7 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
         <div className="absolute -top-12 -right-12 hidden xl:block animate-bounce-slow">
           <div className="glass p-8 rounded-sm space-y-4 border-ink/10">
             <MetaLabel className="text-ink/30">System Integrity</MetaLabel>
-            <div className="text-3xl font-black text-brand-secondary font-mono tracking-widest">99.98%</div>
+            <div className="text-3xl font-black text-resolver-blue font-mono tracking-widest">99.98%</div>
             <div className="flex gap-1.5">
               {[1,2,3,4,5,6,7].map(i => (
                 <div key={i} className="w-1.5 h-6 bg-brand-primary/30 rounded-full" />
@@ -793,7 +793,7 @@ const AISuite = () => {
 
 const ProblemSection = () => {
   return (
-    <section className="py-24 md:py-48 bg-white relative overflow-hidden border-y border-ink/5">
+    <section className="py-24 md:py-48 bg-bg-dark relative overflow-hidden border-y border-ink/5">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
           <div>
@@ -828,10 +828,10 @@ const ProblemSection = () => {
               { label: "Manual Error Rate", val: "15%+", trend: "Typo Risks" },
               { label: "Efficiency Status", val: "Struggling", trend: "Action Required" }
             ].map((stat, i) => (
-              <div key={i} className="p-16 bg-white hover:bg-bg-dark transition-colors">
-                <div className="text-4xl font-black text-brand-secondary mb-4">{stat.val}</div>
+              <div key={i} className="p-16 bg-bg-card border border-white/5 hover:bg-bg-dark transition-colors">
+                <div className="text-4xl font-black text-resolver-blue mb-4">{stat.val}</div>
                 <div className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary mb-2 whitespace-nowrap">{stat.label}</div>
-                <div className="text-[9px] font-bold text-ink/20 uppercase tracking-widest">{stat.trend}</div>
+                <div className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{stat.trend}</div>
               </div>
             ))}
           </div>
@@ -867,12 +867,12 @@ const SolutionsSection = () => {
   ];
 
   return (
-    <section id="solutions" className="py-20 md:py-32 bg-white">
+    <section id="solutions" className="py-20 md:py-32 bg-bg-dark">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
           <div className="max-w-xl">
             <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Our Core Work</div>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-brand-secondary leading-tight">How We Help <br /> <span className="text-gradient">You Scale.</span></h2>
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-white leading-tight">How We Help <br /> <span className="text-gradient">You Scale.</span></h2>
           </div>
           <p className="text-lg md:text-xl text-ink/40 max-w-sm leading-relaxed font-medium">
             We build the automation frameworks that South African SMEs need to run smoothly and efficiently.
@@ -882,8 +882,8 @@ const SolutionsSection = () => {
         <div className="grid lg:grid-cols-3 gap-0 border border-ink/5 divide-y md:divide-y-0 md:divide-x divide-ink/5">
           {solutions.map((s, i) => (
             <div key={i} className="p-16 hover:bg-bg-dark transition-all group">
-              <div className="w-12 h-12 rounded-sm bg-brand-secondary/5 flex items-center justify-center mb-10 group-hover:bg-brand-primary/10">
-                <s.icon className="w-6 h-6 text-brand-secondary group-hover:text-brand-primary" />
+              <div className="w-12 h-12 rounded-sm bg-white/5 flex items-center justify-center mb-10 group-hover:bg-brand-primary/10">
+                <s.icon className="w-6 h-6 text-resolver-blue group-hover:text-brand-primary" />
               </div>
               <h3 className="text-2xl font-bold mb-6">{s.title}</h3>
               <p className="text-ink/50 mb-10 text-sm leading-relaxed h-20">{s.desc}</p>
@@ -916,7 +916,7 @@ const HowItWorks = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="text-center mb-16 md:mb-24">
           <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Our Process</div>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-brand-secondary mb-6">How We Work Together.</h2>
+          <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-6">How We Work Together.</h2>
           <p className="text-lg md:text-xl text-ink/40 max-w-xl mx-auto">A simple, four-stage approach to digital growth.</p>
         </div>
 
@@ -1006,7 +1006,7 @@ export default function LandingPage() {
 
       <LandingHero onOpenModal={openModal} />
       
-      <section id="audit-calculator" className="py-24 bg-white">
+      <section id="audit-calculator" className="py-24 bg-bg-dark">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div>
@@ -1018,11 +1018,11 @@ export default function LandingPage() {
                 Most South African businesses waste up to 40% of their workhours on manual admin, missed booking follow-ups, and slow replies. Our calculator shows the exact cost of doing nothing.
               </p>
               <div className="space-y-6">
-                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-brand-secondary">
+                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-white/70">
                   <div className="w-2 h-2 rounded-full bg-brand-primary" />
                   Instant Cost Calculator
                 </div>
-                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-brand-secondary">
+                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-white/70">
                   <div className="w-2 h-2 rounded-full bg-brand-primary" />
                   Clear Revenue Savings Path
                 </div>
@@ -1050,7 +1050,7 @@ export default function LandingPage() {
       <HowItWorks />
       
       {/* Example Use Cases Section */}
-      <section id="impact-cases" className="py-24 md:py-48 relative overflow-hidden bg-white border-y border-ink/5">
+      <section id="impact-cases" className="py-24 md:py-48 relative overflow-hidden bg-bg-dark border-y border-ink/5">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-32 mb-16 md:mb-32 items-center">
             <div>
@@ -1135,9 +1135,9 @@ export default function LandingPage() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-ink/5 border border-ink/5">
             {["Logistics", "E-commerce", "FinTech", "Professional Services", "Consulting", "MedTech", "Energy"].map((ind, i) => (
-              <div key={i} className="p-12 md:p-16 bg-white flex flex-col items-center justify-center text-center group hover:bg-bg-dark transition-colors">
-                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-secondary mb-4 opacity-40 group-hover:opacity-100 transition-opacity whitespace-nowrap">{ind}</div>
-                <div className="w-2 h-2 rounded-full bg-ink/5 group-hover:bg-brand-primary transition-colors" />
+              <div key={i} className="p-12 md:p-16 bg-bg-card border border-white/5 flex flex-col items-center justify-center text-center group hover:bg-bg-dark transition-all duration-300">
+                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-resolver-blue mb-4 opacity-40 group-hover:opacity-100 transition-opacity whitespace-nowrap">{ind}</div>
+                <div className="w-2 h-2 rounded-full bg-white/10 group-hover:bg-brand-primary transition-colors" />
               </div>
             ))}
           </div>

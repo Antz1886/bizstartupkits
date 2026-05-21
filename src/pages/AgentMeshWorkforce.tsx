@@ -26,34 +26,34 @@ const AgentMeshWorkforce = () => {
             </motion.div>
             <div className="grid grid-cols-2 gap-6">
                <div className="space-y-6 pt-12">
-                 <div className="bg-white p-10 rounded-lg border border-ink/5 shadow-xl">
-                    <div className="text-4xl font-black text-brand-secondary mb-2">83%</div>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Tasks Resolved Automatically</div>
-                 </div>
-                 <div className="bg-white p-10 rounded-lg border border-ink/5 shadow-xl">
-                    <div className="text-4xl font-black text-brand-secondary mb-2">4.8+</div>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Customer Satisfaction</div>
-                 </div>
+                  <div className="bg-bg-card p-10 rounded-lg border border-white/5 shadow-xl">
+                     <div className="text-4xl font-black text-resolver-blue mb-2">83%</div>
+                     <div className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Tasks Resolved Automatically</div>
+                  </div>
+                  <div className="bg-bg-card p-10 rounded-lg border border-white/5 shadow-xl">
+                     <div className="text-4xl font-black text-resolver-blue mb-2">4.8+</div>
+                     <div className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Customer Satisfaction</div>
+                  </div>
                </div>
                <div className="space-y-6">
-                 <div className="bg-brand-secondary p-10 rounded-lg shadow-xl text-white">
-                    <MessageSquare className="w-10 h-10 text-brand-primary mb-6" />
-                    <div className="text-lg font-bold">Omni-Channel <br /> Connectivity</div>
-                 </div>
-                 <div className="bg-white p-10 rounded-lg border border-ink/5 shadow-xl">
-                    <div className="text-4xl font-black text-brand-secondary mb-2">10m</div>
-                    <div className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Integration Time</div>
-                 </div>
+                  <div className="bg-brand-secondary p-10 rounded-lg shadow-xl text-white">
+                     <MessageSquare className="w-10 h-10 text-brand-primary mb-6" />
+                     <div className="text-lg font-bold">Omni-Channel <br /> Connectivity</div>
+                  </div>
+                  <div className="bg-bg-card p-10 rounded-lg border border-white/5 shadow-xl">
+                     <div className="text-4xl font-black text-resolver-blue mb-2">10m</div>
+                     <div className="text-[10px] font-black uppercase tracking-widest text-brand-primary">Integration Time</div>
+                  </div>
                </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 md:py-32 bg-white">
+      <section className="py-20 md:py-32 bg-bg-dark border-t border-white/5">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="text-center mb-16 md:mb-24">
-             <h2 className="text-4xl md:text-5xl font-black uppercase text-brand-secondary mb-6">AI Assistants That Get Work Done.</h2>
+             <h2 className="text-4xl md:text-5xl font-black uppercase text-white mb-6">AI Assistants That Get Work Done.</h2>
              <p className="text-lg md:text-xl text-ink/40 max-w-2xl mx-auto font-medium">Traditional chatbots just repeat automated answers. Our digital employees connect to your databases to take action and get tasks done.</p>
           </div>
           
@@ -104,9 +104,9 @@ const AgentMeshWorkforce = () => {
         </div>
       </section>
 
-      <section className="py-32 bg-white">
+      <section className="py-32 bg-bg-dark border-t border-white/5">
         <div className="max-w-7xl mx-auto px-10 text-center">
-            <h2 className="text-6xl font-black uppercase mb-12 tracking-tighter text-brand-secondary">Recover Your <span className="text-brand-primary">Time.</span></h2>
+            <h2 className="text-6xl font-black uppercase mb-12 tracking-tighter text-white">Recover Your <span className="text-brand-primary">Time.</span></h2>
             <p className="text-xl text-ink/50 mb-16 max-w-2xl mx-auto">
               Get the technical edge that saves hours and lets your human team focus on scaling the business.
             </p>

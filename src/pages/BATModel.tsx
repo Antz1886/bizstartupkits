@@ -49,16 +49,16 @@ const BATModel = () => {
         </div>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-bg-dark border-t border-white/5">
         <div className="max-w-7xl mx-auto px-10">
           <SuccessSeal />
         </div>
       </section>
 
-      <section className="py-32 bg-white">
+      <section className="py-32 bg-bg-card border-y border-white/5">
         <div className="max-w-7xl mx-auto px-10">
           <div className="text-center mb-24">
-             <h2 className="text-5xl font-black uppercase text-brand-secondary">How the 14-Day Pilot Works.</h2>
+             <h2 className="text-5xl font-black uppercase text-white">How the 14-Day Pilot Works.</h2>
           </div>
           
           <div className="grid lg:grid-cols-3 gap-12">
@@ -67,28 +67,28 @@ const BATModel = () => {
                { stage: "Phase 2", title: "2. 14-Day Free Run", desc: "The AI handles real customer queries and bookings. We target a success rate of 83%." },
                { stage: "Phase 3", title: "3. Monthly Scale", desc: "We transition the AI assistants to full daily operations. You only pay if they hit targets." }
              ].map((p, i) => (
-                <div key={i} className="p-16 bg-bg-dark rounded-sm relative overflow-hidden group">
-                   <div className="text-9xl font-black text-ink/5 absolute -bottom-10 -right-10 leading-none pointer-events-none">{i+1}</div>
-                   <div className="text-[10px] font-black text-brand-primary mb-6 tracking-[0.4em]">{p.stage}</div>
-                   <h3 className="text-3xl font-bold mb-6">{p.title}</h3>
-                   <p className="text-ink/50 leading-relaxed relative z-10">{p.desc}</p>
-                </div>
+                 <div key={i} className="p-16 bg-bg-dark rounded-sm relative overflow-hidden group border border-white/5">
+                    <div className="text-9xl font-black text-white/5 absolute -bottom-10 -right-10 leading-none pointer-events-none">{i+1}</div>
+                    <div className="text-[10px] font-black text-brand-primary mb-6 tracking-[0.4em]">{p.stage}</div>
+                    <h3 className="text-3xl font-bold mb-6 text-white">{p.title}</h3>
+                    <p className="text-white/60 leading-relaxed relative z-10">{p.desc}</p>
+                 </div>
              ))}
           </div>
         </div>
       </section>
 
-      <section className="py-32 bg-bg-dark border-t border-ink/5">
+      <section className="py-32 bg-bg-dark border-t border-white/5">
         <div className="max-w-7xl mx-auto px-10 text-center">
-            <h2 className="text-6xl font-black uppercase mb-12 tracking-tighter text-brand-secondary">Automate Your <span className="text-brand-primary">Business.</span></h2>
-            <p className="text-xl text-ink/50 mb-16 max-w-2xl mx-auto">
+            <h2 className="text-6xl font-black uppercase mb-12 tracking-tighter text-white">Automate Your <span className="text-brand-primary">Business.</span></h2>
+            <p className="text-xl text-white/70 mb-16 max-w-2xl mx-auto">
               Our Build AI Together model is built to deliver immediate business results. Eliminate manual administration with zero risk.
             </p>
             <div className="flex flex-wrap justify-center gap-8">
-               <button className="px-12 py-6 bg-brand-secondary text-white font-black uppercase tracking-widest text-sm hover:bg-brand-primary transition-all">
+               <button className="px-12 py-6 bg-brand-secondary text-white border border-white/10 font-black uppercase tracking-widest text-sm hover:bg-brand-primary hover:border-brand-primary transition-all">
                   Start Your Free Pilot
                </button>
-               <button className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-brand-secondary border-b-2 border-brand-primary pb-2 hover:text-brand-primary transition-colors">
+               <button className="flex items-center gap-4 text-xs font-black uppercase tracking-[0.4em] text-resolver-blue border-b-2 border-brand-primary pb-2 hover:text-white transition-colors">
                   Contact Our Team <ArrowRight className="w-4 h-4" />
                </button>
             </div>

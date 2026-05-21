@@ -40,23 +40,23 @@ const CustomPythonResolvers = () => {
         </div>
       </section>
 
-      <section className="py-20 md:py-32 bg-white">
+      <section className="py-20 md:py-32 bg-bg-card border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-32">
             <div>
-              <h2 className="text-4xl md:text-5xl font-black uppercase mb-8 md:mb-10 text-brand-secondary">Connecting Your Tools.</h2>
-              <p className="text-lg md:text-xl text-ink/60 font-medium leading-relaxed">
+              <h2 className="text-4xl md:text-5xl font-black uppercase mb-8 md:mb-10 text-white">Connecting Your Tools.</h2>
+              <p className="text-lg md:text-xl text-white/70 font-medium leading-relaxed">
                 Off-the-shelf chatbots cannot access your customer data or run your specific business processes. We bridge this gap by connecting your AI assistants directly to your calendar, CRM, or fleet systems.
               </p>
             </div>
             <div className="space-y-12">
-              <div className="pb-12 border-b border-ink/5">
-                <div className="text-2xl font-bold mb-4">Unified Operations</div>
-                <p className="text-ink/40">Stop manual data entry. We write custom integrations that keep your systems sharing data smoothly and automatically.</p>
+              <div className="pb-12 border-b border-white/5">
+                <div className="text-2xl font-bold mb-4 text-white">Unified Operations</div>
+                <p className="text-white/60">Stop manual data entry. We write custom integrations that keep your systems sharing data smoothly and automatically.</p>
               </div>
-              <div className="pb-12 border-b border-ink/5 border-ink/5">
-                <div className="text-2xl font-bold mb-4">Built-in Safeguards</div>
-                <p className="text-ink/40">We build automated safety checks and clear rules so the AI only performs tasks with 100% reliability, alerting your team if human input is needed.</p>
+              <div className="pb-12 border-b border-white/5">
+                <div className="text-2xl font-bold mb-4 text-white">Built-in Safeguards</div>
+                <p className="text-white/60">We build automated safety checks and clear rules so the AI only performs tasks with 100% reliability, alerting your team if human input is needed.</p>
               </div>
             </div>
           </div>
@@ -100,10 +100,10 @@ const CustomPythonResolvers = () => {
         </div>
       </section>
 
-      <section className="py-20 md:py-32 bg-white">
+      <section className="py-20 md:py-32 bg-bg-dark">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
-             <div className="order-2 lg:order-1 relative aspect-video bg-bg-dark rounded-2xl overflow-hidden flex items-center justify-center border border-ink/5">
+             <div className="order-2 lg:order-1 relative aspect-video bg-bg-card rounded-2xl overflow-hidden flex items-center justify-center border border-white/5">
                 <div className="text-[10px] font-mono text-brand-primary p-12 overflow-hidden opacity-40">
                   {`def sync_system_action(event_data):
   # 1. Initialize custom connector
@@ -122,7 +122,7 @@ const CustomPythonResolvers = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-bg-dark to-transparent" />
              </div>
               <div className="order-1 lg:order-2">
-                <h2 className="text-5xl font-black uppercase mb-12 text-brand-secondary">Seamless Tool <br /> Connectivity.</h2>
+                <h2 className="text-5xl font-black uppercase mb-12 text-white">Seamless Tool <br /> Connectivity.</h2>
                 <ul className="space-y-8">
                   {[
                     "Custom Workflow Connections",
@@ -134,7 +134,7 @@ const CustomPythonResolvers = () => {
                       <div className="w-10 h-10 rounded-full border border-brand-primary/20 flex items-center justify-center group-hover:bg-brand-primary transition-colors">
                         <ChevronRight className="w-5 h-5 text-brand-primary group-hover:text-white" />
                       </div>
-                      <span className="text-xl font-bold text-ink/70">{f}</span>
+                      <span className="text-xl font-bold text-white/70">{f}</span>
                     </li>
                   ))}
                 </ul>
@@ -146,7 +146,7 @@ const CustomPythonResolvers = () => {
       <section className="py-20 md:py-32 bg-brand-secondary text-white">
         <div className="max-w-7xl mx-auto px-6 md:px-10 text-center">
             <h2 className="text-4xl md:text-6xl font-black uppercase mb-8 md:mb-12 tracking-tighter">Connect Your <span className="text-brand-primary">Systems.</span></h2>
-            <p className="text-lg md:text-xl text-white/50 mb-12 md:mb-16 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-white/70 mb-12 md:mb-16 max-w-2xl mx-auto">
               Our custom integrations are the technical backbone that lets AI work directly with your existing tools. Book a setup consultation today.
             </p>
             <div className="flex flex-wrap justify-center gap-6 md:gap-8">
