@@ -42,15 +42,16 @@
 
 @layer base {
   body {
-    @apply bg-bg-dark text-ink font-sans antialiased selection:bg-brand-primary selection:text-white;
+    @apply bg-white text-gray-900 font-sans antialiased selection:bg-brand-primary selection:text-white;
   }
   
+  /* Landing page sections and dark UI panels apply their own dark overrides */
   h1, h2, h3, h4 {
-    @apply font-sans tracking-[-0.04em] font-black uppercase text-white;
+    @apply font-sans tracking-[-0.04em] font-black;
   }
 
   p {
-    @apply text-white/80 leading-relaxed; /* Increased from 60% for legibility */
+    @apply leading-relaxed;
   }
 }
 
