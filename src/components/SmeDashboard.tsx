@@ -21,6 +21,7 @@ interface SmeProfile {
 }
 
 export const SmeDashboard = ({ profile, onLogout }: { profile: SmeProfile | null, onLogout: () => void }) => {
+  const [dashboardTab, setDashboardTab] = useState<'overview' | 'agents'>('overview');
   const [isOnline, setIsOnline] = useState(true);
   const [offlineQueue, setOfflineQueue] = useState<{ action: string; time: string }[]>([]);
 
@@ -934,7 +935,657 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
         )}
       </AnimatePresence>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8 grid lg:grid-cols-12 gap-6">
+      {/* ── SECTION TAB NAV ──────────────────────────────────────────────── */}
+      <div className="bg-white border-b border-gray-200 sticky top-[73px] z-30">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex gap-0">
+          {[
+            { id: 'overview', label: 'Overview', icon: '📋', desc: 'Tasks, compliance & audit log' },
+            { id: 'agents',   label: 'AgentMesh™ AI Workforce', icon: '🤖', desc: '6 autonomous agents' }
+          ].map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setDashboardTab(tab.id as any)}
+              className={`flex items-center gap-2.5 px-6 py-4 border-b-2 text-sm font-bold transition-all ${
+                dashboardTab === tab.id
+                  ? 'border-brand-primary text-brand-primary'
+                  : 'border-transparent text-gray-400 hover:text-gray-700 hover:border-gray-300'
+              }`}
+            >
+              <span className="text-base">{tab.icon}</span>
+              <div className="text-left">
+                <div className="leading-none">{tab.label}</div>
+                <div className="text-[9px] font-normal opacity-60 mt-0.5 tracking-wide">{tab.desc}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── OVERVIEW TAB ─────────────────────────────────────────────────── */}
+      {dashboardTab === 'overview' && (
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8 space-y-6 pb-20">
+
+          {/* Phase progress cards */}
+          <div className="grid grid-cols-3 gap-4">
+            {[
+              { label: 'Legal Setup', keys: ['cipcRegistered', 'sarsTaxVerified', 'bbbeeAffidavitCreated'], color: 'text-blue-600', bar: 'bg-blue-500' },
+              { label: 'Digital Brand', keys: ['logoDesigned', 'websiteLaunched'], color: 'text-purple-600', bar: 'bg-purple-500' },
+              { label: 'Launch & Trade', keys: ['whatsappBusinessActive', 'invoiceGenerated'], color: 'text-green-600', bar: 'bg-green-500' }
+            ].map(ph => {
+              const pct = calculatePhaseProgress(ph.keys);
+              return (
+                <div key={ph.label} className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
+                  <div className={`text-[9px] font-black uppercase tracking-widest ${ph.color} mb-2`}>{ph.label}</div>
+                  <div className={`text-2xl font-black ${ph.color}`}>{pct}%</div>
+                  <div className="w-full h-1.5 bg-gray-100 rounded-full mt-2 overflow-hidden">
+                    <div className={`h-full ${ph.bar} rounded-full transition-all`} style={{ width: `${pct}%` }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* SA Regulatory Tasks */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="px-6 py-5 border-b border-gray-100">
+              <h3 className="font-black text-gray-900 text-base">SA Regulatory Tasks</h3>
+              <p className="text-xs text-gray-400 mt-0.5">Click any task to toggle completion and log activity</p>
+            </div>
+            <div className="p-6 space-y-6">
+              {[
+                { phase: 'Phase 1 · Legal Foundation', color: 'text-blue-500', items: [
+                  { key: 'cipcRegistered', title: 'CIPC Company Registration', desc: 'Secure your SA registered entity (COR14.3 form).' },
+                  { key: 'sarsTaxVerified', title: 'SARS Tax Registration & Compliance', desc: 'Verify tax reference number and obtain compliance status PIN.' },
+                  { key: 'bbbeeAffidavitCreated', title: 'B-BBEE EME Affidavit', desc: 'Generate a commissioner-signed EME certificate.' }
+                ]},
+                { phase: 'Phase 2 · Digital Identity', color: 'text-purple-500', items: [
+                  { key: 'logoDesigned', title: 'Brand Logo Creation', desc: 'Generate premium brand mark using Apex Agent.' },
+                  { key: 'websiteLaunched', title: 'Website Launch & Hosting', desc: 'Build multi-section landing site using Nova Agent.' }
+                ]},
+                { phase: 'Phase 3 · Launch & Trade', color: 'text-green-500', items: [
+                  { key: 'whatsappBusinessActive', title: 'WhatsApp Business Catalog', desc: 'Activate local customer engagement and product catalog.' },
+                  { key: 'invoiceGenerated', title: 'Financial Ledger Active', desc: 'Deploy invoicing, income & expense tracking.' }
+                ]}
+              ].map(section => (
+                <div key={section.phase}>
+                  <div className={`text-[10px] font-black uppercase tracking-widest ${section.color} mb-3`}>{section.phase}</div>
+                  <div className="space-y-2">
+                    {section.items.map(task => (
+                      <div key={task.key} onClick={() => handleToggleTask(task.key)}
+                        className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start gap-3 ${
+                          tasks[task.key] ? 'bg-green-50 border-green-200' : 'bg-white border-gray-100 hover:border-gray-300'
+                        }`}>
+                        <div className={`mt-0.5 w-4 h-4 rounded border flex items-center justify-center shrink-0 transition-all ${
+                          tasks[task.key] ? 'bg-green-500 border-green-500' : 'border-gray-300'
+                        }`}>
+                          {tasks[task.key] && <Check className="w-2.5 h-2.5 text-white" />}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className={`font-bold text-xs ${ tasks[task.key] ? 'text-green-700 line-through' : 'text-gray-800'}`}>{task.title}</h4>
+                          <p className="text-[11px] text-gray-400 mt-0.5">{task.desc}</p>
+                        </div>
+                        {tasks[task.key] && <CheckCircle2 className="w-4 h-4 text-green-500 shrink-0 mt-0.5" />}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Turnover + Govt Upload + Audit in a responsive grid */}
+          <div className="grid lg:grid-cols-2 gap-6">
+
+            {/* Turnover Bracket */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
+              <h3 className="font-black text-gray-900 text-base border-b border-gray-100 pb-3">Enterprise Turnover Bracket</h3>
+              <div className="grid grid-cols-3 gap-3">
+                {['<R10m EME', 'R10m-R50m QSE', '>R50m Large'].map((b) => (
+                  <button key={b} onClick={() => { setTurnoverBracket(b); logActivity(`Updated Turnover Bracket to ${b}`); }}
+                    className={`py-3 px-2 text-[10px] font-black uppercase tracking-wide border rounded-xl transition-all ${
+                      turnoverBracket === b ? 'bg-brand-secondary text-white border-brand-secondary shadow-md' : 'border-gray-200 text-gray-500 hover:border-brand-primary hover:text-brand-primary'
+                    }`}>
+                    {b.split(' ')[0]}<br />{b.split(' ')[1]}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Govt Upload */}
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
+              <h3 className="font-black text-gray-900 text-base border-b border-gray-100 pb-3">Govt Portal Buffer Upload</h3>
+              <form onSubmit={handleUploadSlip} className="flex gap-3">
+                <input type="text" placeholder="e.g. CIPC-Slip-9831.pdf" value={tempFile} onChange={e => setTempFile(e.target.value)}
+                  className="flex-1 p-3 text-xs border border-gray-200 rounded-xl focus:outline-none focus:border-brand-primary bg-gray-50" />
+                <button type="submit" className="px-5 py-3 bg-brand-secondary text-white text-xs font-black uppercase tracking-wide rounded-xl hover:bg-brand-primary transition-all flex items-center gap-2">
+                  <Send className="w-3.5 h-3.5" /> Upload
+                </button>
+              </form>
+              {govtSlips.length > 0 && (
+                <div className="space-y-2">
+                  {govtSlips.map((slip, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-100 text-xs">
+                      <div className="flex items-center gap-2">
+                        <FileText className="w-3.5 h-3.5 text-brand-primary" />
+                        <span className="font-medium text-gray-700 truncate">{slip}</span>
+                      </div>
+                      <span className="text-[9px] font-black uppercase tracking-wide bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded">Pending</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Audit Log */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
+            <div className="flex justify-between items-center border-b border-gray-100 pb-3">
+              <h3 className="font-black text-gray-900 text-base">SANAS Audit Log Trail</h3>
+              {offlineQueue.length > 0 && <span className="text-[9px] font-black uppercase tracking-wide text-yellow-600 bg-yellow-50 px-2 py-0.5 rounded">+{offlineQueue.length} Queued</span>}
+            </div>
+            <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+              {activityLog.map((log, i) => (
+                <div key={i} className="flex justify-between gap-4 pb-2 border-b border-gray-50 text-[11px]">
+                  <p className={`flex-1 font-medium ${log.offline ? 'text-yellow-600' : 'text-gray-600'}`}>{log.description}</p>
+                  <span className="text-gray-300 shrink-0 font-mono text-[10px]">{log.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+      </div>
+      )}
+
+      {/* ── AGENTMESH™ TAB ──────────────────────────────────────────────────── */}
+      {dashboardTab === 'agents' && (
+      <div className="max-w-7xl mx-auto px-4 md:px-8 mt-8 pb-20">
+
+        {/* Hero banner */}
+        <div className="bg-white border border-gray-100 rounded-2xl p-8 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-10 h-10 rounded-xl bg-brand-primary flex items-center justify-center shadow-sm">
+                <Bot className="w-5 h-5 text-white" />
+              </div>
+              <div>
+                <h2 className="text-xl font-black text-gray-900 leading-none">AgentMesh™ AI Workforce</h2>
+                <p className="text-[11px] text-gray-400 mt-0.5 uppercase tracking-widest">6 Specialized Autonomous Agents</p>
+              </div>
+            </div>
+            <p className="text-sm text-gray-500 max-w-xl leading-relaxed">
+              Each agent handles a distinct business function end-to-end — from brand identity to legal compliance. Select an agent below to open its full workspace.
+            </p>
+          </div>
+          <div className="flex gap-6 shrink-0">
+            <div className="text-center">
+              <div className="text-2xl font-black text-brand-primary">83%+</div>
+              <div className="text-[9px] text-gray-400 uppercase tracking-widest mt-0.5">Resolution Rate</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-black text-gray-900">6</div>
+              <div className="text-[9px] text-gray-400 uppercase tracking-widest mt-0.5">Active Agents</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-black text-green-500">Live</div>
+              <div className="text-[9px] text-gray-400 uppercase tracking-widest mt-0.5">Node Status</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Agent selector cards */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+          {[
+            { id: 'branding',   emoji: '🎨', label: 'Apex',    role: 'Brand Identity',    color: 'from-rose-500 to-pink-600' },
+            { id: 'web',        emoji: '🌐', label: 'Nova',    role: 'Website Generator', color: 'from-blue-500 to-indigo-600' },
+            { id: 'planning',   emoji: '📋', label: 'Scribe',  role: 'Business Planning', color: 'from-amber-500 to-orange-600' },
+            { id: 'compliance', emoji: '🛡️', label: 'Vanguard',role: 'B-BBEE Compliance', color: 'from-emerald-500 to-green-600' },
+            { id: 'ledger',     emoji: '💰', label: 'Ledger',  role: 'P&L Bookkeeping',   color: 'from-violet-500 to-purple-600' },
+            { id: 'seo',        emoji: '🔍', label: 'Seeker',  role: 'Local SEO',         color: 'from-cyan-500 to-teal-600' }
+          ].map(agent => (
+            <button key={agent.id} onClick={() => setActiveAgent(agent.id as any)}
+              className={`relative rounded-2xl p-4 text-left transition-all group border-2 ${
+                activeAgent === agent.id
+                  ? 'border-brand-primary bg-white shadow-lg shadow-brand-primary/10'
+                  : 'border-gray-100 bg-white hover:border-gray-300 hover:shadow-md'
+              }`}>
+              <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${agent.color} flex items-center justify-center text-xl mb-3`}>
+                {agent.emoji}
+              </div>
+              <div className="font-black text-gray-900 text-sm leading-none">{agent.label}</div>
+              <div className="text-[10px] text-gray-400 mt-1 font-medium">{agent.role}</div>
+              {activeAgent === agent.id && (
+                <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-brand-primary animate-pulse" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Full-width workspace */}
+        <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+
+          {/* Workspace header */}
+          <div className="px-8 py-5 border-b border-gray-100 flex items-center justify-between bg-gray-50">
+            <div className="flex items-center gap-3">
+              <div className="text-2xl">
+                {activeAgent === 'branding' ? '🎨' : activeAgent === 'web' ? '🌐' : activeAgent === 'planning' ? '📋' : activeAgent === 'compliance' ? '🛡️' : activeAgent === 'ledger' ? '💰' : '🔍'}
+              </div>
+              <div>
+                <h3 className="font-black text-gray-900 text-lg leading-none">
+                  {activeAgent === 'branding' ? 'Apex — Brand Identity Agent' : activeAgent === 'web' ? 'Nova — Website Generator Agent' : activeAgent === 'planning' ? 'Scribe — Business Planning Agent' : activeAgent === 'compliance' ? 'Vanguard — Compliance Agent' : activeAgent === 'ledger' ? 'Ledger — Bookkeeper Agent' : 'Seeker — Local SEO Agent'}
+                </h3>
+                <p className="text-[11px] text-gray-400 mt-0.5">
+                  {activeAgent === 'branding' ? 'Generating premium multi-style SVG brand marks with gradients and typography.' : activeAgent === 'web' ? 'Building a full multi-section professional website with payment integration.' : activeAgent === 'planning' ? 'Drafting an 8-section professional HTML business plan for SEDA, SEFA & banks.' : activeAgent === 'compliance' ? 'Auto-generating B-BBEE EME affidavits with POPIA clauses and SARS declarations.' : activeAgent === 'ledger' ? 'Full P&L tracking: income, expenses, real-time net profit, and ESD-compliant export.' : 'Meta tags, Open Graph, Schema.org structured data and Google Business Profile setup.'}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 bg-green-50 border border-green-200 px-3 py-1.5 rounded-full">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+              <span className="text-[10px] font-bold text-green-600 uppercase tracking-wider">Node Active</span>
+            </div>
+          </div>
+
+          {/* Workspace body — two columns for wider layout */}
+          <div className="p-8">
+            <div className="grid lg:grid-cols-2 gap-8">
+
+              {/* ── APEX ── */}
+              {activeAgent === 'branding' && (<>
+                <div className="space-y-5">
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-2">Logo Style</label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {(['badge', 'wordmark', 'icon'] as const).map(s => (
+                        <button key={s} onClick={() => setLogoStyle(s)}
+                          className={`py-2.5 rounded-xl border text-xs font-bold uppercase tracking-wide transition-all ${
+                            logoStyle === s ? 'bg-brand-primary border-brand-primary text-white' : 'border-gray-200 text-gray-500 hover:border-brand-primary hover:text-brand-primary'
+                          }`}>
+                          {s === 'badge' ? '🏷 Badge' : s === 'wordmark' ? '🔤 Wordmark' : '🔷 Icon Only'}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Initials (max 3)</label>
+                      <input type="text" maxLength={3} value={logoInitials} onChange={e => setLogoInitials(e.target.value.toUpperCase())}
+                        className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Icon Symbol</label>
+                      <select value={logoSymbol} onChange={e => setLogoSymbol(e.target.value as any)}
+                        className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-xs focus:outline-none">
+                        <option value="shield">Shield</option><option value="store">Storefront</option>
+                        <option value="truck">Delivery Truck</option><option value="star">Growth Star</option>
+                        <option value="rocket">Rocket</option><option value="diamond">Diamond</option><option value="mug">Coffee Mug</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Brand Tagline</label>
+                    <input type="text" value={logoTagline} onChange={e => setLogoTagline(e.target.value)}
+                      className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Primary Color</label>
+                      <input type="color" value={logoColorPrimary} onChange={e => setLogoColorPrimary(e.target.value)} className="w-full h-10 bg-transparent border-0 cursor-pointer rounded" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Dark / Background Color</label>
+                      <input type="color" value={logoColorSecondary} onChange={e => setLogoColorSecondary(e.target.value)} className="w-full h-10 bg-transparent border-0 cursor-pointer rounded" />
+                    </div>
+                  </div>
+                  <button onClick={handleDownloadLogo}
+                    className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <Download className="w-4 h-4" /> Download Brand Logo SVG
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Live Preview</label>
+                  <div className="bg-white rounded-2xl p-6 flex items-center justify-center min-h-[200px] relative group/logo">
+                    <div dangerouslySetInnerHTML={{ __html: generateSvgLogoContent() }} className="max-w-full" />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/logo:opacity-100 transition-opacity flex items-center justify-center rounded-2xl">
+                      <button onClick={handleDownloadLogo} className="px-5 py-2.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-lg flex items-center gap-2">
+                        <Download className="w-3.5 h-3.5" /> Download SVG
+                      </button>
+                    </div>
+                  </div>
+                  <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 text-[10px] text-white/50 space-y-1">
+                    <div className="font-black text-white/30 uppercase tracking-wider text-[9px] mb-2">Output Spec</div>
+                    <div>Format: <strong className="text-white">SVG (Scalable Vector)</strong></div>
+                    <div>Style: <strong className="text-white capitalize">{logoStyle}</strong></div>
+                    <div>Canvas: <strong className="text-white">{logoStyle === 'icon' ? '160×160px' : logoStyle === 'badge' ? '400×180px' : '400×140px'}</strong></div>
+                    <div>Colors: <strong className="text-white">{logoColorPrimary} · {logoColorSecondary}</strong></div>
+                  </div>
+                </div>
+              </>)}
+
+              {/* ── NOVA ── */}
+              {activeAgent === 'web' && (<>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Site Colour Theme</label>
+                      <select value={webTheme} onChange={e => setWebTheme(e.target.value as any)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm">
+                        <option value="blue">Corporate Blue</option><option value="green">Growth Green</option>
+                        <option value="orange">Energy Orange</option><option value="purple">Premium Purple</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Payment Gateway</label>
+                      <select value={webGateway} onChange={e => setWebGateway(e.target.value as any)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm">
+                        <option value="yoco">Yoco SDK</option><option value="payfast">PayFast</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Hero Headline</label>
+                    <input type="text" value={webHeadline} onChange={e => setWebHeadline(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20" />
+                  </div>
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Sub-Headline</label>
+                    <input type="text" value={webSubheadline} onChange={e => setWebSubheadline(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20" />
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {[{ label: 'Service 1', val: webService1, set: setWebService1 }, { label: 'Service 2', val: webService2, set: setWebService2 }, { label: 'Service 3', val: webService3, set: setWebService3 }].map(s => (
+                      <div key={s.label}>
+                        <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">{s.label}</label>
+                        <input type="text" value={s.val} onChange={e => s.set(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-2 py-2 text-gray-900 text-xs focus:outline-none focus:border-brand-primary" />
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Contact Phone</label>
+                      <input type="text" value={webContact} onChange={e => setWebContact(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Location</label>
+                      <input type="text" value={webLocation} onChange={e => setWebLocation(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                  </div>
+                  <button onClick={handleDownloadWebsite} className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <Download className="w-4 h-4" /> Download Full Website HTML
+                  </button>
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Live Preview</label>
+                  <div className="border border-white/10 rounded-2xl overflow-hidden">
+                    <div className="bg-white/5 px-4 py-2.5 text-[9px] font-mono text-white/40 border-b border-white/10 flex justify-between items-center">
+                      <span>🌐 {companyName} — Live Preview</span>
+                      <span className="text-brand-primary font-bold">Multi-section website</span>
+                    </div>
+                    <iframe title="Website Preview" srcDoc={generateWebsiteContent()} className="w-full bg-white" style={{ height: '420px' }} />
+                  </div>
+                </div>
+              </>)}
+
+              {/* ── SCRIBE ── */}
+              {activeAgent === 'planning' && (<>
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Mission / Vision Statement</label>
+                    <textarea value={bizPlan.mission} onChange={e => setBizPlan({ ...bizPlan, mission: e.target.value })} rows={3}
+                      className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary/20 resize-none" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Target Market</label>
+                      <input type="text" value={bizPlan.market} onChange={e => setBizPlan({ ...bizPlan, market: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Funding Ask</label>
+                      <input type="text" value={bizPlan.fundingTarget} onChange={e => setBizPlan({ ...bizPlan, fundingTarget: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Business Model</label>
+                    <input type="text" value={bizPlan.businessModel} onChange={e => setBizPlan({ ...bizPlan, businessModel: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Revenue Target (3yr)</label>
+                      <input type="text" value={bizPlan.targetRevenue} onChange={e => setBizPlan({ ...bizPlan, targetRevenue: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Team Composition</label>
+                      <input type="text" value={bizPlan.teamComposition} onChange={e => setBizPlan({ ...bizPlan, teamComposition: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                  </div>
+                  <button onClick={handleDownloadPlan} className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <Download className="w-4 h-4" /> Generate & Download Business Plan (HTML)
+                  </button>
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Plan Structure</label>
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 space-y-3">
+                    {[
+                      { n: '01', title: 'Executive Summary', icon: '📌' },
+                      { n: '02', title: 'Problem & Market Opportunity', icon: '🎯' },
+                      { n: '03', title: 'Business Model & Revenue Streams', icon: '💡' },
+                      { n: '04', title: 'Market Analysis (SA Township)', icon: '🗺️' },
+                      { n: '05', title: 'Financial Projections — 3 Year Table', icon: '📊' },
+                      { n: '06', title: 'Funding Requirement & Use of Funds', icon: '💳' },
+                      { n: '07', title: 'B-BBEE Compliance Status', icon: '🛡️' },
+                      { n: '08', title: 'Management Team & Signatures', icon: '✍️' }
+                    ].map(s => (
+                      <div key={s.n} className="flex items-center gap-3 text-sm">
+                        <span className="text-brand-primary font-mono font-bold text-xs w-6">{s.n}</span>
+                        <span className="text-lg">{s.icon}</span>
+                        <span className="text-gray-600">{s.title}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>)}
+
+              {/* ── VANGUARD ── */}
+              {activeAgent === 'compliance' && (<>
+                <div className="space-y-5">
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-2">Black Ownership Percentage</label>
+                    <select value={blackOwnershipPercent} onChange={e => setBlackOwnershipPercent(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-3 text-gray-900 text-sm focus:outline-none focus:border-brand-primary">
+                      <option value="100%">100% Black Owned → Level 1 B-BBEE</option>
+                      <option value="51%">51%+ Black Owned → Level 2 B-BBEE</option>
+                      <option value="0%">0% Black Owned → Level 4 B-BBEE</option>
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[9px] uppercase tracking-wider text-white/40 block">Compliance Declarations</label>
+                    {[
+                      { label: 'SARS Tax Compliant', sub: 'Active tax clearance pin', val: sarsCompliant, set: setSarsCompliant },
+                      { label: 'UIF Registered', sub: 'Unemployment Insurance Fund', val: uifRegistered, set: setUifRegistered },
+                      { label: 'Women-Owned Entity', sub: '50%+ female ownership', val: womenOwned, set: setWomenOwned },
+                      { label: 'Youth-Owned (under 35)', sub: '50%+ youth ownership', val: youthOwned, set: setYouthOwned }
+                    ].map(item => (
+                      <div key={item.label} onClick={() => item.set(!item.val)}
+                        className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
+                          item.val ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200 hover:border-brand-primary/30'
+                        }`}>
+                        <div>
+                          <div className="text-sm font-semibold text-gray-900">{item.label}</div>
+                          <div className="text-[10px] text-gray-400 mt-0.5">{item.sub}</div>
+                        </div>
+                        <div className={`w-5 h-5 rounded border flex items-center justify-center ${item.val ? 'bg-green-500 border-green-500' : 'border-white/30'}`}>
+                          {item.val && <Check className="w-3 h-3 text-white" />}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <button onClick={handleDownloadAffidavit} className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <Download className="w-4 h-4" /> Download B-BBEE EME Affidavit
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Affidavit Summary</label>
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 space-y-4 text-sm">
+                    <div className="flex justify-between border-b border-gray-100 pb-3">
+                      <span className="text-white/50">Entity</span>
+                      <span className="text-gray-900 font-bold">{companyName}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-gray-100 pb-3">
+                      <span className="text-white/50">B-BBEE Level</span>
+                      <span className="text-brand-primary font-black">Level {blackOwnershipPercent === '100%' ? '1' : blackOwnershipPercent === '51%' ? '2' : '4'}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-gray-100 pb-3">
+                      <span className="text-white/50">Classification</span>
+                      <span className="text-gray-900 font-bold">EME ({turnoverBracket})</span>
+                    </div>
+                    <div className="flex justify-between border-b border-gray-100 pb-3">
+                      <span className="text-white/50">SARS Status</span>
+                      <span className={sarsCompliant ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}>{sarsCompliant ? 'Compliant' : 'Pending'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-white/50">Includes</span>
+                      <span className="text-gray-600 text-xs text-right">POPIA clause · Commissioner block · Ref #</span>
+                    </div>
+                  </div>
+                </div>
+              </>)}
+
+              {/* ── LEDGER ── */}
+              {activeAgent === 'ledger' && (<>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 text-center">
+                      <div className="text-green-400 font-black text-lg">R{totalIncome.toLocaleString()}</div>
+                      <div className="text-[9px] text-white/40 uppercase tracking-wide mt-1">Total Income</div>
+                    </div>
+                    <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-center">
+                      <div className="text-red-400 font-black text-lg">R{totalExpenses.toLocaleString()}</div>
+                      <div className="text-[9px] text-white/40 uppercase tracking-wide mt-1">Total Expenses</div>
+                    </div>
+                    <div className={`${netProfit >= 0 ? 'bg-brand-primary/10 border-brand-primary/20' : 'bg-red-500/10 border-red-500/20'} border rounded-xl p-4 text-center`}>
+                      <div className={`${netProfit >= 0 ? 'text-brand-primary' : 'text-red-400'} font-black text-lg`}>R{netProfit.toLocaleString()}</div>
+                      <div className="text-[9px] text-white/40 uppercase tracking-wide mt-1">Net Profit</div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {(['expense', 'income'] as const).map(t => (
+                      <button key={t} onClick={() => setLedgerTab(t)} className={`py-2.5 rounded-xl text-xs font-bold uppercase tracking-wide transition-all ${ ledgerTab === t ? 'bg-brand-primary text-white' : 'bg-white/5 text-white/50 hover:bg-white/10' }`}>
+                        {t === 'expense' ? '📉 Expenses' : '📈 Income'}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                    {ledgerTab === 'expense'
+                      ? expenses.map(exp => (
+                          <div key={exp.id} className="flex justify-between items-center bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm">
+                            <div><span className="text-gray-800 font-medium">{exp.desc}</span><span className="text-white/30 ml-2 text-xs">[{exp.category}]</span></div>
+                            <div className="flex items-center gap-3"><span className="font-mono text-red-400 font-bold">-R{exp.amount}</span>
+                              <button onClick={() => { setExpenses(prev => prev.filter(e => e.id !== exp.id)); }} className="text-white/30 hover:text-red-400"><Trash2 className="w-3.5 h-3.5" /></button>
+                            </div>
+                          </div>
+                        ))
+                      : income.map(inc => (
+                          <div key={inc.id} className="flex justify-between items-center bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm">
+                            <span className="text-gray-800 font-medium">{inc.desc}</span>
+                            <div className="flex items-center gap-3"><span className="font-mono text-green-400 font-bold">+R{inc.amount}</span>
+                              <button onClick={() => { setIncome(prev => prev.filter(i => i.id !== inc.id)); }} className="text-white/30 hover:text-red-400"><Trash2 className="w-3.5 h-3.5" /></button>
+                            </div>
+                          </div>
+                        ))
+                    }
+                  </div>
+                  {ledgerTab === 'expense' ? (
+                    <form onSubmit={addExpense} className="space-y-2">
+                      <div className="flex gap-2">
+                        <input type="text" placeholder="Expense description" value={newExpenseDesc} onChange={e => setNewExpenseDesc(e.target.value)} className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-brand-primary" />
+                        <input type="number" placeholder="ZAR" value={newExpenseAmount} onChange={e => setNewExpenseAmount(e.target.value)} className="w-24 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-brand-primary" />
+                      </div>
+                      <div className="flex gap-2">
+                        <select value={newExpenseCategory} onChange={e => setNewExpenseCategory(e.target.value)} className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm">
+                          {['Operations','Logistics','Marketing','Admin','Salaries','Equipment'].map(c => <option key={c}>{c}</option>)}
+                        </select>
+                        <button type="submit" className="px-5 py-2.5 bg-brand-primary text-white rounded-lg font-bold"><Plus className="w-4 h-4" /></button>
+                      </div>
+                    </form>
+                  ) : (
+                    <form onSubmit={addIncome} className="flex gap-2">
+                      <input type="text" placeholder="Income description" value={newIncomeDesc} onChange={e => setNewIncomeDesc(e.target.value)} className="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none focus:border-brand-primary" />
+                      <input type="number" placeholder="ZAR" value={newIncomeAmount} onChange={e => setNewIncomeAmount(e.target.value)} className="w-24 bg-gray-50 border border-gray-200 rounded-lg px-2 py-2.5 text-gray-900 placeholder-gray-400 text-sm focus:outline-none" />
+                      <button type="submit" className="px-5 py-2.5 bg-green-500 text-white rounded-lg font-bold"><Plus className="w-4 h-4" /></button>
+                    </form>
+                  )}
+                  <button onClick={handleDownloadLedger} className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <Download className="w-4 h-4" /> Export Full P&L Ledger
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Financial Summary</label>
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 space-y-3">
+                    <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Profit & Loss Statement</div>
+                    {expenses.map(e => (<div key={e.id} className="flex justify-between text-xs border-b border-gray-100 pb-2"><span className="text-white/60">{e.desc}</span><span className="text-red-400 font-mono">-R{e.amount}</span></div>))}
+                    <div className="flex justify-between text-xs border-b border-gray-100 pb-2 pt-2">
+                      <span className="text-white/60 font-bold">Total Expenses</span><span className="text-red-400 font-mono font-bold">-R{totalExpenses.toLocaleString()}</span>
+                    </div>
+                    {income.map(i => (<div key={i.id} className="flex justify-between text-xs border-b border-gray-100 pb-2"><span className="text-white/60">{i.desc}</span><span className="text-green-400 font-mono">+R{i.amount}</span></div>))}
+                    <div className="flex justify-between text-sm pt-2">
+                      <span className="text-gray-900 font-black">Net Profit / (Loss)</span>
+                      <span className={`font-black font-mono ${netProfit >= 0 ? 'text-brand-primary' : 'text-red-400'}`}>R{netProfit.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+              </>)}
+
+              {/* ── SEEKER ── */}
+              {activeAgent === 'seo' && (<>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Target Locality</label>
+                      <input type="text" value={seoLocality} onChange={e => { setSeoLocality(e.target.value); setIsSeoSaved(false); }} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                    <div>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Focus Keywords</label>
+                      <input type="text" value={seoKeywords} onChange={e => { setSeoKeywords(e.target.value); setIsSeoSaved(false); }} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-2">Google Business Profile Checklist</label>
+                    <div className="space-y-2">
+                      {Object.entries(seoGBPChecklist).map(([key, val]) => (
+                        <div key={key} onClick={() => setSeoGBPChecklist(prev => ({ ...prev, [key]: !prev[key as keyof typeof seoGBPChecklist] }))}
+                          className={`flex items-center gap-3 p-3.5 rounded-xl cursor-pointer border transition-all ${val ? 'bg-green-500/10 border-green-500/20' : 'bg-gray-50 border-gray-200 hover:border-brand-primary/30'}`}>
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center ${val ? 'bg-green-500 border-green-500' : 'border-white/30'}`}>
+                            {val && <Check className="w-2.5 h-2.5 text-white" />}
+                          </div>
+                          <span className="text-sm text-gray-600">{key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase())}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <button onClick={handleDownloadSeoReport} className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
+                    <Download className="w-4 h-4" /> {isSeoSaved ? 'Download SEO Report' : 'Generate Full SEO Report'}
+                  </button>
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Generated Meta Tags Preview</label>
+                  <div className="bg-gray-900 border border-gray-700 rounded-2xl p-5 font-mono text-xs text-gray-300 space-y-2">
+                    <div className="text-[9px] uppercase tracking-wider text-white/30 font-sans font-bold border-b border-white/10 pb-2 mb-2">HTML Head — Copy & Paste</div>
+                    <div className="text-green-400">&lt;title&gt;</div>
+                    <div className="pl-4 text-white/80">{companyName} | Premium {industry} in {seoLocality}</div>
+                    <div className="text-green-400">&lt;/title&gt;</div>
+                    <div className="mt-2">&lt;meta name=<span className="text-brand-primary">"description"</span></div>
+                    <div className="pl-4">content=<span className="text-white/50">"Best {industry} in {seoLocality}. {seoKeywords}."</span> /&gt;</div>
+                    <div className="mt-2">&lt;meta name=<span className="text-brand-primary">"keywords"</span></div>
+                    <div className="pl-4">content=<span className="text-white/50">"{seoKeywords}, {industry}, {seoLocality}"</span> /&gt;</div>
+                    <div className="mt-2 text-amber-400">&lt;script type=<span className="text-white/50">"application/ld+json"</span>&gt;</div>
+                    <div className="pl-4 text-white/40">LocalBusiness schema ...</div>
+                    <div className="text-amber-400">&lt;/script&gt;</div>
+                  </div>
+                </div>
+              </>)}
+
+            </div>
+          </div>
+        </div>
+      </div>
+      )}
+
+    </div>
+  );
+};
 
         {/* ── LEFT COLUMN ──────────────────────────────────────────────────── */}
         <div className="lg:col-span-7 space-y-6">
@@ -1115,12 +1766,12 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
 
                   {/* Style selector */}
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-2">Logo Style</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-2">Logo Style</label>
                     <div className="grid grid-cols-3 gap-2">
                       {(['badge', 'wordmark', 'icon'] as const).map(s => (
                         <button key={s} onClick={() => setLogoStyle(s)}
                           className={`py-2 rounded-lg border text-[10px] font-bold uppercase tracking-wide transition-all ${
-                            logoStyle === s ? 'bg-brand-primary border-brand-primary text-white' : 'border-white/15 text-white/50 hover:border-white/40'
+                            logoStyle === s ? 'bg-brand-primary border-brand-primary text-white' : 'border-gray-200 text-gray-500 hover:border-brand-primary hover:text-brand-primary'
                           }`}>
                           {s === 'badge' ? '🏷 Badge' : s === 'wordmark' ? '🔤 Word' : '🔷 Icon'}
                         </button>
@@ -1130,12 +1781,12 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Initials (max 3)</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Initials (max 3)</label>
                       <input type="text" maxLength={3} value={logoInitials} onChange={e => setLogoInitials(e.target.value.toUpperCase())}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Icon Symbol</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Icon Symbol</label>
                       <select value={logoSymbol} onChange={e => setLogoSymbol(e.target.value as any)}
                         className="w-full bg-brand-secondary border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none">
                         <option value="shield">Shield</option>
@@ -1150,19 +1801,19 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </div>
 
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Brand Tagline</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Brand Tagline</label>
                     <input type="text" value={logoTagline} onChange={e => setLogoTagline(e.target.value)}
                       className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-primary" />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Primary Color</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Primary Color</label>
                       <input type="color" value={logoColorPrimary} onChange={e => setLogoColorPrimary(e.target.value)}
                         className="w-full h-9 bg-transparent border-0 cursor-pointer rounded" />
                     </div>
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Dark Color</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Dark Color</label>
                       <input type="color" value={logoColorSecondary} onChange={e => setLogoColorSecondary(e.target.value)}
                         className="w-full h-9 bg-transparent border-0 cursor-pointer rounded" />
                     </div>
@@ -1198,7 +1849,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Site Theme</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Site Theme</label>
                       <select value={webTheme} onChange={e => setWebTheme(e.target.value as any)}
                         className="w-full bg-brand-secondary border border-white/10 rounded-lg px-3 py-2 text-white text-xs">
                         <option value="blue">Corporate Blue</option>
@@ -1208,7 +1859,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                       </select>
                     </div>
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Payment Gateway</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Payment Gateway</label>
                       <select value={webGateway} onChange={e => setWebGateway(e.target.value as any)}
                         className="w-full bg-brand-secondary border border-white/10 rounded-lg px-3 py-2 text-white text-xs">
                         <option value="yoco">Yoco SDK</option>
@@ -1218,12 +1869,12 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </div>
 
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Hero Headline</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Hero Headline</label>
                     <input type="text" value={webHeadline} onChange={e => setWebHeadline(e.target.value)}
                       className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-primary" />
                   </div>
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Hero Sub-headline</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Hero Sub-headline</label>
                     <input type="text" value={webSubheadline} onChange={e => setWebSubheadline(e.target.value)}
                       className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-primary" />
                   </div>
@@ -1235,7 +1886,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                       { label: 'Service 3', val: webService3, set: setWebService3 }
                     ].map(s => (
                       <div key={s.label}>
-                        <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">{s.label}</label>
+                        <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">{s.label}</label>
                         <input type="text" value={s.val} onChange={e => s.set(e.target.value)}
                           className="w-full bg-white/5 border border-white/10 rounded-lg px-2 py-1.5 text-white text-[10px] focus:outline-none" />
                       </div>
@@ -1244,12 +1895,12 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Phone</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Phone</label>
                       <input type="text" value={webContact} onChange={e => setWebContact(e.target.value)}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Location</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Location</label>
                       <input type="text" value={webLocation} onChange={e => setWebLocation(e.target.value)}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
@@ -1283,42 +1934,42 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </div>
 
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Mission / Vision Statement</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Mission / Vision Statement</label>
                     <textarea value={bizPlan.mission} onChange={e => setBizPlan({ ...bizPlan, mission: e.target.value })} rows={2}
                       className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none focus:border-brand-primary resize-none" />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Target Market</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Target Market</label>
                       <input type="text" value={bizPlan.market} onChange={e => setBizPlan({ ...bizPlan, market: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Funding Ask</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Funding Ask</label>
                       <input type="text" value={bizPlan.fundingTarget} onChange={e => setBizPlan({ ...bizPlan, fundingTarget: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
                   </div>
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Business Model</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Business Model</label>
                     <input type="text" value={bizPlan.businessModel} onChange={e => setBizPlan({ ...bizPlan, businessModel: e.target.value })}
                       className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Revenue Target</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Revenue Target</label>
                       <input type="text" value={bizPlan.targetRevenue} onChange={e => setBizPlan({ ...bizPlan, targetRevenue: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Team Composition</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Team Composition</label>
                       <input type="text" value={bizPlan.teamComposition} onChange={e => setBizPlan({ ...bizPlan, teamComposition: e.target.value })}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
                   </div>
 
                   {/* Plan preview */}
-                  <div className="bg-black/30 border border-white/10 rounded-xl p-4 space-y-2 text-[10px] text-white/60">
+                  <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 space-y-2 text-[10px] text-white/60">
                     <div className="text-[9px] font-black uppercase tracking-wider text-white/30 border-b border-white/10 pb-1 mb-2">Plan Sections Preview</div>
                     {['01 Executive Summary', '02 Problem & Opportunity', '03 Business Model', '04 Market Analysis', '05 Financial Projections (3-Year)', '06 Funding Requirement', '07 B-BBEE Compliance', '08 Management & Signatures'].map(s => (
                       <div key={s} className="flex items-center gap-2">
@@ -1347,7 +1998,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </div>
 
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-2">Black Ownership Percentage</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-2">Black Ownership Percentage</label>
                     <select value={blackOwnershipPercent} onChange={e => setBlackOwnershipPercent(e.target.value)}
                       className="w-full bg-brand-secondary border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none">
                       <option value="100%">100% Black Owned → Level 1</option>
@@ -1366,7 +2017,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                     ].map(item => (
                       <div key={item.label} onClick={() => item.set(!item.val)}
                         className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
-                          item.val ? 'bg-green-500/10 border-green-500/30' : 'bg-white/5 border-white/10 hover:border-white/25'
+                          item.val ? 'bg-green-50 border-green-200' : 'bg-gray-50 border-gray-200 hover:border-brand-primary/30'
                         }`}>
                         <span className="text-[11px] font-semibold text-white">{item.label}</span>
                         <div className={`w-4 h-4 rounded border flex items-center justify-center ${item.val ? 'bg-green-500 border-green-500' : 'border-white/30'}`}>
@@ -1376,8 +2027,8 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                     ))}
                   </div>
 
-                  <div className="bg-black/30 border border-white/10 rounded-xl p-4 text-[10px] text-white/60 space-y-1">
-                    <div className="text-[9px] font-black text-white/30 uppercase tracking-wider mb-2">Affidavit Output</div>
+                  <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 text-[10px] text-white/60 space-y-1">
+                    <div className="text-[9px] font-black text-gray-400 uppercase tracking-wider mb-2">Affidavit Output</div>
                     <div>B-BBEE Level: <strong className="text-white">{blackOwnershipPercent === '100%' ? 'Level 1' : blackOwnershipPercent === '51%' ? 'Level 2' : 'Level 4'}</strong></div>
                     <div>Classification: <strong className="text-white">EME ({turnoverBracket})</strong></div>
                     <div>Includes: POPIA clause, Commissioner block, reference number</div>
@@ -1435,7 +2086,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                       ? expenses.map(exp => (
                           <div key={exp.id} className="flex justify-between items-center bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-[10px]">
                             <div>
-                              <span className="text-white font-medium">{exp.desc}</span>
+                              <span className="text-gray-800 font-medium">{exp.desc}</span>
                               <span className="text-white/30 ml-2">[{exp.category}]</span>
                             </div>
                             <div className="flex items-center gap-2">
@@ -1447,7 +2098,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                         ))
                       : income.map(inc => (
                           <div key={inc.id} className="flex justify-between items-center bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-[10px]">
-                            <span className="text-white font-medium">{inc.desc}</span>
+                            <span className="text-gray-800 font-medium">{inc.desc}</span>
                             <div className="flex items-center gap-2">
                               <span className="font-mono text-green-400 font-bold">+R{inc.amount}</span>
                               <button onClick={() => { setIncome(prev => prev.filter(i => i.id !== inc.id)); logActivity(`Removed income: ${inc.desc}`); }}
@@ -1505,12 +2156,12 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Target Locality</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Target Locality</label>
                       <input type="text" value={seoLocality} onChange={e => { setSeoLocality(e.target.value); setIsSeoSaved(false); }}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
                     <div>
-                      <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-1">Focus Keywords</label>
+                      <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Focus Keywords</label>
                       <input type="text" value={seoKeywords} onChange={e => { setSeoKeywords(e.target.value); setIsSeoSaved(false); }}
                         className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-xs focus:outline-none" />
                     </div>
@@ -1518,15 +2169,15 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
 
                   {/* GBP Checklist */}
                   <div>
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block mb-2">Google Business Profile Checklist</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-2">Google Business Profile Checklist</label>
                     <div className="space-y-1.5">
                       {Object.entries(seoGBPChecklist).map(([key, val]) => (
                         <div key={key} onClick={() => setSeoGBPChecklist(prev => ({ ...prev, [key]: !prev[key as keyof typeof seoGBPChecklist] }))}
-                          className={`flex items-center gap-2 p-2.5 rounded-lg cursor-pointer border transition-all ${val ? 'bg-green-500/10 border-green-500/20' : 'bg-white/5 border-white/10 hover:border-white/25'}`}>
+                          className={`flex items-center gap-2 p-2.5 rounded-lg cursor-pointer border transition-all ${val ? 'bg-green-500/10 border-green-500/20' : 'bg-gray-50 border-gray-200 hover:border-brand-primary/30'}`}>
                           <div className={`w-3.5 h-3.5 rounded border flex items-center justify-center ${val ? 'bg-green-500 border-green-500' : 'border-white/30'}`}>
                             {val && <Check className="w-2 h-2 text-white" />}
                           </div>
-                          <span className="text-[10px] text-white/70">{key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase())}</span>
+                          <span className="text-[10px] text-gray-600">{key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase())}</span>
                         </div>
                       ))}
                     </div>
