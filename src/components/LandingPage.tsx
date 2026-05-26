@@ -1,25 +1,18 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Link } from 'react-router-dom';
 import { 
   Bot, BarChart3, Zap, ArrowRight, CheckCircle2,
   Layers, Database, Globe,
   TrendingUp, ShieldCheck, Cloud,
   Activity, Cpu, LineChart, Network,
-  BrainCircuit, Sparkles, Workflow, Mail, Users,
-  MessageSquare, Volume2
+  BrainCircuit, Sparkles, Workflow, Mail, Users, Landmark, FileText, Award
 } from 'lucide-react';
 import { DashboardMock } from './DashboardMock';
 import { cn } from '../lib/utils';
-import { useModal } from '../context/ModalContext';
-import { GhostCapacityCalculator } from './GhostCapacityCalculator';
-import { ComparisonTable } from './ComparisonTable';
-import { PricingSection } from './PricingSection';
-import { ResolverStatus } from './ResolverStatus';
-import { SuccessSeal } from './SuccessSeal';
-
+import { OnboardingTour } from './OnboardingTour';
 
 // --- Helpers ---
-
 const playUISound = (frequency: number) => {
   try {
     const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
@@ -42,35 +35,19 @@ const playUISound = (frequency: number) => {
     osc.start();
     osc.stop(ctx.currentTime + 0.15);
     
-    // Auto-close context to avoid memory leaks
     setTimeout(() => {
       if (ctx.state !== 'closed') ctx.close();
     }, 200);
-  } catch (e) {
-    // Silently fail if audio context is blocked or unsupported
-  }
+  } catch (e) {}
 };
 
-// --- Sub-Components ---
-
-const AICapabilityCard = ({ title, desc, icon: Icon, features }: { title: string, desc: string, icon: any, features: string[] }) => (
-  <div className="p-8 rounded-2xl bg-bg-card border border-white/5 hover:border-brand-primary/20 hover:shadow-xl transition-all group">
-    <div className="w-12 h-12 rounded-xl bg-bg-dark flex items-center justify-center mb-6 group-hover:bg-brand-primary/10 transition-colors">
-      <Icon className="w-6 h-6 text-resolver-blue group-hover:text-brand-primary transition-colors" />
-    </div>
-    <h3 className="text-xl font-bold mb-3 text-white">{title}</h3>
-    <p className="text-sm text-ink/60 mb-6 leading-relaxed">{desc}</p>
-    <div className="space-y-2">
-      {features.map((f, i) => (
-        <div key={i} className="flex items-center gap-2 text-xs font-medium text-ink/50">
-          <div className="w-1.5 h-1.5 rounded-full bg-brand-primary" />
-          {f}
-        </div>
-      ))}
-    </div>
+const MetaLabel = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+  <div className={cn("text-[10px] font-black uppercase tracking-[0.4em] text-brand-primary leading-none", className)}>
+    {children}
   </div>
 );
 
+// --- AI Visualizer (Mocked SME Systems Control) ---
 const AIVisualizer = () => (
   <div className="relative w-full aspect-video glass overflow-hidden rounded-sm border-ink/10">
     <div className="absolute inset-0 bg-dot opacity-50" />
@@ -83,8 +60,8 @@ const AIVisualizer = () => (
     <div className="absolute inset-0 p-8 flex flex-col justify-between">
       <div className="flex justify-between items-start">
         <div className="space-y-1">
-          <div className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-primary">Digital Employee Active</div>
-          <div className="text-[10px] font-bold text-brand-secondary/40">AI Business Assistant</div>
+          <div className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-primary">SME Ledger Engine 0.01</div>
+          <div className="text-[10px] font-bold text-brand-secondary/40">COMPLIANCE_RUNNER_v26.system</div>
         </div>
         <div className="flex gap-2">
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
@@ -100,9 +77,9 @@ const AIVisualizer = () => (
         
         <div className="grid grid-cols-3 gap-12 relative z-10">
           {[
-            { icon: Bot, freq: 440 },
-            { icon: Zap, freq: 660 },
-            { icon: Database, freq: 880 }
+            { icon: Landmark, freq: 440 },
+            { icon: ShieldCheck, freq: 660 },
+            { icon: Award, freq: 880 }
           ].map((item, i) => (
             <motion.div 
               key={i}
@@ -117,9 +94,9 @@ const AIVisualizer = () => (
                 delay: i * 0.2 
               }}
               onClick={() => playUISound(item.freq)}
-              className="w-16 h-16 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center shadow-xl group hover:border-brand-primary cursor-pointer transition-colors"
+              className="w-16 h-16 rounded-sm bg-white border border-ink/5 flex items-center justify-center shadow-xl group hover:border-brand-primary cursor-pointer transition-colors"
             >
-              <item.icon className="w-8 h-8 text-white group-hover:text-brand-primary transition-colors" />
+              <item.icon className="w-8 h-8 text-brand-secondary group-hover:text-brand-primary transition-colors" />
             </motion.div>
           ))}
         </div>
@@ -130,12 +107,12 @@ const AIVisualizer = () => (
           <div key={i} className="space-y-2">
             <div className="h-1 bg-ink/5 rounded-full overflow-hidden">
               <motion.div 
-                animate={{ width: ["10%", "90%", "30%", "70%"] }}
+                animate={{ width: ["15%", "85%", "45%", "95%"] }}
                 transition={{ duration: 3, repeat: Infinity, delay: i * 0.5 }}
                 className="h-full bg-brand-primary/40"
               />
             </div>
-            <div className="text-[8px] font-black uppercase tracking-widest text-ink/20">{["Bookings Made", "Leads Captured", "Queries Resolved", "Hours Saved"][i-1]}</div>
+            <div className="text-[8px] font-black uppercase tracking-widest text-ink/20">CIPC_Sync_0{i}</div>
           </div>
         ))}
       </div>
@@ -143,519 +120,11 @@ const AIVisualizer = () => (
   </div>
 );
 
-const MetaLabel = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-  <div className={cn("text-[10px] font-black uppercase tracking-[0.4em] text-brand-primary leading-none", className)}>
-    {children}
-  </div>
-);
-
-// --- AI Showcase Visualizers ---
-
-const AutomationVisualizer = () => {
-  const [pulseCount, setPulseCount] = React.useState(0);
-  const [activeNode, setActiveNode] = React.useState<number | null>(null);
-
-  const triggerPulse = () => setPulseCount(prev => prev + 1);
-
-  const nodes = [
-    { label: "Escalate to Human", color: "text-red-500", icon: ShieldCheck, detail: "Alerting staff for complex customer requests." },
-    { label: "Add to Calendar", color: "text-green-500", icon: Zap, detail: "Scheduling appointment slots in your calendar." },
-    { label: "Save to CRM", color: "text-brand-primary", icon: Database, detail: "Updating your customer database automatically." }
-  ];
-
-  return (
-    <div className="relative w-full h-80 bg-bg-dark rounded-xl border border-ink/5 overflow-hidden flex flex-col items-center justify-center group/visual">
-      <div className="absolute inset-0 bg-dot opacity-30" />
-      
-      <div className="relative flex items-center gap-12 z-10">
-        {/* Input Node */}
-        <div 
-          className="flex flex-col items-center gap-4 cursor-pointer"
-          onClick={triggerPulse}
-        >
-          <motion.div 
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center shadow-lg hover:border-brand-primary transition-colors"
-          >
-            <Mail className="w-6 h-6 text-white" />
-          </motion.div>
-          <div className="text-[8px] font-black uppercase tracking-widest text-brand-primary animate-pulse">Click to test inquiry</div>
-        </div>
-
-        {/* Connection Lines & Routing Animation */}
-        <div className="relative w-32 h-1 bg-ink/10">
-          <motion.div 
-            key={pulseCount}
-            initial={{ x: -20, opacity: 0 }}
-            animate={{ x: 150, opacity: [0, 1, 0] }}
-            transition={{ duration: 1.5, ease: "linear" }}
-            className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-brand-primary blur-sm shadow-[0_0_10px_#FF4F00]"
-          />
-          <motion.div 
-            animate={{ x: [-20, 150], opacity: [0, 0.5, 0] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-brand-primary/20 blur-sm"
-          />
-          <div className="absolute left-1/2 -top-8 -translate-x-1/2">
-             <Cpu className="w-8 h-8 text-brand-primary animate-pulse" />
-          </div>
-        </div>
-
-        {/* Output Nodes */}
-        <div className="flex flex-col gap-8">
-          {nodes.map((node, i) => (
-            <motion.div 
-              key={i}
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: i * 0.3 }}
-              onMouseEnter={() => setActiveNode(i)}
-              onMouseLeave={() => setActiveNode(null)}
-              className="flex items-center gap-4 relative cursor-help"
-            >
-              <div className="w-10 h-10 rounded-sm bg-white/5 border border-white/10 flex items-center justify-center shadow-sm hover:border-brand-primary transition-all">
-                <node.icon className={cn("w-4 h-4", node.color)} />
-              </div>
-              <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{node.label}</div>
-              
-              {/* Tooltip detail */}
-              {activeNode === i && (
-                <motion.div 
-                  initial={{ opacity: 0, x: 10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="absolute left-full ml-4 w-32 p-3 bg-bg-card shadow-xl border border-white/10 rounded-lg text-[10px] text-white/70 font-medium z-50 pointer-events-none"
-                >
-                  {node.detail}
-                </motion.div>
-              )}
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Button overlay */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover/visual:opacity-100 transition-opacity">
-        <button 
-          onClick={triggerPulse}
-          className="px-4 py-2 bg-brand-secondary text-white text-[9px] font-black uppercase tracking-widest rounded-full shadow-lg hover:bg-brand-primary transition-colors"
-        >
-          Simulate Customer Inquiry
-        </button>
-      </div>
-
-      {/* Background Grid Particles */}
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0 }}
-          animate={{ 
-            opacity: [0, 0.2, 0],
-            x: Math.random() * 400 - 200,
-            y: Math.random() * 400 - 200
-          }}
-          transition={{ duration: 4, repeat: Infinity, delay: i * 0.8 }}
-          className="absolute w-1 h-1 bg-brand-primary rounded-full"
-        />
-      ))}
-    </div>
-  );
-};
-
-const AnalysisVisualizer = () => {
-  const [dataMode, setDataMode] = React.useState<'load' | 'market' | 'risk'>('load');
-  const [hoveredIdx, setHoveredIdx] = React.useState<number | null>(null);
-
-  const datasets = {
-    load: [40, 70, 45, 90, 65, 80, 50, 95, 60, 85],
-    market: [20, 30, 45, 40, 55, 70, 65, 85, 90, 98],
-    risk: [95, 80, 70, 40, 30, 20, 35, 10, 5, 2]
-  };
-
-  const labels = {
-    load: "Live Booking Activity",
-    market: "Daily Customer Inquiries",
-    risk: "Time Saved in Hours"
-  };
-
-  return (
-    <div className="relative w-full h-80 bg-bg-dark rounded-xl border border-ink/5 overflow-hidden p-8 flex flex-col justify-between group/analysis">
-      <div className="flex justify-between items-start z-10">
-        <MetaLabel className="text-ink/60 transition-colors group-hover/analysis:text-brand-primary">{labels[dataMode]}</MetaLabel>
-        <div className="flex gap-2">
-          {(['load', 'market', 'risk'] as const).map(mode => (
-            <button 
-              key={mode}
-              onClick={() => setDataMode(mode)}
-              className={cn(
-                "w-2 h-2 rounded-full transition-all duration-300",
-                dataMode === mode ? "bg-brand-primary scale-125" : "bg-ink/10"
-              )}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex-1 flex items-end justify-center gap-3 relative mt-4">
-        {datasets[dataMode].map((h, i) => (
-          <div 
-            key={`${dataMode}-${i}`} 
-            className="flex-1 flex flex-col items-center gap-2 relative"
-            onMouseEnter={() => setHoveredIdx(i)}
-            onMouseLeave={() => setHoveredIdx(null)}
-          >
-             <motion.div 
-              initial={{ height: 0 }}
-              animate={{ height: `${h}%` }}
-              transition={{ 
-                duration: 0.8, 
-                delay: i * 0.05, 
-                ease: "circOut"
-              }}
-              className={cn(
-                "w-full rounded-t-sm relative transition-all duration-300",
-                hoveredIdx === i ? "bg-brand-primary shadow-[0_0_15px_#FF4F00]" : "bg-gradient-to-t from-brand-secondary to-brand-primary/60"
-              )}
-             >
-               <AnimatePresence>
-                 {hoveredIdx === i && (
-                   <motion.div 
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: -20 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    className="absolute top-0 left-1/2 -translate-x-1/2 text-[10px] font-black text-brand-primary bg-bg-card px-1.5 py-0.5 rounded shadow-xl border border-white/10"
-                   >
-                     {h}%
-                   </motion.div>
-                 )}
-               </AnimatePresence>
-             </motion.div>
-          </div>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-3 gap-4 border-t border-ink/5 pt-6 mt-6 z-10">
-         <div className="space-y-1">
-           <motion.div 
-            key={dataMode + '-stat-1'}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-xl font-black text-resolver-blue"
-           >
-             {dataMode === 'load' ? '84.2%' : dataMode === 'market' ? '12.4x' : '5.2%'}
-           </motion.div>
-           <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{dataMode === 'load' ? 'Active Sessions' : dataMode === 'market' ? 'Velocity' : 'Weekly Hours Saved'}</div>
-         </div>
-         <div className="space-y-1">
-            <motion.div 
-              key={dataMode + '-stat-2'}
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-xl font-black text-brand-primary"
-            >
-              {dataMode === 'load' ? '12.4ms' : dataMode === 'market' ? '92.1%' : '1k+'}
-            </motion.div>
-           <div className="text-[8px] font-black uppercase tracking-widest text-ink/30">{dataMode === 'load' ? 'Response Time' : dataMode === 'market' ? 'Customer Satisfaction' : 'Completed Tasks'}</div>
-         </div>
-         <div className="flex items-center justify-end">
-            <button 
-              onClick={() => setDataMode(prev => prev === 'load' ? 'market' : prev === 'market' ? 'risk' : 'load')}
-              className="p-2 border border-ink/10 rounded-sm hover:border-brand-primary transition-colors"
-            >
-              <Activity className="w-4 h-4 text-brand-primary" />
-            </button>
-         </div>
-      </div>
-    </div>
-  );
-};
-
-const PredictiveVisualizer = () => {
-  const [intensity, setIntensity] = React.useState(0.5);
-  const [showProjection, setShowProjection] = React.useState(false);
-
-  // Dynamic path based on intensity
-  const projectionY = 130 - (intensity * 120);
-  const pathD = `M200,130 L250,${130 - (intensity * 50)} L300,${130 - (intensity * 70)} L350,${130 - (intensity * 110)} L400,${projectionY}`;
-
-  return (
-    <div className="relative w-full h-80 bg-bg-dark rounded-xl border border-ink/5 overflow-hidden p-10 group/predict">
-      <div className="absolute inset-0 bg-dot opacity-20" />
-      
-      <svg className="w-full h-full overflow-visible" viewBox="0 0 400 200">
-        {/* Historical Data Line */}
-        <motion.path
-          d="M0,150 L50,140 L100,160 L150,120 L200,130"
-          fill="none"
-          stroke="#1A2D42"
-          strokeWidth="3"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 2, ease: "easeInOut" }}
-        />
-        
-        {/* Predictive Data Line */}
-        <motion.path
-          d={pathD}
-          fill="none"
-          stroke="#FF4F00"
-          strokeWidth="3"
-          strokeDasharray="8 6"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
-        />
-
-        {/* Projection Area */}
-        <motion.path
-          d={`M200,130 L250,${130 - (intensity * 50)} L300,${130 - (intensity * 70)} L350,${130 - (intensity * 110)} L400,${projectionY} L400,200 L200,200 Z`}
-          fill="url(#gradient-prediction)"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.1 }}
-          transition={{ duration: 1 }}
-        />
-
-        <defs>
-          <linearGradient id="gradient-prediction" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#FF4F00" stopOpacity="0" />
-            <stop offset="100%" stopColor="#FF4F00" stopOpacity="1" />
-          </linearGradient>
-        </defs>
-
-        {/* Animated Growth Pulsar */}
-        <motion.circle
-          cx="400"
-          cy={projectionY}
-          r="10"
-          fill="#FF4F00"
-          animate={{ scale: [1, 2, 1], opacity: [0.5, 0.2, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-      </svg>
-
-      <div className="absolute top-10 right-10 text-right pointer-events-none">
-         <div className="text-[10px] font-black text-brand-primary uppercase tracking-[0.3em] mb-1">Projected Weekly Hours Saved</div>
-         <motion.div 
-            key={intensity}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-4xl font-black text-resolver-blue"
-          >
-            +{Math.round(intensity * 15)}h
-          </motion.div>
-         <div className="text-[9px] font-bold text-green-500 uppercase">Calculated Accuracy: 99.8%</div>
-      </div>
-
-      {/* Control Slider */}
-      <div className="absolute bottom-10 left-10 right-10 bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10 flex items-center gap-6 opacity-0 group-hover/predict:opacity-100 transition-all translate-y-4 group-hover/predict:translate-y-0">
-        <LineChart className="w-4 h-4 text-brand-primary" />
-        <div className="flex-1 flex flex-col gap-2">
-          <div className="flex justify-between text-[8px] font-black uppercase tracking-widest text-ink/40">
-            <span>Standard Growth</span>
-            <span>Aggressive AI Scaling</span>
-          </div>
-          <input 
-            type="range" 
-            min="0" 
-            max="1" 
-            step="0.01" 
-            value={intensity}
-            onChange={(e) => setIntensity(parseFloat(e.target.value))}
-            className="w-full accent-brand-primary cursor-pointer"
-          />
-        </div>
-        <button 
-          onClick={() => setIntensity(0.5)}
-          className="text-[8px] font-black uppercase tracking-widest text-brand-primary hover:underline"
-        >
-          Reset
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const AICapabilitiesShowcase = () => {
-  const categories = [
-    {
-      meta: "01 FinTech & Compliance",
-      title: "Automatic Customer Verification",
-      desc: "Verify client identity documents automatically 24/7. Check details against national databases instantly and safely, alerting your team only if there is a mismatch.",
-      visual: AutomationVisualizer,
-      icon: ShieldCheck,
-      stats: [
-        { label: "Verification Accuracy", val: "99.2%" },
-        { label: "Check Response Time", val: "Instant" }
-      ]
-    },
-    {
-      meta: "02 Logistics",
-      title: "WhatsApp Fleet Coordinator",
-      desc: "Coordinate with drivers in real-time on WhatsApp. The AI understands driver voice notes, schedules deliveries, plans routes, and audits fuel efficiency automatically.",
-      visual: AnalysisVisualizer,
-      icon: Workflow,
-      stats: [
-        { label: "Fuel Recovery", val: "18%" },
-        { label: "Driver Satisfaction", val: "4.9/5" }
-      ]
-    },
-    {
-      meta: "03 Wellness & Medical",
-      title: "24/7 Clinic Booking Assistant",
-      desc: "Free your clinic staff from manual bookings. The AI automatically schedules appointments, handles reschedules, and sends friendly follow-up reminders to patients.",
-      visual: PredictiveVisualizer,
-      icon: Activity,
-      stats: [
-        { label: "Missed Appointment Reduction", val: "40%" },
-        { label: "Patient Satisfaction", val: "92%" }
-      ]
-    }
-  ];
-
-  return (
-    <section id="ai-showcase" className="py-24 md:py-48 bg-bg-dark overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="max-w-3xl mb-16 md:mb-32">
-          <MetaLabel className="mb-6 md:mb-10">Ready-to-Work AI Assistants</MetaLabel>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-8 md:mb-12">
-            Workflows That Run <br /> <span className="text-gradient">Themselves.</span>
-          </h2>
-          <p className="text-lg md:text-2xl text-ink/50 leading-relaxed font-light">
-            Go beyond simple chatbots. Get custom AI assistants that connect to your business tools and handle complete administrative processes from start to finish.
-          </p>
-        </div>
-
-        <div className="space-y-48">
-          {categories.map((cat, i) => (
-            <div key={i} className={cn(
-              "grid lg:grid-cols-2 gap-20 items-center",
-              i % 2 !== 0 && "lg:flex-row-reverse"
-            )}>
-              <motion.div 
-                initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8 }}
-                className={cn(i % 2 !== 0 && "lg:order-2")}
-              >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-bg-dark border border-ink/5 flex items-center justify-center shadow-sm">
-                    <cat.icon className="w-6 h-6 text-brand-primary" />
-                  </div>
-                  <MetaLabel className="opacity-40">{cat.meta}</MetaLabel>
-                </div>
-                <h3 className="text-5xl font-black mb-8 leading-tight">{cat.title}</h3>
-                <p className="text-xl text-ink/60 mb-12 leading-relaxed">
-                  {cat.desc}
-                </p>
-                
-                <div className="grid grid-cols-2 gap-12 border-t border-ink/5 pt-10">
-                  {cat.stats.map((s, j) => (
-                    <div key={j}>
-                      <div className="text-4xl font-black text-resolver-blue mb-2">{s.val}</div>
-                      <div className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary">{s.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1 }}
-                className="relative"
-              >
-                <div className="absolute -inset-4 bg-gradient-to-br from-brand-primary/5 to-transparent rounded-2xl -z-10" />
-                <cat.visual />
-              </motion.div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const HumanCapitalSection = () => (
-  <section className="py-24 md:py-48 bg-bg-dark border-b border-ink/5 relative overflow-hidden">
-    <div className="max-w-7xl mx-auto px-6 md:px-10">
-      <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1 }}
-          className="relative"
-        >
-          <div className="absolute -top-10 -left-10 w-24 h-24 border-t-2 border-l-2 border-brand-primary/20 z-10" />
-          <div className="rounded-2xl overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] relative">
-            <img 
-              // Replaced Executive Director portrait with a collaborative team using AI/tech 
-              // to better represent the "SME Growth Partner" collective expertise.
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2570&auto=format&fit=crop" 
-              alt="Strategic Innovation Team - BIZSTARTUP" 
-              className="w-full h-full object-cover aspect-[4/5] scale-105 hover:scale-100 transition-transform duration-1000 contrast-[1.05] brightness-95"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-secondary/40 to-transparent" />
-          </div>
-          <div className="absolute -bottom-10 -right-10 glass p-8 rounded-sm shadow-2xl border border-white/20 max-w-xs">
-            <p className="text-sm font-medium italic text-ink/80 mb-4">
-              "We don't just build software; we build high-fidelity partnerships. Every kit is a fusion of your domain expertise and our technical dominance."
-            </p>
-            <div className="flex items-center gap-4">
-               <div className="w-1 h-8 bg-brand-primary" />
-               <div className="text-[10px] font-black uppercase tracking-widest text-white/70">Strategic Innovation Team</div>
-            </div>
-          </div>
-        </motion.div>
-
-        <div>
-          <MetaLabel className="mb-6 md:mb-10">More Growth, Less Admin</MetaLabel>
-          <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-8 md:mb-12">
-            The Human <br /> <span className="text-gradient">Advantage.</span>
-          </h2>
-          <p className="text-lg md:text-xl text-ink/60 mb-8 md:mb-12 leading-relaxed font-medium">
-            AI doesn't replace your staff—it frees them from repetitive chores. By automating administrative tasks, your team can focus on client relationships and growing the business. 
-          </p>
-          <div className="space-y-12">
-            {[
-              { 
-                title: "Decisions Backed by Data", 
-                desc: "Get clear, real-time analytics on your operations. Make decisions with complete clarity about where your time and budget are going.",
-                icon: Users
-              },
-              { 
-                title: "Time to Focus on Growth", 
-                desc: "Stop wasting hours copying and pasting data between systems. Let the AI handle the sync, and focus on high-value business development.",
-                icon: BrainCircuit
-              }
-            ].map((item, i) => (
-              <div key={i} className="flex gap-8 group">
-                <div className="w-14 h-14 bg-bg-dark rounded-sm flex items-center justify-center shrink-0 border border-ink/5 group-hover:border-brand-primary transition-colors">
-                  <item.icon className="w-6 h-6 text-white group-hover:text-brand-primary transition-colors" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h4>
-                  <p className="text-sm text-ink/40 leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) => (
-    <section id="hero-start" className="relative pt-32 md:pt-48 pb-20 md:pb-32 bg-grid min-h-[95vh] flex items-center overflow-hidden border-b border-ink/5">
-    {/* Background Image Accent */}
+// --- Sub-Components ---
+const HeroSection = () => (
+  <section id="hero-start" className="relative pt-32 md:pt-48 pb-20 md:pb-32 bg-grid min-h-[95vh] flex items-center overflow-hidden border-b border-ink/5">
     <div className="absolute top-0 right-0 w-full lg:w-1/2 h-full -z-10 opacity-20 lg:opacity-30">
-      <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop" alt="Collaborative Vision" className="w-full h-full object-cover mask-gradient-to-l" />
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2570&auto=format&fit=crop" alt="South African SME Growth" className="w-full h-full object-cover mask-gradient-to-l" />
     </div>
     
     <div className="max-w-7xl mx-auto px-6 md:px-10 grid lg:grid-cols-2 gap-12 md:gap-20 items-center relative z-10">
@@ -665,32 +134,26 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
         viewport={{ once: true }}
         transition={{ duration: 1 }}
       >
-        <div className="mb-8">
-          <ResolverStatus />
-        </div>
-        <MetaLabel className="mb-6 md:mb-10 text-resolver-blue font-bold tracking-[0.5em]">South Africa's First "Digital Employee" AI Workforce</MetaLabel>
+        <MetaLabel className="mb-6 md:mb-10 text-brand-primary font-bold">Empowering South African SMEs</MetaLabel>
         <h1 className="text-5xl md:text-7xl lg:text-9xl leading-[0.88] mb-8 md:mb-12 tracking-tighter">
-          Get 24/7 <br /> <span className="text-gradient hover:bg-[length:100%_auto] transition-all">Digital Employees</span> <br /> for Your Business.
+          Pivoting <br /> Local Small <br /> <span className="text-gradient">Businesses.</span>
         </h1>
         <p className="text-lg md:text-xl text-ink/60 mb-8 md:mb-12 max-w-xl leading-relaxed font-medium border-l-2 border-brand-primary/20 pl-6 md:pl-8">
-          Get ready-to-work AI assistants (Digital Employees) that handle customer service, schedule appointments, and coordinate dispatch on WhatsApp and Email — resolving 83% of tasks automatically without human intervention.
+          The ultimate growth and B-BBEE compliance engine for SA entrepreneurs. We provide guides, logo makers, invoicing, and local payment connectors, funded by corporate sponsorships.
         </p>
         <div className="flex flex-wrap gap-6">
-          <button 
-            onClick={() => onOpenModal('B.A.T Pilot')}
+          <Link 
+            to="/portal"
             className="btn-primary group relative overflow-hidden"
           >
-            <span className="relative z-10 flex items-center gap-2">Start Free Pilot <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
-          </button>
-          <button 
-            onClick={() => {
-              const el = document.getElementById('audit-calculator');
-              el?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className="btn-outline hover:border-brand-primary transition-all"
+            <span className="relative z-10 flex items-center gap-2">Enter Dashboard <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+          </Link>
+          <Link 
+            to="/sponsor"
+            className="btn-outline hover:border-brand-primary text-brand-secondary hover:text-brand-primary transition-all text-center block"
           >
-            Calculate Wasted Workhours
-          </button>
+            Corporate Sponsorships
+          </Link>
         </div>
       </motion.div>
 
@@ -707,8 +170,8 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
         
         <div className="absolute -top-12 -right-12 hidden xl:block animate-bounce-slow">
           <div className="glass p-8 rounded-sm space-y-4 border-ink/10">
-            <MetaLabel className="text-ink/30">System Integrity</MetaLabel>
-            <div className="text-3xl font-black text-resolver-blue font-mono tracking-widest">99.98%</div>
+            <MetaLabel className="text-ink/30">B-BBEE Code Verification</MetaLabel>
+            <div className="text-3xl font-black text-brand-secondary font-mono tracking-widest">Level 1</div>
             <div className="flex gap-1.5">
               {[1,2,3,4,5,6,7].map(i => (
                 <div key={i} className="w-1.5 h-6 bg-brand-primary/30 rounded-full" />
@@ -721,169 +184,164 @@ const LandingHero = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =
   </section>
 );
 
-const AISuite = () => {
-  const capabilities = [
-    {
-      title: "FinTech & Compliance",
-      desc: "Automated identity (KYC) verification and real-time compliance alerting for South African entities.",
-      icon: ShieldCheck,
-      features: ["POPIA Compliant", "Automated KYC Checks", "Anomaly Alerts"]
-    },
-    {
-      title: "Logistics & Dispatch",
-      desc: "WhatsApp-first driver coordination, route planning, and automated fuel efficiency auditing.",
-      icon: Workflow,
-      features: ["Smart Route Planning", "WhatsApp Voice Input", "System Syncing"]
-    },
-    {
-      title: "Wellness Scheduling",
-      desc: "Managing patient bookings and clinic calendar schedules via autonomous messaging and voice replies.",
-      icon: Activity,
-      features: ["Booking Automation", "Patient Triage", "Voice Reminders"]
-    }
-  ];
-
-  return (
-    <section id="ai-suite" className="py-24 md:py-48 bg-brand-secondary text-white relative flex items-center overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-bg-dark to-transparent opacity-5" />
-      
-      <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-center mb-16 md:mb-32">
-          <div>
-            <MetaLabel className="text-brand-primary mb-6 md:mb-10">Bespoke AI Workflows</MetaLabel>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl leading-tight mb-8 md:mb-12">
-              Deep AI <br /> Integration.
-            </h2>
+const HumanCapitalSection = () => (
+  <section className="py-24 md:py-48 bg-white border-b border-ink/5 relative overflow-hidden">
+    <div className="max-w-7xl mx-auto px-6 md:px-10">
+      <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="relative"
+        >
+          <div className="absolute -top-10 -left-10 w-24 h-24 border-t-2 border-l-2 border-brand-primary/20 z-10" />
+          <div className="rounded-2xl overflow-hidden shadow-[0_40px_80px_-15px_rgba(0,0,0,0.1)] relative">
+            <img 
+              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2574&auto=format&fit=crop" 
+              alt="Strategic Integration Team" 
+              className="w-full h-full object-cover aspect-[4/5] scale-105 hover:scale-100 transition-transform duration-1000 contrast-[1.05] brightness-95"
+              referrerPolicy="no-referrer"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-secondary/40 to-transparent" />
           </div>
-          <p className="text-lg md:text-2xl text-white/40 leading-relaxed font-light">
-            We don't just "use" generic AI tools. We engineer custom AI assistants that connect with the tools you already use, creating a smooth and secure digital operation.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-1px bg-white/10">
-          {capabilities.map((cap, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="p-16 bg-brand-secondary group hover:bg-brand-secondary/50 transition-all border border-white/5"
-            >
-              <div className="w-12 h-12 rounded-sm bg-brand-primary/10 flex items-center justify-center mb-12 group-hover:scale-110 transition-transform">
-                <cap.icon className="w-6 h-6 text-brand-primary" />
-              </div>
-              <h3 className="text-3xl font-bold mb-8 uppercase tracking-[-0.04em]">{cap.title}</h3>
-              <p className="text-white/40 mb-12 text-sm leading-relaxed">{cap.desc}</p>
-              <div className="space-y-4">
-                {cap.features.map((f, j) => (
-                  <div key={j} className="flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-                    <div className="w-4 h-[1px] bg-brand-primary" />
-                    {f}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const ProblemSection = () => {
-  return (
-    <section className="py-24 md:py-48 bg-bg-dark relative overflow-hidden border-y border-ink/5">
-      <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
-          <div>
-            <MetaLabel className="mb-8 md:mb-12">The Cost of Admin</MetaLabel>
-            <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-8 md:mb-12">
-              The Cost of <br /> <span className="text-gradient">Inefficiency.</span>
-            </h2>
-            <p className="text-lg md:text-xl text-ink/50 mb-8 md:mb-12 leading-relaxed font-medium">
-              Most South African businesses waste up to 40% of their team's capacity on repetitive admin, copying data between systems, and chasing bookings.
+          <div className="absolute -bottom-10 -right-10 glass p-8 rounded-sm shadow-2xl border border-white/20 max-w-xs">
+            <p className="text-sm font-medium italic text-ink/80 mb-4">
+              "We close the gap between corporate development funds and real township business growth, making scorecard audits seamless."
             </p>
-            <div className="space-y-6">
-              {[
-                { label: "Manual Admin", desc: "18 hours per week lost to spreadsheets and copy-pasting" },
-                { label: "Compliance Risks", desc: "Zero real-time compliance checking or automated safety alerts" },
-                { label: "Limit on Growth", desc: "Business growth is held back by manual staff workloads" }
-              ].map((item, i) => (
-                <div key={i} className="flex items-start gap-6 group">
-                  <div className="text-[10px] font-black text-brand-primary mt-1.5">0{i+1}</div>
-                  <div>
-                    <div className="text-sm font-black uppercase tracking-widest mb-1">{item.label}</div>
-                    <div className="text-sm text-ink/40">{item.desc}</div>
-                  </div>
-                </div>
-              ))}
+            <div className="flex items-center gap-4">
+               <div className="w-1 h-8 bg-brand-primary" />
+               <div className="text-[10px] font-black uppercase tracking-widest text-brand-secondary">Transformation & ESD Lead</div>
             </div>
           </div>
-          
-          <div className="grid grid-cols-2 gap-px bg-ink/5 border border-ink/5">
+        </motion.div>
+
+        <div>
+          <MetaLabel className="mb-6 md:mb-10">Bridging the Gap</MetaLabel>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-8 md:mb-12">
+            Verifiable <br /> <span className="text-gradient">Development.</span>
+          </h2>
+          <p className="text-lg md:text-xl text-ink/60 mb-8 md:mb-12 leading-relaxed font-medium">
+            Corporates spend millions on Enterprise & Supplier Development (ESD). We ensure that budget is backed by real activity logs, helping local SMEs register, brand, and secure local payments.
+          </p>
+          <div className="space-y-12">
             {[
-              { label: "Operational Waste", val: "R120k", trend: "Per Staff Member / Yr" },
-              { label: "Response Delay", val: "24+ Hrs", trend: "Missed Sales" },
-              { label: "Manual Error Rate", val: "15%+", trend: "Typo Risks" },
-              { label: "Efficiency Status", val: "Struggling", trend: "Action Required" }
-            ].map((stat, i) => (
-              <div key={i} className="p-16 bg-bg-card border border-white/5 hover:bg-bg-dark transition-colors">
-                <div className="text-4xl font-black text-resolver-blue mb-4">{stat.val}</div>
-                <div className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary mb-2 whitespace-nowrap">{stat.label}</div>
-                <div className="text-[9px] font-bold text-white/30 uppercase tracking-widest">{stat.trend}</div>
+              { 
+                title: "Airtight Verification Ledgers", 
+                desc: "Every interaction is logged with timestamps, giving SANAS verification agencies bulletproof audit reports.",
+                icon: ShieldCheck
+              },
+              { 
+                title: "Township & Rural Reach", 
+                desc: "Optimized offline sync queues allow entrepreneurs with limited data or power to progress without drops.",
+                icon: Users
+              }
+            ].map((item, i) => (
+              <div key={i} className="flex gap-8 group">
+                <div className="w-14 h-14 bg-bg-dark rounded-sm flex items-center justify-center shrink-0 border border-ink/5 group-hover:border-brand-primary transition-colors">
+                  <item.icon className="w-6 h-6 text-brand-secondary group-hover:text-brand-primary transition-colors" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h4>
+                  <p className="text-sm text-ink/40 leading-relaxed">{item.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
+
+const ProblemSection = () => (
+  <section className="py-24 md:py-48 bg-white relative overflow-hidden border-y border-ink/5">
+    <div className="max-w-7xl mx-auto px-6 md:px-10">
+      <div className="grid lg:grid-cols-2 gap-16 md:gap-32 items-center">
+        <div>
+          <MetaLabel className="mb-8 md:mb-12">SA SME Compliance Barriers</MetaLabel>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-8 md:mb-12">
+            Unlocking <br /> <span className="text-gradient">Red Tape.</span>
+          </h2>
+          <p className="text-lg md:text-xl text-ink/50 mb-8 md:mb-12 leading-relaxed font-medium">
+            The regulatory environment halts micro-SME growth. Registration backlogs, tax clearance, and B-BBEE compliance should not limit potential.
+          </p>
+          <div className="space-y-6">
+            {[
+              { label: "CIPC & SARS Hurdles", desc: "Complex digital portals delay basic tax and registry filings" },
+              { label: "Loadshedding Grid Downtime", desc: "Power interruptions disrupt digital presence and connectivity" },
+              { label: "Fronting Risk Exposure", desc: "Unchecked EME/QSE threshold limits present criminal liability" }
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-6 group">
+                <div className="text-[10px] font-black text-brand-primary mt-1.5">0{i+1}</div>
+                <div>
+                  <div className="text-sm font-black uppercase tracking-widest mb-1">{item.label}</div>
+                  <div className="text-sm text-ink/40">{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-2 gap-px bg-ink/5 border border-ink/5">
+          {[
+            { label: "B-BBEE Audits Cleared", val: "100%", trend: "SANAS Approved" },
+            { label: "Registration Buffer", val: "72 Hrs", trend: "Slip Backup" },
+            { label: "Mobile Optimization", val: "Lite-Data", trend: "Offline Sync" },
+            { label: "Sponsorship conversion", val: "Level 1", trend: "Maximize Scorecard" }
+          ].map((stat, i) => (
+            <div key={i} className="p-16 bg-white hover:bg-bg-dark transition-colors">
+              <div className="text-4xl font-black text-brand-secondary mb-4">{stat.val}</div>
+              <div className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-primary mb-2 whitespace-nowrap">{stat.label}</div>
+              <div className="text-[9px] font-bold text-ink/20 uppercase tracking-widest">{stat.trend}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const SolutionsSection = () => {
   const solutions = [
     {
-      title: "AI Assistant Setup",
-      desc: "Designing and launching custom AI employees that speak and understand your business.",
-      icon: Bot,
-      color: "brand-primary",
-      features: ["WhatsApp Assistants", "Email Automation", "Task Resolving"]
+      title: "SME Compliance Kits",
+      desc: "Guides and verification file buffers for CIPC, SARS eFiling, and Commissioner of Oaths affidavits.",
+      icon: Landmark,
+      features: ["CIPC Tracking Backup", "Tax PIN verification", "B-BBEE Affidavit drafts"]
     },
     {
-      title: "Business Dashboards",
-      desc: "Creating simple, live dashboards that show you exactly how your sales, dispatch, and bookings are performing.",
-      icon: Cloud,
-      color: "brand-secondary",
-      features: ["Live Visual Tracking", "Unified Reports", "Performance Analytics"]
+      title: "Digital Presence Kits",
+      desc: "Dynamic branding systems, `.co.za` registration guidelines, and Yoco/PayFast checkout block snippets.",
+      icon: Globe,
+      features: ["Branded Logo mocks", "Local Gateways code", "Google maps indexing"]
     },
     {
-      title: "Workflow Automation",
-      desc: "Connecting and automating your tools (like WhatsApp, calendars, and CRM databases) so they work together.",
-      icon: Layers,
-      color: "brand-accent",
-      features: ["System Integration", "Software Automation", "Admin Reduction"]
+      title: "ESD Audit Scorecards",
+      desc: "Detailed activity tracking dashboards showing proof of operational development to B-BBEE auditors.",
+      icon: ShieldCheck,
+      features: ["Audit pack CSV exports", "Activity timestamps log", "Mentorship consultations"]
     }
   ];
 
   return (
-    <section id="solutions" className="py-20 md:py-32 bg-bg-dark">
+    <section id="solutions" className="py-20 md:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-24 gap-6">
           <div className="max-w-xl">
-            <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Our Core Work</div>
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-white leading-tight">How We Help <br /> <span className="text-gradient">You Scale.</span></h2>
+            <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Development Domains</div>
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black text-brand-secondary leading-tight">Growth Hub <br /> <span className="text-gradient">Blueprints.</span></h2>
           </div>
           <p className="text-lg md:text-xl text-ink/40 max-w-sm leading-relaxed font-medium">
-            We build the automation frameworks that South African SMEs need to run smoothly and efficiently.
+            We provide the infrastructure and resources to convert local startups into compliant corporate vendors.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-0 border border-ink/5 divide-y md:divide-y-0 md:divide-x divide-ink/5">
           {solutions.map((s, i) => (
             <div key={i} className="p-16 hover:bg-bg-dark transition-all group">
-              <div className="w-12 h-12 rounded-sm bg-white/5 flex items-center justify-center mb-10 group-hover:bg-brand-primary/10">
-                <s.icon className="w-6 h-6 text-resolver-blue group-hover:text-brand-primary" />
+              <div className="w-12 h-12 rounded-sm bg-brand-secondary/5 flex items-center justify-center mb-10 group-hover:bg-brand-primary/10">
+                <s.icon className="w-6 h-6 text-brand-secondary group-hover:text-brand-primary" />
               </div>
               <h3 className="text-2xl font-bold mb-6">{s.title}</h3>
               <p className="text-ink/50 mb-10 text-sm leading-relaxed h-20">{s.desc}</p>
@@ -905,19 +363,19 @@ const SolutionsSection = () => {
 
 const HowItWorks = () => {
   const steps = [
-    { title: "1. System Review", desc: "We audit your current tools, staff tasks, and operational bottlenecks." },
-    { title: "2. Custom AI Blueprint", desc: "We design a plan showing where AI can save you the most hours and money." },
-    { title: "3. Launch & Connect", desc: "We build and deploy the AI employees and link them directly to your tools." },
-    { title: "4. Continuous Care", desc: "We monitor performance and fine-tune the AI to keep resolution rates high." },
+    { title: "Sponsor Match", desc: "Corporate ESD fund matching based on financial calendar end dates." },
+    { title: "Compliance Upload", desc: "SMEs register and buffer slips when governmental portals go offline." },
+    { title: "Digital Blueprint", desc: "Branding launch, WhatsApp Business activation, and Payment gateways setup." },
+    { title: "SD Vendor Promotion", desc: "Corporate promote beneficiaries to active supply chains, maximizing points." },
   ];
 
   return (
     <section id="how-it-works" className="py-20 md:py-32 bg-bg-dark border-t border-ink/5">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="text-center mb-16 md:mb-24">
-          <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Our Process</div>
-          <h2 className="text-4xl md:text-5xl font-display font-black text-white mb-6">How We Work Together.</h2>
-          <p className="text-lg md:text-xl text-ink/40 max-w-xl mx-auto">A simple, four-stage approach to digital growth.</p>
+          <div className="text-brand-primary font-black uppercase tracking-[0.4em] text-[10px] mb-6 md:mb-8">Methodology</div>
+          <h2 className="text-4xl md:text-5xl font-display font-black text-brand-secondary mb-6">The Development Cycle.</h2>
+          <p className="text-lg md:text-xl text-ink/40 max-w-xl mx-auto">A rigorous, four-stage approach to local market scaling.</p>
         </div>
 
         <div className="grid md:grid-cols-4 gap-12">
@@ -936,13 +394,13 @@ const HowItWorks = () => {
 
 const TechStack = () => {
   const logos = [
-    "Salesforce", "HubSpot", "Zapier", "Make", "Tableau", "Power BI", "AWS", "Azure", "OpenAI", "Stripe", "QuickBooks"
+    "CIPC Portal", "SARS eFiling", "Yoco ZAR", "PayFast SA", "WhatsApp Business", "Seda", "SEFA", "NEF", "Standard Bank", "Vodacom"
   ];
 
   return (
     <section className="py-20 border-y border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-10 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30">Seamless Integrations With Your Stack</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 font-bold">Bridging with Local Platforms</p>
       </div>
       <div className="flex gap-12 animate-marquee whitespace-nowrap">
         {[...logos, ...logos].map((l, i) => (
@@ -955,12 +413,12 @@ const TechStack = () => {
   );
 };
 
-const CTASection = ({ onOpenModal }: { onOpenModal: (type: string) => void }) => {
+const CTASection = () => {
   return (
     <section className="py-12 md:py-24 px-6 md:px-10">
       <div className="max-w-7xl mx-auto p-8 md:p-16 lg:p-32 rounded-2xl bg-brand-secondary relative overflow-hidden text-center group">
         <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity">
-           <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="Team" className="w-full h-full object-cover" />
+           <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="Team" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-brand-secondary/90 via-brand-secondary to-transparent -z-0" />
         
@@ -970,25 +428,25 @@ const CTASection = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =>
           viewport={{ once: true }}
           className="relative z-10"
         >
-          <div className="inline-block py-2 px-6 rounded-full border border-brand-primary/20 text-brand-primary text-[10px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12">Get Started Risk-Free</div>
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black uppercase mb-8 md:mb-10 tracking-tighter text-white">Ready to Start Your <span className="text-brand-primary">Free Pilot?</span></h2>
+          <div className="inline-block py-2 px-6 rounded-full border border-brand-primary/20 text-brand-primary text-[10px] font-black uppercase tracking-[0.4em] mb-8 md:mb-12">Ready to Scale</div>
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-black uppercase mb-8 md:mb-10 tracking-tighter text-white">Unlock Your <span className="text-brand-primary">Kit.</span></h2>
           <p className="text-lg md:text-xl text-white/50 mb-12 md:mb-16 max-w-2xl mx-auto font-medium">
-            Join South African businesses using our Digital AI Employees to reclaim their time. Start your 14-day free pilot today.
+            Join the South African businesses using BIZSTARTUP KIT to scale and secure scorecard targets. Your compliance roadmap starts now.
           </p>
           <div className="flex flex-wrap justify-center gap-8">
-            <button 
+            <Link 
               id="cta-acquire"
-              onClick={() => onOpenModal('Get Your Kit')}
-              className="px-12 py-6 bg-brand-primary text-white font-black uppercase tracking-widest text-sm hover:bg-white hover:text-brand-secondary transition-all shadow-2xl"
+              to="/portal"
+              className="px-12 py-6 bg-brand-primary text-white font-black uppercase tracking-widest text-sm hover:bg-white hover:text-brand-secondary transition-all shadow-2xl text-center block"
             >
-              Start 14-Day Free Pilot
-            </button>
-            <button 
-              onClick={() => onOpenModal('Strategy Session')}
-              className="px-12 py-6 border-2 border-white/20 text-white font-black uppercase tracking-widest text-sm hover:border-white transition-all underline decoration-brand-primary decoration-4 underline-offset-8"
+              Access SME Workspace
+            </Link>
+            <Link 
+              to="/sponsor"
+              className="px-12 py-6 border-2 border-white/20 text-white font-black uppercase tracking-widest text-sm hover:border-white transition-all underline decoration-brand-primary decoration-4 underline-offset-8 text-center block"
             >
-              Book a Strategy Session
-            </button>
+              Request Corporate Partnership
+            </Link>
           </div>
         </motion.div>
       </div>
@@ -997,89 +455,47 @@ const CTASection = ({ onOpenModal }: { onOpenModal: (type: string) => void }) =>
 };
 
 // --- Main Page ---
-
 export default function LandingPage() {
-  const { openModal } = useModal();
-
   return (
     <>
-
-      <LandingHero onOpenModal={openModal} />
-      
-      <section id="audit-calculator" className="py-24 bg-bg-dark">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <MetaLabel className="mb-8 md:mb-12">Workplace Inefficiencies</MetaLabel>
-              <h2 className="text-5xl md:text-7xl font-black leading-tight mb-8">
-                Calculate Your <br /><span className="text-gradient">Wasted Hours.</span>
-              </h2>
-              <p className="text-xl text-ink/60 leading-relaxed font-medium mb-12">
-                Most South African businesses waste up to 40% of their workhours on manual admin, missed booking follow-ups, and slow replies. Our calculator shows the exact cost of doing nothing.
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-white/70">
-                  <div className="w-2 h-2 rounded-full bg-brand-primary" />
-                  Instant Cost Calculator
-                </div>
-                <div className="flex items-center gap-4 text-sm font-bold uppercase tracking-widest text-white/70">
-                  <div className="w-2 h-2 rounded-full bg-brand-primary" />
-                  Clear Revenue Savings Path
-                </div>
-              </div>
-            </div>
-            <GhostCapacityCalculator />
-          </div>
-        </div>
-      </section>
-
+      <OnboardingTour />
+      <HeroSection />
       <HumanCapitalSection />
       <ProblemSection />
-      <ComparisonTable />
-      <AICapabilitiesShowcase />
-      <PricingSection />
-      
-      <section className="py-24 bg-mission-black">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <SuccessSeal />
-        </div>
-      </section>
-
-      <AISuite />
       <SolutionsSection />
       <HowItWorks />
       
-      {/* Example Use Cases Section */}
-      <section id="impact-cases" className="py-24 md:py-48 relative overflow-hidden bg-bg-dark border-y border-ink/5">
+      {/* Local Impact Cases */}
+      <section id="impact-cases" className="py-24 md:py-48 relative overflow-hidden bg-white border-y border-ink/5">
         <div className="max-w-7xl mx-auto px-6 md:px-10">
           <div className="grid lg:grid-cols-2 gap-16 md:gap-32 mb-16 md:mb-32 items-center">
             <div>
-              <MetaLabel className="mb-6 md:mb-10">Real-World Impact</MetaLabel>
+              <MetaLabel className="mb-6 md:mb-10">Empowering Local Leaders</MetaLabel>
               <h2 className="text-4xl md:text-6xl lg:text-8xl mb-8 md:mb-12 leading-none">
-                Our AI in <br /> <span className="text-brand-primary">Action.</span>
+                Impact <br /> <span className="text-brand-primary">Case Log.</span>
               </h2>
-              <p className="text-lg md:text-xl text-ink/60 max-w-xl leading-relaxed italic">
-                We measure success by the amount of hours saved and errors eliminated from your day-to-day operations.
+              <p className="text-lg md:text-xl text-ink/65 max-w-xl leading-relaxed italic">
+                Our kits have enabled local entrepreneurs to move out of the informal economy and secure active corporate supplier status.
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-2xl border border-ink/10 aspect-video group">
-              <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?q=80&w=2070&auto=format&fit=crop" alt="Analytics" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2074&auto=format&fit=crop" alt="Analytics" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
             </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {[
               {
-                dept: "Customer & Sales Admin",
-                cases: ["Automated lead capturing", "Instant CRM database updates", "Automatic client follow-ups"],
+                dept: "Retail & Consumer (ED)",
+                cases: ["Lindiwe's Spaza Shop compliance setup", "Commissioner-signed EME Affidavits", "Yoco card machine payment catalog config"],
                 icon: TrendingUp,
-                img: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1534482421-64566f976cfa?q=80&w=2670&auto=format&fit=crop"
               },
               {
-                dept: "Financial & Invoice Admin",
-                cases: ["Automated invoice tracking", "Expedited expense logging", "Clear revenue updates"],
+                dept: "Logistics & Fleet (SD)",
+                cases: ["Kgosi Logistics SARS Tax compliance verification", "Promoted to primary supplier (SD) on VodaCapital", "Invoice generation setup"],
                 icon: ShieldCheck,
-                img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop"
+                img: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?q=80&w=2670&auto=format&fit=crop"
               }
             ].map((uc, i) => (
               <motion.div
@@ -1093,7 +509,7 @@ export default function LandingPage() {
                 <div className="h-64 overflow-hidden relative">
                    <img src={uc.img} alt={uc.dept} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
                    <div className="absolute inset-0 bg-brand-secondary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-12">
-                      <p className="text-white text-center text-sm font-medium tracking-tight">Deployment active for over 150+ SME partners worldwide.</p>
+                      <p className="text-white text-center text-sm font-medium tracking-tight">Active scorecard verification points generated for sponsors.</p>
                    </div>
                 </div>
                 <div className="p-10 flex gap-6 items-start">
@@ -1104,7 +520,7 @@ export default function LandingPage() {
                     <h3 className="text-2xl font-bold mb-4">{uc.dept}</h3>
                     <ul className="space-y-3">
                       {uc.cases.map((c, j) => (
-                        <li key={j} className="flex items-center gap-3 text-sm text-ink/60 font-medium">
+                        <li key={j} className="flex items-center gap-3 text-sm text-ink/65 font-medium">
                           <div className="w-1 h-1 rounded-full bg-brand-primary" />
                           {c}
                         </li>
@@ -1127,17 +543,17 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-end mb-16 md:mb-24">
              <div>
-              <MetaLabel className="mb-6 md:mb-8">Industry Agnostic</MetaLabel>
-              <h2 className="text-4xl md:text-5xl lg:text-7xl mb-6 leading-none">Built for Any <br /> <span className="text-gradient">Industry.</span></h2>
+              <MetaLabel className="mb-6 md:mb-8">Cross-Sector Scalability</MetaLabel>
+              <h2 className="text-4xl md:text-5xl lg:text-7xl mb-6 leading-none">Local <br /> <span className="text-gradient">Presence.</span></h2>
              </div>
-             <p className="text-lg md:text-xl text-ink/40 font-medium max-w-sm mb-2">Our AI assistants are highly adaptable and can be configured to fit the specific workflows of your industry.</p>
+             <p className="text-lg md:text-xl text-ink/40 font-medium max-w-sm mb-2">Our technical kits are industry-agnostic, optimized for SA township, rural, and formal commercial sectors.</p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-px bg-ink/5 border border-ink/5">
-            {["Logistics", "E-commerce", "FinTech", "Professional Services", "Consulting", "MedTech", "Energy"].map((ind, i) => (
-              <div key={i} className="p-12 md:p-16 bg-bg-card border border-white/5 flex flex-col items-center justify-center text-center group hover:bg-bg-dark transition-all duration-300">
-                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40 group-hover:text-resolver-blue mb-4 opacity-40 group-hover:opacity-100 transition-opacity whitespace-nowrap">{ind}</div>
-                <div className="w-2 h-2 rounded-full bg-white/10 group-hover:bg-brand-primary transition-colors" />
+            {["Retail Spaza", "Agri-processing", "Township Delivery", "Fleet Logistics", "Clearing Agents", "Local Services"].map((ind, i) => (
+              <div key={i} className="p-12 md:p-16 bg-white flex flex-col items-center justify-center text-center group hover:bg-bg-dark transition-colors">
+                <div className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-secondary mb-4 opacity-40 group-hover:opacity-100 transition-opacity whitespace-nowrap">{ind}</div>
+                <div className="w-2 h-2 rounded-full bg-ink/5 group-hover:bg-brand-primary transition-colors" />
               </div>
             ))}
           </div>
@@ -1145,7 +561,7 @@ export default function LandingPage() {
       </section>
 
       <TechStack />
-      <CTASection onOpenModal={openModal} />
+      <CTASection />
 
       {/* Global styles for marquee animation */}
       <style dangerouslySetInnerHTML={{ __html: `

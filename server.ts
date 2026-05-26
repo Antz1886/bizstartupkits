@@ -4,7 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, serverTimestamp, doc, getDoc, getDocs, query, orderBy, limit } from 'firebase/firestore/lite';
-import firebaseConfig from './firebase-applet-config.json';
+import firebaseConfig from './firebase-applet-config.json' with { type: 'json' };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -104,6 +104,127 @@ async function startServer() {
         success: false, 
         message: 'Failed to fetch telemetry data.' 
       });
+    }
+  });
+
+  // Sponsorship Request & Corporate Bootstrapping
+  app.post('/api/sponsorships', async (req, res) => {
+    try {
+      const { companyName, financialYearEnd, targetNpatSpendZar } = req.body;
+      if (!companyName || !financialYearEnd || targetNpatSpendZar === undefined) {
+        return res.status(400).json({ error: 'Missing corporate parameters' });
+      }
+      
+      const sponsorsRef = collection(db, 'corporateSponsors');
+      const docRef = await addDoc(sponsorsRef, {
+        companyName,
+        financialYearEnd,
+        targetNpatSpendZar: Number(targetNpatSpendZar),
+        sponsoredSmes: [],
+        createdAt: serverTimestamp()
+      });
+
+      res.status(201).json({
+        success: true,
+        sponsorId: docRef.id,
+        message: 'Corporate sponsorship dashboard configuration successfully registered.'
+      });
+    } catch (error) {
+      console.error('Error saving sponsorship:', error);
+      res.status(500).json({ error: 'Server error saving corporate configuration' });
+    }
+  });
+
+  // SME Profile CRUD / Update
+  app.post('/api/sme-profile', async (req, res) => {
+    try {
+      const { smeId, companyName, turnoverBracket, esdCategory, isVendorVerified, tasksCompleted } = req.body;
+      if (!companyName || !turnoverBracket || !esdCategory) {
+        return res.status(400).json({ error: 'Missing profile parameters' });
+      }
+
+      const profilesRef = collection(db, 'smeProfiles');
+      let docId = smeId;
+      
+      if (smeId) {
+        // Simple mock behavior or update
+        // In full Firestore client SDK we'd write directly, but this allows server-side backup
+        const docRef = await addDoc(profilesRef, {
+          companyName,
+          turnoverBracket,
+          esdCategory,
+          isVendorVerified: !!isVendorVerified,
+          tasksCompleted: tasksCompleted || {},
+          updatedAt: serverTimestamp()
+        });
+        docId = docRef.id;
+      } else {
+        const docRef = await addDoc(profilesRef, {
+          companyName,
+          turnoverBracket,
+          esdCategory,
+          isVendorVerified: !!isVendorVerified,
+          tasksCompleted: tasksCompleted || {},
+          createdAt: serverTimestamp()
+        });
+        docId = docRef.id;
+      }
+
+      res.status(200).json({ success: true, smeId: docId });
+    } catch (error) {
+      console.error('Error saving SME profile:', error);
+      res.status(500).json({ error: 'Server error saving SME Profile' });
+    }
+  });
+
+  // Individual Audit Log Event
+  app.post('/api/audit-log', async (req, res) => {
+    try {
+      const { smeId, actionDescription, isOfflineLogged } = req.body;
+      if (!smeId || !actionDescription) {
+        return res.status(400).json({ error: 'Missing log parameters' });
+      }
+
+      const logsRef = collection(db, 'auditActivityLogs');
+      const docRef = await addDoc(logsRef, {
+        smeId,
+        actionDescription,
+        isOfflineLogged: !!isOfflineLogged,
+        timestamp: new Date().toISOString()
+      });
+
+      res.status(201).json({ success: true, logId: docRef.id });
+    } catch (error) {
+      console.error('Error saving audit log:', error);
+      res.status(500).json({ error: 'Server error saving audit log' });
+    }
+  });
+
+  // Batch Offline Sync Log Queue
+  app.post('/api/audit-log/sync', async (req, res) => {
+    try {
+      const { smeId, logs } = req.body;
+      if (!smeId || !Array.isArray(logs)) {
+        return res.status(400).json({ error: 'Invalid batch sync payload' });
+      }
+
+      const logsRef = collection(db, 'auditActivityLogs');
+      const syncedIds: string[] = [];
+
+      for (const log of logs) {
+        const docRef = await addDoc(logsRef, {
+          smeId,
+          actionDescription: log.actionDescription,
+          isOfflineLogged: true,
+          timestamp: log.timestamp || new Date().toISOString()
+        });
+        syncedIds.push(docRef.id);
+      }
+
+      res.status(200).json({ success: true, syncedCount: syncedIds.length, logIds: syncedIds });
+    } catch (error) {
+      console.error('Error syncing logs batch:', error);
+      res.status(500).json({ error: 'Server error syncing offline activity logs' });
     }
   });
 

@@ -4,6 +4,11 @@ import CustomPythonResolvers from './pages/CustomPythonResolvers';
 import AgentMeshWorkforce from './pages/AgentMeshWorkforce';
 import BATModel from './pages/BATModel';
 import Dashboard from './pages/Dashboard';
+import Portal from './pages/Portal';
+import Sponsorship from './pages/Sponsorship';
+import KnowledgeHub from './pages/KnowledgeHub';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
 import { Layout } from './components/Layout';
 import { ScrollToTop } from './components/ScrollToTop';
 
@@ -28,6 +33,12 @@ export default function App() {
           <Route path="/solutions/fintech" element={<FinTechResolver />} />
           <Route path="/solutions/logistics" element={<LogisticsOrchestrator />} />
           <Route path="/solutions/wellness" element={<WellnessCare />} />
+
+          <Route path="/portal" element={<Portal />} />
+          <Route path="/sponsor" element={<Sponsorship />} />
+          <Route path="/knowledge-hub" element={<KnowledgeHub />} />
+          <Route path="/legal/privacy" element={<PrivacyPolicy />} />
+          <Route path="/legal/terms" element={<TermsOfService />} />
         </Routes>
       </Layout>
     </Router>

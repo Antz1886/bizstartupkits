@@ -47,6 +47,90 @@
         }
       },
       "required": ["email", "role"]
+    },
+    "SmeProfile": {
+      "title": "SmeProfile",
+      "description": "Profile details of a registered small business.",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string" },
+        "turnoverBracket": {
+          "type": "string",
+          "enum": ["<R10m EME", "R10m-R50m QSE", ">R50m Large"]
+        },
+        "esdCategory": {
+          "type": "string",
+          "enum": ["ED", "SD"]
+        },
+        "isVendorVerified": { "type": "boolean" },
+        "tasksCompleted": {
+          "type": "object",
+          "properties": {
+            "cipcRegistered": { "type": "boolean" },
+            "sarsTaxVerified": { "type": "boolean" },
+            "bbbeeAffidavitCreated": { "type": "boolean" },
+            "logoDesigned": { "type": "boolean" },
+            "websiteLaunched": { "type": "boolean" },
+            "whatsappBusinessActive": { "type": "boolean" },
+            "invoiceGenerated": { "type": "boolean" }
+          }
+        },
+        "sponsorId": { "type": "string" },
+        "pendingGovernmentFiles": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "offlineSyncPendingCount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["companyName", "turnoverBracket", "esdCategory", "isVendorVerified", "tasksCompleted", "createdAt"]
+    },
+    "CorporateSponsor": {
+      "title": "CorporateSponsor",
+      "description": "Enterprise sponsor supporting small businesses for B-BBEE compliance.",
+      "type": "object",
+      "properties": {
+        "companyName": { "type": "string" },
+        "financialYearEnd": {
+          "type": "string",
+          "enum": ["February", "June", "December"]
+        },
+        "targetNpatSpendZar": { "type": "number" },
+        "sponsoredSmes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["companyName", "financialYearEnd", "targetNpatSpendZar", "createdAt"]
+    },
+    "AuditActivityLog": {
+      "title": "AuditActivityLog",
+      "description": "Activity event logged for B-BBEE audit trail validation.",
+      "type": "object",
+      "properties": {
+        "smeId": { "type": "string" },
+        "actionDescription": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "isOfflineLogged": { "type": "boolean" }
+      },
+      "required": ["smeId", "actionDescription", "timestamp", "isOfflineLogged"]
+    },
+    "MentorshipMessage": {
+      "title": "MentorshipMessage",
+      "description": "Coaching and mentorship interaction messages.",
+      "type": "object",
+      "properties": {
+        "smeId": { "type": "string" },
+        "sponsorId": { "type": "string" },
+        "messageText": { "type": "string" },
+        "senderType": {
+          "type": "string",
+          "enum": ["SME", "Sponsor"]
+        },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["smeId", "sponsorId", "messageText", "senderType", "timestamp"]
     }
   },
   "firestore": {
@@ -57,6 +141,22 @@
     "/admins/{adminId}": {
       "schema": "Admin",
       "description": "Whitelisted administrator accounts."
+    },
+    "/smeProfiles/{smeId}": {
+      "schema": "SmeProfile",
+      "description": "Small business growth dashboard profiles."
+    },
+    "/corporateSponsors/{sponsorId}": {
+      "schema": "CorporateSponsor",
+      "description": "Corporate enterprise sponsor dashboard configs."
+    },
+    "/auditActivityLogs/{logId}": {
+      "schema": "AuditActivityLog",
+      "description": "Immutable ledger of SME actions for SANAS B-BBEE verification."
+    },
+    "/mentorshipMessages/{messageId}": {
+      "schema": "MentorshipMessage",
+      "description": "Messages exchanged between mentors (sponsors) and beneficiaries (SMEs)."
     }
   }
 }

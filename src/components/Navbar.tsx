@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Cloud, Rocket, Menu, X, ArrowRight, Zap } from 'lucide-react';
+import { Rocket, Menu, X, Zap } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
@@ -26,10 +26,9 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
 
   const navLinks = [
     { name: 'Workforce', href: '/services/agentmesh-workforce', desc: '24/7 Digital AI Employees' },
-    { name: 'Integrations', href: '/services/custom-resolvers', desc: 'Connect to Your Tools' },
-    { name: 'B.A.T Model', href: '/corporate/bat-model', desc: 'Performance-Based Pilot' },
-    { name: 'Control', href: '/mission-control', desc: 'Live Performance Dashboard' },
-    { name: 'Audit', href: isHome ? '#audit-calculator' : '/#audit-calculator', desc: 'Calculate Wasted Workhours' },
+    { name: 'Knowledge Hub', href: '/knowledge-hub', desc: 'South African Compliance Guides' },
+    { name: 'Corporate Sponsorship', href: '/sponsor', desc: 'Enterprise & Supplier Development' },
+    { name: 'Dashboard Portal', href: '/portal', desc: 'SME & Sponsor Workspace' }
   ];
 
   return (
@@ -55,39 +54,44 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
         {/* Desktop Links - Optimized for high contrast */}
         <div className="hidden lg:flex items-center gap-12">
           {navLinks.map((link) => (
-             <React.Fragment key={link.name}>
-               {link.href.startsWith('#') || (link.href.startsWith('/#')) ? (
-                 <a 
-                   href={link.href} 
-                   className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 hover:text-resolver-blue transition-all"
-                 >
-                   {link.name}
-                 </a>
-               ) : (
-                 <Link 
-                   to={link.href} 
-                   className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 hover:text-resolver-blue transition-all"
-                 >
-                   {link.name}
-                 </Link>
-               )}
-             </React.Fragment>
+            <React.Fragment key={link.name}>
+              {link.href.startsWith('#') || (link.href.startsWith('/#')) ? (
+                <a 
+                  href={link.href}
+                  className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 hover:text-resolver-blue transition-all"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link 
+                  to={link.href}
+                  className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 hover:text-resolver-blue transition-all"
+                >
+                  {link.name}
+                </Link>
+              )}
+            </React.Fragment>
           ))}
-          <button 
-            onClick={() => onOpenModal('B.A.T Pilot')}
-            className="px-6 py-2 bg-resolver-blue text-mission-black text-[10px] font-black uppercase tracking-widest hover:bg-white transition-all shadow-[0_0_20px_rgba(0,209,255,0.2)]"
-          >
-            Start Pilot
-          </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-sm text-white"
-        >
-          {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-6">
+          <div className="hidden md:block">
+            <Link 
+              to="/portal"
+              className="px-6 py-2.5 bg-resolver-blue hover:bg-white text-mission-black text-[10px] font-mono font-black uppercase tracking-widest transition-all rounded-sm shadow-[0_0_20px_rgba(0,209,255,0.15)] hover:shadow-[0_0_30px_rgba(0,209,255,0.3)]"
+            >
+              Get Your Kit
+            </Link>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-sm text-white"
+          >
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Full-Screen Mobile Menu Overlay */}
@@ -139,19 +143,20 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
                 transition={{ delay: 0.5 }}
                 className="mt-12 pt-12 border-t border-white/10"
               >
-                <button 
-                  onClick={() => { onOpenModal('B.A.T Pilot'); setIsMenuOpen(false); }}
+                <Link 
+                  to="/portal"
+                  onClick={() => setIsMenuOpen(false)}
                   className="w-full py-6 bg-resolver-blue text-mission-black font-black uppercase tracking-widest text-sm shadow-[0_0_30px_rgba(0,209,255,0.3)] flex items-center justify-center gap-4"
                 >
-                  Start Free Pilot <Zap className="w-5 h-5" />
-                </button>
+                  Get Your Kit <Zap className="w-5 h-5" />
+                </Link>
               </motion.div>
             </div>
 
-             <div className="absolute bottom-10 left-10 right-10 flex justify-between items-center text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">
-                <div>Powered by AI</div>
-                <div>© 2026 BIZSTARTUP</div>
-             </div>
+            <div className="absolute bottom-10 left-10 right-10 flex justify-between items-center text-[8px] font-mono text-white/20 uppercase tracking-[0.3em]">
+              <div>Powered by AI</div>
+              <div>© 2026 BIZSTARTUP</div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

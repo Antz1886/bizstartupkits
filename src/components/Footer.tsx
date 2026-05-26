@@ -34,27 +34,27 @@ export const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] mb-12 text-resolver-blue">Resolver Nodes</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] mb-12 text-resolver-blue">SME Tools</h4>
             <ul className="space-y-6 text-[12px] font-black uppercase tracking-[0.2em] text-white/60">
-              <li><Link to="/services/agentmesh-workforce" className="hover:text-resolver-blue transition-colors">AgentMesh™ Workforce</Link></li>
-              <li><Link to="/services/custom-resolvers" className="hover:text-resolver-blue transition-colors">Custom Python Resolvers</Link></li>
-              <li><Link to="/#audit-calculator" className="hover:text-resolver-blue transition-colors">Ghost Capacity Audit</Link></li>
-              <li><Link to="/services/agentmesh-workforce" className="hover:text-resolver-blue transition-colors">Voice-to-Action Protocol</Link></li>
+              <li><Link to="/knowledge-hub" className="hover:text-resolver-blue transition-colors">Compliance Guide</Link></li>
+              <li><Link to="/portal" className="hover:text-resolver-blue transition-colors">Client Portal</Link></li>
+              <li><Link to="/knowledge-hub" className="hover:text-resolver-blue transition-colors">Business Planner</Link></li>
+              <li><Link to="/knowledge-hub" className="hover:text-resolver-blue transition-colors">Local SEO & Branding</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] mb-12 text-resolver-blue">Partnership</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] mb-12 text-resolver-blue">Corporate ESD</h4>
             <ul className="space-y-6 text-[12px] font-black uppercase tracking-[0.2em] text-white/60">
-              <li><Link to="/corporate/bat-model" className="hover:text-resolver-blue transition-colors">The B.A.T Model</Link></li>
-              <li><Link to="/corporate/bat-model" className="hover:text-resolver-blue transition-colors">Success-Based Pilot</Link></li>
-              <li><Link to="/corporate/methodology" className="hover:text-white/40 transition-colors">Methodology</Link></li>
-              <li><Link to="/corporate/contact" className="hover:text-resolver-blue transition-colors">Contact Engineering</Link></li>
+              <li><Link to="/sponsor" className="hover:text-resolver-blue transition-colors">ESD Sponsorships</Link></li>
+              <li><Link to="/sponsor" className="hover:text-resolver-blue transition-colors">B-BBEE Calculator</Link></li>
+              <li><Link to="/portal" className="hover:text-resolver-blue transition-colors">Partner Dashboard</Link></li>
+              <li><Link to="/portal" className="hover:text-resolver-blue transition-colors">Mentorship Portal</Link></li>
             </ul>
           </div>
 
           <div>
-            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] mb-12 text-resolver-blue">Node Status</h4>
+            <h4 className="text-[10px] font-black uppercase tracking-[0.5em] mb-12 text-resolver-blue">Briefings</h4>
             <p className="text-sm text-white/50 mb-8 font-medium">Join 500+ SME leaders receiving our weekly technical resolution briefings.</p>
             <div className="flex gap-2">
               <input type="email" placeholder="Business_Email" className="bg-white/5 border border-white/10 rounded-sm px-6 py-4 text-xs font-mono focus:outline-none focus:border-resolver-blue w-full text-white" />
@@ -73,9 +73,9 @@ export const Footer = () => {
              <p>© 2026 BIZSTARTUP KIT. Engineered in South Africa.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-            <Link to="/corporate/contact" className="hover:text-white/40 transition-colors">Legal Protocol</Link>
-            <a href="#" className="hover:text-white/40 transition-colors">Privacy Node</a>
-            <a href="#" className="hover:text-white/40 transition-colors">Resolution SLA</a>
+            <Link to="/corporate/contact" className="hover:text-white/40 transition-colors">Contact</Link>
+            <Link to="/legal/privacy" className="hover:text-white/40 transition-colors">Privacy Node</Link>
+            <Link to="/legal/terms" className="hover:text-white/40 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>
