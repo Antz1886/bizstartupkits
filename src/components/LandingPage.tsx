@@ -398,13 +398,13 @@ const TechStack = () => {
   ];
 
   return (
-    <section className="py-20 border-y border-white/5 overflow-hidden">
+    <section className="py-20 bg-brand-secondary border-y border-white/10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-10 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 font-bold">Bridging with Local Platforms</p>
+        <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50">Bridging with Local Platforms</p>
       </div>
       <div className="flex gap-12 animate-marquee whitespace-nowrap">
         {[...logos, ...logos].map((l, i) => (
-          <div key={i} className="text-2xl font-display font-bold text-white/20 hover:text-white/50 transition-colors cursor-default">
+          <div key={i} className="text-2xl font-display font-bold text-white/40 hover:text-white transition-colors cursor-default">
             {l}
           </div>
         ))}

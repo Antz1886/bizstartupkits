@@ -34,7 +34,7 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-[100] transition-all duration-500 px-6 md:px-10 py-5",
-      isScrolled ? "bg-mission-black/95 backdrop-blur-xl border-b border-white/10 py-4 shadow-2xl" : "bg-transparent py-8"
+      isScrolled ? "bg-mission-black/95 backdrop-blur-xl border-b border-white/10 py-4 shadow-2xl" : "bg-white/95 backdrop-blur-sm border-b border-gray-100 py-4 shadow-sm"
     )}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link 
@@ -42,12 +42,14 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
           onClick={() => setIsMenuOpen(false)}
           className="flex items-center gap-4 group"
         >
-          <div className="relative w-10 h-10 flex items-center justify-center bg-white/5 border border-white/10 rounded-sm group-hover:border-resolver-blue transition-colors">
-            <Rocket className="w-5 h-5 text-resolver-blue transform -rotate-45" />
+          <div className="relative w-10 h-10 flex items-center justify-center bg-brand-primary/10 border border-brand-primary/20 rounded-sm group-hover:border-brand-primary transition-colors">
+            <Rocket className="w-5 h-5 text-brand-primary transform -rotate-45" />
           </div>
           <div className="flex flex-col">
-            <span className="text-[12px] font-black tracking-[0.4em] text-white">BIZSTARTUP</span>
-            <span className="text-[8px] font-mono text-resolver-blue uppercase tracking-[0.2em]">Digital Workforce</span>
+            <span className={cn("text-[12px] font-black tracking-[0.4em] transition-colors", isScrolled ? "text-white" : "text-gray-900")}>
+              BIZSTARTUP
+            </span>
+            <span className="text-[8px] font-mono text-brand-primary uppercase tracking-[0.2em]">Digital Workforce</span>
           </div>
         </Link>
 
@@ -58,14 +60,14 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
               {link.href.startsWith('#') || (link.href.startsWith('/#')) ? (
                 <a 
                   href={link.href}
-                  className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 hover:text-resolver-blue transition-all"
+                  className={cn("text-[10px] font-black uppercase tracking-[0.4em] transition-all hover:text-brand-primary", isScrolled ? "text-white/60" : "text-gray-600")}
                 >
                   {link.name}
                 </a>
               ) : (
                 <Link 
                   to={link.href}
-                  className="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 hover:text-resolver-blue transition-all"
+                  className={cn("text-[10px] font-black uppercase tracking-[0.4em] transition-all hover:text-brand-primary", isScrolled ? "text-white/60" : "text-gray-600")}
                 >
                   {link.name}
                 </Link>
@@ -87,7 +89,7 @@ export const Navbar = ({ onOpenModal }: { onOpenModal: (type: string) => void })
           {/* Mobile Toggle */}
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden w-12 h-12 flex items-center justify-center bg-white/5 border border-white/10 rounded-sm text-white"
+            className={cn("lg:hidden w-12 h-12 flex items-center justify-center border rounded-sm transition-colors", isScrolled ? "bg-white/5 border-white/10 text-white" : "bg-gray-100 border-gray-200 text-gray-700")}
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

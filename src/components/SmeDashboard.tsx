@@ -1241,7 +1241,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </button>
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Live Preview</label>
+                  <label className="text-[9px] uppercase tracking-wider text-gray-400 block">Live Preview</label>
                   <div className="bg-white rounded-2xl p-6 flex items-center justify-center min-h-[200px] relative group/logo">
                     <div dangerouslySetInnerHTML={{ __html: generateSvgLogoContent() }} className="max-w-full" />
                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/logo:opacity-100 transition-opacity flex items-center justify-center rounded-2xl">
@@ -1250,12 +1250,12 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                       </button>
                     </div>
                   </div>
-                  <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 text-[10px] text-white/50 space-y-1">
-                    <div className="font-black text-white/30 uppercase tracking-wider text-[9px] mb-2">Output Spec</div>
-                    <div>Format: <strong className="text-white">SVG (Scalable Vector)</strong></div>
-                    <div>Style: <strong className="text-white capitalize">{logoStyle}</strong></div>
-                    <div>Canvas: <strong className="text-white">{logoStyle === 'icon' ? '160×160px' : logoStyle === 'badge' ? '400×180px' : '400×140px'}</strong></div>
-                    <div>Colors: <strong className="text-white">{logoColorPrimary} · {logoColorSecondary}</strong></div>
+                  <div className="bg-gray-50 border border-gray-100 rounded-xl p-4 text-[10px] text-gray-500 space-y-1">
+                    <div className="font-black text-gray-400 uppercase tracking-wider text-[9px] mb-2">Output Spec</div>
+                    <div>Format: <strong className="text-gray-900">SVG (Scalable Vector)</strong></div>
+                    <div>Style: <strong className="text-gray-900 capitalize">{logoStyle}</strong></div>
+                    <div>Canvas: <strong className="text-gray-900">{logoStyle === 'icon' ? '160×160px' : logoStyle === 'badge' ? '400×180px' : '400×140px'}</strong></div>
+                    <div>Colors: <strong className="text-gray-900">{logoColorPrimary} · {logoColorSecondary}</strong></div>
                   </div>
                 </div>
               </>)}
@@ -1297,11 +1297,11 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Contact Phone</label>
-                      <input type="text" value={webContact} onChange={e => setWebContact(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={webContact} onChange={e => setWebContact(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Location</label>
-                      <input type="text" value={webLocation} onChange={e => setWebLocation(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={webLocation} onChange={e => setWebLocation(e.target.value)} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                   </div>
                   <button onClick={handleDownloadWebsite} className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
@@ -1309,9 +1309,9 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </button>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Live Preview</label>
+                  <label className="text-[9px] uppercase tracking-wider text-gray-400 block">Live Preview</label>
                   <div className="border border-white/10 rounded-2xl overflow-hidden">
-                    <div className="bg-white/5 px-4 py-2.5 text-[9px] font-mono text-white/40 border-b border-white/10 flex justify-between items-center">
+                    <div className="bg-gray-100 px-4 py-2.5 text-[9px] font-mono text-gray-500 border-b border-gray-200 flex justify-between items-center">
                       <span>🌐 {companyName} — Live Preview</span>
                       <span className="text-brand-primary font-bold">Multi-section website</span>
                     </div>
@@ -1331,25 +1331,25 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Target Market</label>
-                      <input type="text" value={bizPlan.market} onChange={e => setBizPlan({ ...bizPlan, market: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={bizPlan.market} onChange={e => setBizPlan({ ...bizPlan, market: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Funding Ask</label>
-                      <input type="text" value={bizPlan.fundingTarget} onChange={e => setBizPlan({ ...bizPlan, fundingTarget: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={bizPlan.fundingTarget} onChange={e => setBizPlan({ ...bizPlan, fundingTarget: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                   </div>
                   <div>
                     <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Business Model</label>
-                    <input type="text" value={bizPlan.businessModel} onChange={e => setBizPlan({ ...bizPlan, businessModel: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                    <input type="text" value={bizPlan.businessModel} onChange={e => setBizPlan({ ...bizPlan, businessModel: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Revenue Target (3yr)</label>
-                      <input type="text" value={bizPlan.targetRevenue} onChange={e => setBizPlan({ ...bizPlan, targetRevenue: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={bizPlan.targetRevenue} onChange={e => setBizPlan({ ...bizPlan, targetRevenue: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Team Composition</label>
-                      <input type="text" value={bizPlan.teamComposition} onChange={e => setBizPlan({ ...bizPlan, teamComposition: e.target.value })} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={bizPlan.teamComposition} onChange={e => setBizPlan({ ...bizPlan, teamComposition: e.target.value })} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                   </div>
                   <button onClick={handleDownloadPlan} className="w-full py-3.5 bg-brand-primary text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-secondary transition-all flex items-center justify-center gap-2 shadow-lg">
@@ -1357,7 +1357,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </button>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Plan Structure</label>
+                  <label className="text-[9px] uppercase tracking-wider text-gray-400 block">Plan Structure</label>
                   <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 space-y-3">
                     {[
                       { n: '01', title: 'Executive Summary', icon: '📌' },
@@ -1391,7 +1391,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                     </select>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[9px] uppercase tracking-wider text-white/40 block">Compliance Declarations</label>
+                    <label className="text-[9px] uppercase tracking-wider text-gray-400 block">Compliance Declarations</label>
                     {[
                       { label: 'SARS Tax Compliant', sub: 'Active tax clearance pin', val: sarsCompliant, set: setSarsCompliant },
                       { label: 'UIF Registered', sub: 'Unemployment Insurance Fund', val: uifRegistered, set: setUifRegistered },
@@ -1406,7 +1406,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                           <div className="text-sm font-semibold text-gray-900">{item.label}</div>
                           <div className="text-[10px] text-gray-400 mt-0.5">{item.sub}</div>
                         </div>
-                        <div className={`w-5 h-5 rounded border flex items-center justify-center ${item.val ? 'bg-green-500 border-green-500' : 'border-white/30'}`}>
+                        <div className={`w-5 h-5 rounded border flex items-center justify-center ${item.val ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
                           {item.val && <Check className="w-3 h-3 text-white" />}
                         </div>
                       </div>
@@ -1417,26 +1417,26 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </button>
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Affidavit Summary</label>
+                  <label className="text-[9px] uppercase tracking-wider text-gray-400 block">Affidavit Summary</label>
                   <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 space-y-4 text-sm">
                     <div className="flex justify-between border-b border-gray-100 pb-3">
-                      <span className="text-white/50">Entity</span>
+                      <span className="text-gray-500">Entity</span>
                       <span className="text-gray-900 font-bold">{companyName}</span>
                     </div>
                     <div className="flex justify-between border-b border-gray-100 pb-3">
-                      <span className="text-white/50">B-BBEE Level</span>
+                      <span className="text-gray-500">B-BBEE Level</span>
                       <span className="text-brand-primary font-black">Level {blackOwnershipPercent === '100%' ? '1' : blackOwnershipPercent === '51%' ? '2' : '4'}</span>
                     </div>
                     <div className="flex justify-between border-b border-gray-100 pb-3">
-                      <span className="text-white/50">Classification</span>
+                      <span className="text-gray-500">Classification</span>
                       <span className="text-gray-900 font-bold">EME ({turnoverBracket})</span>
                     </div>
                     <div className="flex justify-between border-b border-gray-100 pb-3">
-                      <span className="text-white/50">SARS Status</span>
+                      <span className="text-gray-500">SARS Status</span>
                       <span className={sarsCompliant ? 'text-green-400 font-bold' : 'text-red-400 font-bold'}>{sarsCompliant ? 'Compliant' : 'Pending'}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-white/50">Includes</span>
+                      <span className="text-gray-500">Includes</span>
                       <span className="text-gray-600 text-xs text-right">POPIA clause · Commissioner block · Ref #</span>
                     </div>
                   </div>
@@ -1449,20 +1449,20 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   <div className="grid grid-cols-3 gap-3">
                     <div className="bg-green-500/10 border border-green-500/20 rounded-xl p-4 text-center">
                       <div className="text-green-400 font-black text-lg">R{totalIncome.toLocaleString()}</div>
-                      <div className="text-[9px] text-white/40 uppercase tracking-wide mt-1">Total Income</div>
+                      <div className="text-[9px] text-gray-500 uppercase tracking-wide mt-1">Total Income</div>
                     </div>
                     <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-center">
                       <div className="text-red-400 font-black text-lg">R{totalExpenses.toLocaleString()}</div>
-                      <div className="text-[9px] text-white/40 uppercase tracking-wide mt-1">Total Expenses</div>
+                      <div className="text-[9px] text-gray-500 uppercase tracking-wide mt-1">Total Expenses</div>
                     </div>
                     <div className={`${netProfit >= 0 ? 'bg-brand-primary/10 border-brand-primary/20' : 'bg-red-500/10 border-red-500/20'} border rounded-xl p-4 text-center`}>
                       <div className={`${netProfit >= 0 ? 'text-brand-primary' : 'text-red-400'} font-black text-lg`}>R{netProfit.toLocaleString()}</div>
-                      <div className="text-[9px] text-white/40 uppercase tracking-wide mt-1">Net Profit</div>
+                      <div className="text-[9px] text-gray-500 uppercase tracking-wide mt-1">Net Profit</div>
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {(['expense', 'income'] as const).map(t => (
-                      <button key={t} onClick={() => setLedgerTab(t)} className={`py-2.5 rounded-xl text-xs font-bold uppercase tracking-wide transition-all ${ ledgerTab === t ? 'bg-brand-primary text-white' : 'bg-white/5 text-white/50 hover:bg-white/10' }`}>
+                      <button key={t} onClick={() => setLedgerTab(t)} className={`py-2.5 rounded-xl text-xs font-bold uppercase tracking-wide transition-all ${ ledgerTab === t ? 'bg-brand-primary text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200' }`}>
                         {t === 'expense' ? '📉 Expenses' : '📈 Income'}
                       </button>
                     ))}
@@ -1471,9 +1471,9 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                     {ledgerTab === 'expense'
                       ? expenses.map(exp => (
                           <div key={exp.id} className="flex justify-between items-center bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm">
-                            <div><span className="text-gray-800 font-medium">{exp.desc}</span><span className="text-white/30 ml-2 text-xs">[{exp.category}]</span></div>
+                            <div><span className="text-gray-800 font-medium">{exp.desc}</span><span className="text-gray-400 ml-2 text-xs">[{exp.category}]</span></div>
                             <div className="flex items-center gap-3"><span className="font-mono text-red-400 font-bold">-R{exp.amount}</span>
-                              <button onClick={() => { setExpenses(prev => prev.filter(e => e.id !== exp.id)); }} className="text-white/30 hover:text-red-400"><Trash2 className="w-3.5 h-3.5" /></button>
+                              <button onClick={() => { setExpenses(prev => prev.filter(e => e.id !== exp.id)); }} className="text-gray-400 hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></button>
                             </div>
                           </div>
                         ))
@@ -1481,7 +1481,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                           <div key={inc.id} className="flex justify-between items-center bg-gray-50 border border-gray-100 rounded-xl px-4 py-3 text-sm">
                             <span className="text-gray-800 font-medium">{inc.desc}</span>
                             <div className="flex items-center gap-3"><span className="font-mono text-green-400 font-bold">+R{inc.amount}</span>
-                              <button onClick={() => { setIncome(prev => prev.filter(i => i.id !== inc.id)); }} className="text-white/30 hover:text-red-400"><Trash2 className="w-3.5 h-3.5" /></button>
+                              <button onClick={() => { setIncome(prev => prev.filter(i => i.id !== inc.id)); }} className="text-gray-400 hover:text-red-500"><Trash2 className="w-3.5 h-3.5" /></button>
                             </div>
                           </div>
                         ))
@@ -1512,14 +1512,14 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </button>
                 </div>
                 <div className="space-y-4">
-                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Financial Summary</label>
+                  <label className="text-[9px] uppercase tracking-wider text-gray-400 block">Financial Summary</label>
                   <div className="bg-gray-50 border border-gray-100 rounded-2xl p-6 space-y-3">
                     <div className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Profit & Loss Statement</div>
-                    {expenses.map(e => (<div key={e.id} className="flex justify-between text-xs border-b border-gray-100 pb-2"><span className="text-white/60">{e.desc}</span><span className="text-red-400 font-mono">-R{e.amount}</span></div>))}
+                    {expenses.map(e => (<div key={e.id} className="flex justify-between text-xs border-b border-gray-100 pb-2"><span className="text-gray-600">{e.desc}</span><span className="text-red-500 font-mono">-R{e.amount}</span></div>))}
                     <div className="flex justify-between text-xs border-b border-gray-100 pb-2 pt-2">
-                      <span className="text-white/60 font-bold">Total Expenses</span><span className="text-red-400 font-mono font-bold">-R{totalExpenses.toLocaleString()}</span>
+                      <span className="text-gray-600 font-bold">Total Expenses</span><span className="text-red-500 font-mono font-bold">-R{totalExpenses.toLocaleString()}</span>
                     </div>
-                    {income.map(i => (<div key={i.id} className="flex justify-between text-xs border-b border-gray-100 pb-2"><span className="text-white/60">{i.desc}</span><span className="text-green-400 font-mono">+R{i.amount}</span></div>))}
+                    {income.map(i => (<div key={i.id} className="flex justify-between text-xs border-b border-gray-100 pb-2"><span className="text-gray-600">{i.desc}</span><span className="text-green-600 font-mono">+R{i.amount}</span></div>))}
                     <div className="flex justify-between text-sm pt-2">
                       <span className="text-gray-900 font-black">Net Profit / (Loss)</span>
                       <span className={`font-black font-mono ${netProfit >= 0 ? 'text-brand-primary' : 'text-red-400'}`}>R{netProfit.toLocaleString()}</span>
@@ -1534,11 +1534,11 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Target Locality</label>
-                      <input type="text" value={seoLocality} onChange={e => { setSeoLocality(e.target.value); setIsSeoSaved(false); }} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={seoLocality} onChange={e => { setSeoLocality(e.target.value); setIsSeoSaved(false); }} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                     <div>
                       <label className="text-[9px] uppercase tracking-wider text-gray-400 block mb-1">Focus Keywords</label>
-                      <input type="text" value={seoKeywords} onChange={e => { setSeoKeywords(e.target.value); setIsSeoSaved(false); }} className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm focus:outline-none" />
+                      <input type="text" value={seoKeywords} onChange={e => { setSeoKeywords(e.target.value); setIsSeoSaved(false); }} className="w-full bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-brand-primary" />
                     </div>
                   </div>
                   <div>
@@ -1547,7 +1547,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                       {Object.entries(seoGBPChecklist).map(([key, val]) => (
                         <div key={key} onClick={() => setSeoGBPChecklist(prev => ({ ...prev, [key]: !prev[key as keyof typeof seoGBPChecklist] }))}
                           className={`flex items-center gap-3 p-3.5 rounded-xl cursor-pointer border transition-all ${val ? 'bg-green-500/10 border-green-500/20' : 'bg-gray-50 border-gray-200 hover:border-brand-primary/30'}`}>
-                          <div className={`w-4 h-4 rounded border flex items-center justify-center ${val ? 'bg-green-500 border-green-500' : 'border-white/30'}`}>
+                          <div className={`w-4 h-4 rounded border flex items-center justify-center ${val ? 'bg-green-500 border-green-500' : 'border-gray-300'}`}>
                             {val && <Check className="w-2.5 h-2.5 text-white" />}
                           </div>
                           <span className="text-sm text-gray-600">{key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase())}</span>
@@ -1560,7 +1560,7 @@ Reference: BSK-SEO-${Date.now().toString().slice(-8)}
                   </button>
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[9px] uppercase tracking-wider text-white/40 block">Generated Meta Tags Preview</label>
+                  <label className="text-[9px] uppercase tracking-wider text-gray-400 block">Generated Meta Tags Preview</label>
                   <div className="bg-gray-900 border border-gray-700 rounded-2xl p-5 font-mono text-xs text-gray-300 space-y-2">
                     <div className="text-[9px] uppercase tracking-wider text-white/30 font-sans font-bold border-b border-white/10 pb-2 mb-2">HTML Head — Copy & Paste</div>
                     <div className="text-green-400">&lt;title&gt;</div>
